@@ -21,7 +21,7 @@ async function dropTables() {
 
 async function createTables() {
   try {
-    client.connect();
+    // client.connect();
     console.log("Starting to create tables!!!!!")
 
     await client.query(`
@@ -63,11 +63,12 @@ async function populateInitialData() {
 
 async function rebuildDB() {
   try {
-    await dropTables()
-    await createTables()
-    await populateInitialData()
+    await client.connect();
+    await dropTables();
+    await createTables();
+    await populateInitialData();
   } catch (error) {
-    console.log("Error during rebuildDB")
+    console.log("Error during rebuildDB");
     throw error
   }
 }
