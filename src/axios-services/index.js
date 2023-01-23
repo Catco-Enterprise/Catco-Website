@@ -27,3 +27,13 @@ export async function getAPIHealth() {
     return { healthy: false };
   }
 }
+
+export async function getProducts() {
+  try {
+    const { data: products } = await axios.get('../api/products');
+    return products;
+  } catch (error) {
+    console.error("Error fetching products...", error);
+
+  }
+}

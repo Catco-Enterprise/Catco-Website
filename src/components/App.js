@@ -5,14 +5,18 @@ import Cart from './Cart';
 import Products from './Products';
 import Login from './Login';
 import { Routes, Route } from 'react-router-dom';
+import { getProducts } from '../axios-services';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import Register from './Register';
+import { useStateDispatch } from '../StateContext';
 
 const App = () => {
+  const dispatch = useStateDispatch();
+  
   const [APIHealth, setAPIHealth] = useState('');
 
   useEffect(() => {
@@ -28,6 +32,15 @@ const App = () => {
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
   }, []);
+
+
+  useEffect(() => {
+    const getAllProducts = async () => {
+      const products = await getProducts();
+      dispatch({ type: "setProducts", payload: products});
+    }
+    getAllProducts();
+  },[]);
 
   return (
     <div className="app-container">
