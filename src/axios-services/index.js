@@ -21,17 +21,34 @@ import axios from 'axios';
 export async function login(email, password) {
   try {
     const response = await axios.post('/login', {
-      method: 'Post',
+      method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: json.stringify({ email: email, password: password })
-    })
+    });
 
     return await response.json();
 
   } catch (error) {
+    throw error;
+  }
+}
 
+export async function register(email, password) {
+  try {
+    const response = await axios.post('/register', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: json.stringify({ email: email, password: password })
+    });
+
+    return await response.json();
+
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -44,5 +61,3 @@ export async function getAPIHealth() {
     return { healthy: false };
   }
 }
-
-// youe
