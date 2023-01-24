@@ -7,17 +7,6 @@ import axios from 'axios';
 // for example, if we need to display a list of users
 // we'd probably want to define a getUsers service like this:
 
-/* 
-  export async function getUsers() {
-    try {
-      const { data: users } = await axios.get('/api/users')
-      return users;
-    } catch(err) {
-      console.error(err)
-    }
-  }
-*/
-
 export async function login(email, password) {
   try {
     const response = await axios.post('/login', {
@@ -57,3 +46,15 @@ export async function getProducts() {
 
   }
 }
+
+export async function getSingleProduct() {
+  try {
+    const { data: productId } = await axios.get(`/api/products/${id}`);
+    return productId;
+
+  } catch (error) {
+    console.error('error in getting single product')
+    throw error;
+  }
+}
+

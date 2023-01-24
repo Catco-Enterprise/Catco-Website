@@ -11,4 +11,12 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
+router.get("/product/:id", async (req, res, next) => {
+	try {
+		res.send(await Products.getProductById());
+	} catch (error) {
+		console.error("Error fetching single product from db: ", error);
+	}
+});
+
 module.exports = router;

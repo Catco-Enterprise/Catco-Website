@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { getProducts } from "../axios-services";
 
@@ -8,7 +9,7 @@ const Products = () => {
    useEffect(() => {
       const getAllProducts = async () => {
          const allProducts = await getProducts();
-         console.log("these are my products....", allProducts)
+         // console.log("these are my products....", allProducts)
          setProducts(allProducts);
       }
       getAllProducts();
@@ -24,11 +25,10 @@ const Products = () => {
                   <h2>{product.description}</h2>
                   <h2>{product.price}</h2>
                   <h2>{product.stock}</h2>
+                  <Link to={`/product/${product.id}`}> <h4> i am a link </h4> </Link>
                </div>
             )
          })}
-
-
       </div>
 
    )
