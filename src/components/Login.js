@@ -18,17 +18,11 @@ function Login() {
             return;
         }
 
-        // After we get the user's information, let's try and find out if they're logged in.
-        // This can vary based on what we're expecting the API to return
-        // See example below.
-
-        // If the user authenticates from the API, set the context states 
-
         const result = await login(email, password);
 
         if (result.token) {
-            localStorage.setItem('userToken', result.token)
-            setIsLoggedIn(true);
+            localStorage.setItem('userToken', result.token);
+
             navigate('/');
         }
         else {
@@ -41,18 +35,17 @@ function Login() {
             <h1>Login</h1>
             <hr />
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="UserName">email</label>
-                    <input className="form-control" type="text" name="UserName" required
-                        onChange={(event) => setUserName(event.target.value)} />
+                <div>
+                    <label htmlFor="UserName">email</label>
+                    <input type="text" name="UserName" required />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="Password">Password</label>
-                    <input className="form-control" type="password" name="Password" required
-                        onChange={(event) => setPassword(event.target.value)} />
+                <div>
+                    <label htmlFor="Password">Password</label>
+                    <input type="password" name="Password" required />
                 </div>
-                <button className="btn btn-primary" type="submit">Log In</button>
+                <button type="submit">Log In</button>
             </form>
+            <p>{errorMessage}</p>
         </section>
     );
 }
