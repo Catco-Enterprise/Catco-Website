@@ -14,19 +14,29 @@ import Register from './Register';
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
+  const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    // follow this pattern inside your useEffect calls:
-    // first, create an async function that will wrap your axios service adapter
-    // invoke the adapter, await the response, and set the data
-    const getAPIStatus = async () => {
-      const { healthy } = await getAPIHealth();
-      setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-    };
+  // useEffect(() => {
+  //   // follow this pattern inside your useEffect calls:
+  //   // first, create an async function that will wrap your axios service adapter
+  //   // invoke the adapter, await the response, and set the data
+  //   const getAPIStatus = async () => {
+  //     const { healthy } = await getAPIHealth();
+  //     setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+  //   };
 
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
-    getAPIStatus();
+  //   // second, after you've defined your getter above
+  //   // invoke it immediately after its declaration, inside the useEffect callback
+  //   getAPIStatus();
+  // }, []);
+
+  useEffect(async () => {
+    async function fetchData() {
+      // SET THEM PRODUCTS RIGHT HERE AND PASS EM AROUND!!
+      // setProducts(await getProducts());
+    }
+
+    await fetchData();
   }, []);
 
   return (
@@ -34,7 +44,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/Products' element={<Products />} />
+        <Route path='/Products' element={<Products products={products} />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/Cart' element={<Cart />} />
         <Route path="/Login" element={<Login />} />
