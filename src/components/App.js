@@ -11,8 +11,11 @@ import { Routes, Route } from 'react-router-dom';
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import Register from './Register';
+import useCatcoContext from "../CatcoContext";
 
 const App = () => {
+  const { setProducts } = useCatcoContext();
+
   const [APIHealth, setAPIHealth] = useState('');
 
   useEffect(() => {
@@ -27,6 +30,27 @@ const App = () => {
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
+
+    async function getProducts() {
+      const products = [
+        {
+          name: 'Celery',
+          price: 5000
+        },
+        {
+          name: 'Cat food',
+          price: 4000000,
+        },
+        {
+          name: 'Diamonds',
+          price: 1
+        }
+      ];
+
+      setProducts(products);
+    }
+
+    getProducts();
   }, []);
 
   return (
