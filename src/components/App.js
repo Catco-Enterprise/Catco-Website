@@ -16,7 +16,12 @@ import { useStateDispatch } from '../StateContext';
 
 const App = () => {
   // const dispatch = useStateDispatch();
-  
+
+  // Look at these super cool useState() variables that indicate
+  // two things we could derive by just checking localstorage
+  const [token, setToken] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [APIHealth, setAPIHealth] = useState('');
 
   useEffect(() => {
@@ -31,6 +36,13 @@ const App = () => {
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      setToken(token);
+      setIsLoggedIn(true);
+    }
   }, []);
 
   return (
@@ -39,9 +51,10 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Products' element={<Products />} />
-        <Route path='/Login' element={<Login />} />
+        {/* I'm not sure why you would want to pass the token to the form that authenticates the user
+        and then issues the token, but here you go: */}
+        <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/Cart' element={<Cart />} />
-        <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
       </Routes>
     </div>

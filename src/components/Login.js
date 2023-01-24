@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../apiHelpers/helperFunc";
 
 
-function Login() {
+function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState();
 
