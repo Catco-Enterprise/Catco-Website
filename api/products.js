@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-import { Products } from "../db";
+const { Products } = require('../db')
 
-router.get("/products", async (req, res, next) => {
+// GET: api/products
+router.get("/", async (req, res, next) => {
 	try {
 		res.send(await Products.getAllProducts());
 	} catch (error) {
