@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { getProducts } from "../axios-services";
 
 const Products = () => {
@@ -8,8 +9,9 @@ const Products = () => {
 
    useEffect(() => {
       const getAllProducts = async () => {
-         const { name, description, price, stock } = await getProducts();
-         setProducts(name, description, price, stock);
+         const allProducts = await getProducts();
+         console.log("these are my products....", allProducts)
+         setProducts(allProducts);
       }
       getAllProducts();
    }, []);
@@ -17,7 +19,7 @@ const Products = () => {
    return (
       <div>
          <h1>Products</h1>
-         {products.map(product => {
+         {/* {products.map(product => {
             return (
                <div key={product.id}>
                   <h2>{product.name}</h2>
@@ -26,7 +28,7 @@ const Products = () => {
                   <h2>{product.stock}</h2>
                </div>
             )
-         })}
+         })} */}
          
 
       </div>

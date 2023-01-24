@@ -30,8 +30,10 @@ export async function getAPIHealth() {
 
 export async function getProducts() {
   try {
-    const { data: products } = await axios.get('/api/products');
-    return products;
+    console.log("frontend api")
+    const response = await axios.get('/api/products');
+    console.log("this is my response..", response)
+    return response;
   } catch (error) {
     console.error("Error fetching products...", error);
     throw error;
