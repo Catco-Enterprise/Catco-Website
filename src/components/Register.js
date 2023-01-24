@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { register } from "../axios-services";
-import useCatcoContext from "../CatcoContext";
 
 function Register() {
-    const { setCurrentUser } = useCatcoContext();
     const [errorMessage, setErrorMessage] = useState();
 
     async function handleSubmit(event) {
@@ -21,7 +19,6 @@ function Register() {
         const registeredUser = await register(email, password);
 
         if (registeredUser.token) {
-            setCurrentUser(registeredUser);
             window.localStorage.setItem('token', registeredUser.token);
         }
     }
