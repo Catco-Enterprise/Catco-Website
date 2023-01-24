@@ -53,22 +53,5 @@ function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
         </section>
     );
 }
+
 export default Login;
-
-
-//     return (
-//         <div className="auth-form-container">
-//             <h2>Login</h2>
-//             <form className="login-form" onSubmit={handleSubmit}>
-//                 <label htmlFor="email">e-mail</label>
-//                 <input type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-//                 <label for="password">password</label>
-//                 <input type="password" placeholder="*******" id="password" name="password" />
-//                 {/* <button onClick={ }>Log In</button> */}
-//                 <button>log in</button>
-
-//             </form >
-//             <p>{errorMessage}</p>
-//         </div >
-//     )
-// }
