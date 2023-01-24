@@ -36,7 +36,7 @@
     "nodemon": "^2.0.20",
     "supertest": "^6.2.1"
   },
-  "proxy": "http://localhost:4000",
+  "proxy": "http://localhost:8080",
   "browserslist": {
     "production": [
       ">0.2%",
