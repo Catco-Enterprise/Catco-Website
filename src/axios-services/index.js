@@ -18,6 +18,23 @@ import axios from 'axios';
   }
 */
 
+export async function login(email, password) {
+  try {
+    const response = await axios.post('/login', {
+      method: 'Post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: json.stringify({ email: email, password: password })
+    })
+
+    return await response.json();
+
+  } catch (error) {
+
+  }
+}
+
 export async function getAPIHealth() {
   try {
     const { data } = await axios.get('/api/health');
