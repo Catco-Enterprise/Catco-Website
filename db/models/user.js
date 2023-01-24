@@ -57,6 +57,25 @@ async function getUser({ email, password }) {
   }
 }
 
+async function getUserById(userId) {
+  try {
+    const { rows: [user] } = await client.query(`
+    SELECT *
+    FROM users
+    WHERE id =  ${userId}
+    `);
+
+    if (!user) {
+      return null;
+    }
+
+    delete user.password;
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function createUser({ email, password }) {
   // const saltRounds = 10;
 
@@ -82,5 +101,6 @@ module.exports = {
   getUserByEmail,
   getUser,
   createUser,
-  getAllUsers
+  getAllUsers,
+  getUserById
 };
