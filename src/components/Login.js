@@ -18,17 +18,14 @@ function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
             return;
         }
 
-        // After we get the user's information, let's try and find out if they're logged in.
-        // This can vary based on what we're expecting the API to return
-        // See example below.
-
-        // If the user authenticates from the API, set the context states 
-
         const result = await login(email, password);
 
         if (result.token) {
             localStorage.setItem('userToken', result.token)
+
             setIsLoggedIn(true);
+            setToken(result.token);
+
             navigate('/');
         }
         else {

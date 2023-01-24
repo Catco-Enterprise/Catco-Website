@@ -12,13 +12,10 @@ import { Routes, Route } from 'react-router-dom';
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import Register from './Register';
-import { useStateDispatch } from '../StateContext';
 
 const App = () => {
   // const dispatch = useStateDispatch();
 
-  // Look at these super cool useState() variables that indicate
-  // two things we could derive by just checking localstorage
   const [token, setToken] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -51,8 +48,6 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Products' element={<Products />} />
-        {/* I'm not sure why you would want to pass the token to the form that authenticates the user
-        and then issues the token, but here you go: */}
         <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/Cart' element={<Cart />} />
         <Route path="/Register" element={<Register />} />
