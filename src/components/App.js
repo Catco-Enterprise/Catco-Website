@@ -13,10 +13,11 @@ import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import Register from './Register';
 import { useStateDispatch } from '../StateContext';
+import SingleProduct from './SingleProduct';
 
 const App = () => {
   // const dispatch = useStateDispatch();
-  
+
   const [APIHealth, setAPIHealth] = useState('');
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const App = () => {
         <Route path='/Products' element={<Products />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/Cart' element={<Cart />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
         <Route path="/Register" element={<Register />} />
       </Routes>
     </div>

@@ -7,6 +7,7 @@ const SingleProduct = () => {
     useEffect(() => {
         const getOneProduct = async () => {
             const productView = await getSingleProduct();
+            console.log('look here for the product----', oneProduct)
             setOneProduct(productView);
         }
         getOneProduct();

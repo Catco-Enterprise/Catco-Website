@@ -47,9 +47,9 @@ export async function getProducts() {
   }
 }
 
-export async function getSingleProduct() {
+export async function getSingleProduct(id) {
   try {
-    const { data: productId } = await axios.get(`/api/products/${id}`);
+    const { data: productId } = await axios.get(`/api/products/:${id}`);
     return productId;
 
   } catch (error) {
