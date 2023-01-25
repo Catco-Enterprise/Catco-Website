@@ -8,20 +8,12 @@ import axios from 'axios';
 // we'd probably want to define a getUsers service like this:
 
 export async function login(email, password) {
-  try {
-    const response = await axios.post('/login', {
-      method: 'Post',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: json.stringify({ email: email, password: password })
-    })
-
-    return await response.json();
-
-  } catch (error) {
-
-  }
+  const { data: user } = await axios.post('/api/users/login', {
+    email: email,
+    password: password
+  });
+  
+  return user;
 }
 
 export async function getAPIHealth() {
@@ -39,6 +31,7 @@ export async function getProducts() {
     // console.log("frontend api")
     const { data: products } = await axios.get('/api/products');
     // console.log("this is my response..", response)
+
     return products;
   } catch (error) {
     console.error("Error fetching products...", error);
