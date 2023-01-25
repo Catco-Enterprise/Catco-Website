@@ -41,10 +41,29 @@ async function getUserByEmail(email) {
   try {
     const query = `SELECT * FROM users WHERE email = '${email}'`;
     const { rows: [user] } = await client.query(query);
-    
+
     return user;
   } catch (error) {
     console.error("Error getting users by email address");
+  }
+}
+
+async function getUserById(userId) {
+  try {
+    const { rows: [user] } = await client.query(`
+    SELECT *
+    FROM users
+    WHERE id =  ${userId}
+    `);
+
+    if (!user) {
+      return null;
+    }
+
+    delete user.password;
+    return user;
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -73,5 +92,8 @@ module.exports = {
   getAllUsers,
   getUser,
   getUserByEmail,
-  createUser
+  getUser,
+  createUser,
+  getAllUsers,
+  getUserById
 };

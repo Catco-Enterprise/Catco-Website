@@ -33,7 +33,22 @@ async function getAllProducts() {
 	}
 }
 
+async function getProductById(id) {
+	try {
+		const { rows: [product] } = await client.query(`
+	  SELECT *
+	  FROM products
+	  WHERE id =  ${id}
+	  `);
+
+		return product;
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
 	createProduct,
 	getAllProducts,
+	getProductById
 };
