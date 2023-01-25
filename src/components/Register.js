@@ -1,32 +1,39 @@
 import React, { useState } from "react";
+import { register } from "../axios-services";
 
-function Register() {
+function Register({ token, setToken, isLoggedIn, setIsLoggedIn }) {
     const [errorMessage, setErrorMessage] = useState();
 
-    const handleSubmit = (event) => {
+    async function handleSubmit() {
         event.preventDefault();
 
-        const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
 
-        if(!name || !email || !password)
-        {
+        if (!email || !password) {
             setErrorMessage('All fields are required.')
             return;
         }
 
-        // Register the user via the API and set their token and any other context states
+        const registeredUser = await register(email, password);
+
+        if (registeredUser.token) {
+            localStorage.setItem('token', registeredUser.token);
+            setToken(registeredUser.token);
+            setIsLoggedIn(true);
+        }
+    }
+
+    if (isLoggedIn) {
+        navigate('/');
     }
 
     return (
         <div className="auth-form-container">
             <h2>Register</h2>
             <form className="register-form" onSubmit={handleSubmit}>
-                <label htmlFor="name">Full name</label>
-                <input type="text" name="name" id="name" placeholder="full name" />
                 <label htmlFor="email">e-mail</label>
-                <input type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                <input type="email" placeholder="youremail@gmail.com" name="email" />
                 <label for="password">password</label>
                 <input type="password" placeholder="*******" id="password" name="password" />
                 <button>Register</button>
