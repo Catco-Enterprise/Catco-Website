@@ -12,11 +12,13 @@ import { Routes, Route } from 'react-router-dom';
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import Register from './Register';
-import { useStateDispatch } from '../StateContext';
 
 const App = () => {
   // const dispatch = useStateDispatch();
-  
+
+  const [token, setToken] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [APIHealth, setAPIHealth] = useState('');
 
   useEffect(() => {
@@ -31,17 +33,23 @@ const App = () => {
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      setToken(token);
+      setIsLoggedIn(true);
+    }
   }, []);
 
   return (
     <div className="app-container">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Products' element={<Products />} />
-        <Route path='/Login' element={<Login />} />
+        <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/Cart' element={<Cart />} />
-        <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
       </Routes>
     </div>

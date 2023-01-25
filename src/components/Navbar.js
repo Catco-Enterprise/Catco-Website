@@ -5,10 +5,10 @@ import '../style/Navbar.css'
 
 
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
     const linkStyle = {
-        textDecoration : "none",
+        textDecoration: "none",
         margin: "7px"
     }
 
@@ -23,18 +23,16 @@ const Navbar = () => {
                 <Link style={linkStyle} to="/">Home</Link>
                 <Link style={linkStyle} to="/Products">Products</Link>
                 <Link style={linkStyle} to="/Login">Login</Link>
-                {state.token ? (
-                <div>
-                    <Link style={linkStyle} to='/' onClick={() => {
-                    localStorage.clear();
-                    dispatch({type: 'setToken', payload: ''});
-                    dispatch({type: 'setUser', payload: {}});
-                    console.log(state);
-                    }}>Sign Out</Link>
-                </div>
-                ) : null }
+                {isLoggedIn ? (
+                    <div>
+                        <Link style={linkStyle} to='/' onClick={() => {
+                            localStorage.clear();
+                            setIsLoggedIn(false);
+                        }}>Sign Out</Link>
+                    </div>
+                ) : null}
                 <Link style={linkStyle} to="/Cart">Cart</Link>
-                
+
             </nav>
         </div>
 

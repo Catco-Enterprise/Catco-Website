@@ -1,40 +1,20 @@
-// grab our db client connection to use with our adapters
-const client = require('../client');
+const client = require("../client");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-async function getUserByEmail(email) {
-  /* this adapter should fetch a list of users from your db */
-
-  try {
-    const { rows: [user] } = await client.query(`
-    SELECT *
-    FROM users
-    WHERE email = $1
-    `, [email])
-    return user;
-  } catch (error) {
-    console.error("ERROR GETTING USERS BY EMAIL!!!!!")
-  }
-}
-
 async function getAllUsers() {
   try {
-    const { rows: [users] } = await client.query(`
-    SELECT *
-    FROM users
-    RETURNING *
-    `,)
+    const query = 'SELECT * FROM users';
+    const { rows: [users] } = await client.query(query)
 
     return users;
   } catch (error) {
-    console.error('error in gett all users ADMIN')
+    console.error('Error getting all users')
     throw error;
   }
 }
 
 async function getUser({ email, password }) {
-  /* this adapter should fetch a list of users from your db */
   if (!email || !password) {
     return;
   }
@@ -45,7 +25,7 @@ async function getUser({ email, password }) {
     let matchedPassword = await bcrypt.compare(password, hashedPassword);
 
     if (matchedPassword) {
-      delete hashedPassword;
+      delete user.password;
       return user;
     }
     else {
@@ -53,34 +33,45 @@ async function getUser({ email, password }) {
     }
 
   } catch (error) {
-    console.error("ERROR GETTING USER!!!!!")
+    console.error("Error getting user")
+  }
+}
+
+async function getUserByEmail(email) {
+  try {
+    const query = `SELECT * FROM users WHERE email = '${email}'`;
+    const { rows: [user] } = await client.query(query);
+    
+    return user;
+  } catch (error) {
+    console.error("Error getting users by email address");
   }
 }
 
 async function createUser({ email, password }) {
-  // const saltRounds = 10;
-
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    let userToAdd = { email, hashedPassword };
-    const { rows: [user] } = await client.query(`
-      INSERT INTO users (email, password)
-      VALUES($1, $2)
-      ON CONFLICT (email) DO NOTHING
-      RETURNING *;
-    `, [userToAdd.email, userToAdd.hashedPassword]);
+
+    let newUser = { email, hashedPassword };
+
+    const query = `INSERT INTO users (email, password)
+                   VALUES('${newUser.email}', '${newUser.hashedPassword})
+                   ON CONFLICT (email) DO NOTHING
+                   RETURNING *`;
+
+    const { rows: [user] } = await client.query(query);
+
     delete user.password;
 
     return user;
   } catch (error) {
-    console.error("ERROR CREATING USER!!!!!")
+    console.error("Error creating user")
   }
 }
 
 module.exports = {
-  // add your database adapter fns here
-  getUserByEmail,
+  getAllUsers,
   getUser,
-  createUser,
-  getAllUsers
+  getUserByEmail,
+  createUser
 };
