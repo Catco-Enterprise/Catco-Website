@@ -23,7 +23,16 @@ export async function login(email, password) {
     email: email,
     password: password
   });
-  
+
+  return user;
+}
+
+export async function register(email, password) {
+  const { data: user } = await axios.post('/api/users/register', {
+    email: email,
+    password: password
+  });
+
   return user;
 }
 
