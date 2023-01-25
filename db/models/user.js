@@ -67,27 +67,26 @@ async function getUserById(userId) {
   }
 }
 
+
 async function createUser({ email, password }) {
+  // const saltRounds = 10;
+
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    let newUser = { email, hashedPassword };
-
-    const query = `INSERT INTO users (email, password)
-                   VALUES('${newUser.email}', '${newUser.hashedPassword})
-                   ON CONFLICT (email) DO NOTHING
-                   RETURNING *`;
-
-    const { rows: [user] } = await client.query(query);
-
+    let userToAdd = { email, hashedPassword };
+    const { rows: [user] } = await client.query(`
+      INSERT INTO users (email, password)
+      VALUES($1, $2)
+      ON CONFLICT (email) DO NOTHING
+      RETURNING *;
+    `, [userToAdd.email, userToAdd.hashedPassword]);
     delete user.password;
 
     return user;
   } catch (error) {
-    console.error("Error creating user")
+    console.error("ERROR CREATING USER!!!!!")
   }
 }
-
 module.exports = {
   getAllUsers,
   getUser,
