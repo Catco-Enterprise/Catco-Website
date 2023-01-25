@@ -7,7 +7,7 @@ const DB_NAME = 'catco-website';
 const localhost = `postgres://postgres:admin@localhost:5432/${DB_NAME}`;
 
 const DB_URL =
-  process.env.DATABASE_URL || localhost;
+  process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
 
 let client;
 
