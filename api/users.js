@@ -82,4 +82,36 @@ router.post('/login', async (req, res, next) => {
     }
 });
 
+router.post('/me', async (req, res, next) => {
+    const prefix = 'Bearer';
+    const auth = req.header('authorization')
+
+    if (!auth) {
+        res.statusCode = 401;
+        next({
+            name: 'unauthorize error',
+            message: 'your not logged in'
+        })
+    } else if (auth.startsWith(prefix)) {
+        const token = auth.slice(prefix.length);
+        try {
+            const { id } = jwt.verify(token, JWT_SECRET);
+            if (id) {
+                const user = await getUserById(id);
+                res.send(user);
+            }
+        } catch ({ name, message }) {
+            throw (error);
+        }
+    }
+})
+
+
+
+
+
+
+
+
+
 module.exports = router;
