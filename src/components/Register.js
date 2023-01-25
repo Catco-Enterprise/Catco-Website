@@ -37,6 +37,7 @@ function Register({ token, setToken, isLoggedIn, setIsLoggedIn }) {
                 <label for="password">password</label>
                 <input type="password" placeholder="*******" id="password" name="password" />
                 <button>Register</button>
+                <div>{errorMessage}</div>
             </form>
         </div>
     );
