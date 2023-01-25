@@ -11,7 +11,7 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
-router.get("/product/:id", async (req, res, next) => {
+router.get("/products/:id", async (req, res, next) => {
 	try {
 		res.send(await Products.getProductById());
 	} catch (error) {

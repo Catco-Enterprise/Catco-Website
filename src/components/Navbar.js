@@ -21,7 +21,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             <h1 className="navbar-title">Catco</h1>
             <nav className="navbar-items">
                 <Link style={linkStyle} to="/">Home</Link>
-                <Link style={linkStyle} to="/Products">Products</Link>
+                <Link style={linkStyle} to="/products">Products</Link>
                 <Link style={linkStyle} to="/Login">Login</Link>
                 {isLoggedIn ? (
                     <div>

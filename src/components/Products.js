@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 
 import { getProducts } from "../axios-services";
 
-const Products = () => {
-   const [products, setProducts] = useState([])
+const Products = ({ products }) => {
+   // const [products, setProducts] = useState([])
 
-   useEffect(() => {
-      const getAllProducts = async () => {
-         const allProducts = await getProducts();
-         // console.log("these are my products....", allProducts)
-         setProducts(allProducts);
-      }
-      getAllProducts();
-   }, []);
+   // useEffect(() => {
+   //    const getAllProducts = async () => {
+   //       const allProducts = await getProducts();
+   //       // console.log("these are my products....", allProducts)
+   //       setProducts(allProducts);
+   //    }
+   //    getAllProducts();
+   // }, []);
 
    return (
       <div>
@@ -25,7 +25,7 @@ const Products = () => {
                   <h2>{product.description}</h2>
                   <h2>{product.price}</h2>
                   <h2>{product.stock}</h2>
-                  <Link to={`/product/${product.id}`}> <h4> i am a link </h4> </Link>
+                  <Link to={`/products/${product.id}`} state={product}> <h4> click me? click you! </h4> </Link>
                </div>
             )
          })}

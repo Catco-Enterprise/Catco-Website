@@ -12,7 +12,7 @@ export async function login(email, password) {
     email: email,
     password: password
   });
-  
+
   return user;
 }
 
@@ -31,6 +31,7 @@ export async function getProducts() {
     // console.log("frontend api")
     const { data: products } = await axios.get('/api/products');
     // console.log("this is my response..", response)
+    console.log('---', products)
 
     return products;
   } catch (error) {
@@ -42,8 +43,11 @@ export async function getProducts() {
 
 export async function getSingleProduct(id) {
   try {
-    const { data: productId } = await axios.get(`/api/products/:${id}`);
-    return productId;
+    // console.log('just adda message')
+    const { data } = await axios.get(`/api/products/${id}`);
+    console.log(data)
+    // console.log(data.id)
+    return data;
 
   } catch (error) {
     console.error('error in getting single product')

@@ -1,32 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { getSingleProduct } from "../axios-services";
+import { useLocation, useParams } from "react-router-dom";
 
 const SingleProduct = () => {
-    const [oneProduct, setOneProduct] = useState([])
-
-    useEffect(() => {
-        const getOneProduct = async () => {
-            const productView = await getSingleProduct();
-            console.log('look here for the product----', oneProduct)
-            setOneProduct(productView);
-        }
-        getOneProduct();
-    }, []);
+    const { state } = useLocation()
+    // const [oneProduct, setOneProduct] = useState(state);
+    const oneProduct = state
 
     return (
-        <div>
-            {oneProduct.map(product => {
-                return (
-                    <div key={product.id}>
-                        <h2>{product.name}</h2>
-                        <h2>{product.description}</h2>
-                        <h2>{product.price}</h2>
-                        <h2>{product.stock}</h2>
-                    </div>
-                )
-            })}
+
+        <div key={oneProduct.id}>
+            <h2>{oneProduct.name}</h2>
+            <h2>{oneProduct.description}</h2>
+            <h2>{oneProduct.price}</h2>
+            <h2>{oneProduct.stock}</h2>
         </div>
     )
+
+
+
 
 
 }
