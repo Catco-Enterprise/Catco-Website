@@ -13,6 +13,7 @@ async function dropTables() {
 		await client.query(`
       DROP TABLE IF EXISTS users;
       DROP TABLE IF EXISTS products;
+	  
     `);
 
 		console.log("Finished dropping tables!!!!!");
@@ -66,7 +67,7 @@ async function populateInitialData() {
 		console.log(users);
 		console.log("Finished creating users!");
 	} catch (error) {
-		console.error("Error creating users!");
+		console.error(error);
 		throw error;
 	}
 }
