@@ -19,6 +19,7 @@ import axios from 'axios';
 */
 
 export async function login(email, password) {
+<<<<<<< HEAD
   try {
     const response = await axios.post('/login', {
       method: 'POST',
@@ -50,6 +51,14 @@ export async function register(email, password) {
   } catch (error) {
     throw error;
   }
+=======
+  const { data: user } = await axios.post('/api/users/login', {
+    email: email,
+    password: password
+  });
+  
+  return user;
+>>>>>>> a7750691ec96e1df165e23d7d9dc340b7ce5f8a3
 }
 
 export async function getAPIHealth() {
@@ -67,6 +76,7 @@ export async function getProducts() {
     // console.log("frontend api")
     const { data: products } = await axios.get('/api/products');
     // console.log("this is my response..", response)
+
     return products;
   } catch (error) {
     console.error("Error fetching products...", error);

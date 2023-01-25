@@ -5,20 +5,13 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt');
+const { User } = require('../db')
 
 router.post('/register', async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
-        if (!email || !password) {
-            next({
-                message: 'Email and password are required fields.',
-                name: 'RequiredFieldError'
-            });
-        }
-
-        const user = await getUserByEmail(email);
-
+        const user = await User.getUserByEmail(email)
         if (user) {
             next({
                 message: `${email} is already linked to an account`,
@@ -33,14 +26,14 @@ router.post('/register', async (req, res, next) => {
             });
         }
 
-        const newUser = await createUser({ email, password })
+        const newUser = await User.createUser({ email, password })
 
         const token = jwt.sign({
             id: user.id,
             email
         }, JWT_SECRET, {
             expiresIn: '2w'
-        });
+        })
 
         res.send({
             message: 'Thank you for registering!',
@@ -56,23 +49,23 @@ router.post('/register', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+        next({
+            message: 'must enter both an email and password',
+            name: 'missing info'
+        })
+    }
     try {
-        if (!email || !password) {
-            next({
-                message: 'Email and password are required fields.',
-                name: 'RequiredFieldError'
-            });
-        }
-
-        const user = await getUserByEmail(email);
+        const user = await User.getUserByEmail(email)
 
         if (user && bcrypt.compare(user.password, password)) {
+
             const token = jwt.sign({
                 id: user.id,
                 email
             }, JWT_SECRET, {
                 expiresIn: '2w'
-            });
+            })
 
             res.send({
                 message: 'You\'re logged in!',
@@ -88,13 +81,5 @@ router.post('/login', async (req, res, next) => {
         next(error);
     }
 });
-
-
-
-
-
-
-
-
 
 module.exports = router;

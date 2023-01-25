@@ -12,11 +12,13 @@ import { Routes, Route } from 'react-router-dom';
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
 import Register from './Register';
-import { useStateDispatch } from '../StateContext';
 
 const App = () => {
   // const dispatch = useStateDispatch();
-  
+
+  const [token, setToken] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
 
@@ -29,6 +31,7 @@ const App = () => {
   //     setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
   //   };
 
+<<<<<<< HEAD
   //   // second, after you've defined your getter above
   //   // invoke it immediately after its declaration, inside the useEffect callback
   //   getAPIStatus();
@@ -41,17 +44,33 @@ const App = () => {
     }
 
     await fetchData();
+=======
+    // second, after you've defined your getter above
+    // invoke it immediately after its declaration, inside the useEffect callback
+    getAPIStatus();
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      setToken(token);
+      setIsLoggedIn(true);
+    }
+>>>>>>> a7750691ec96e1df165e23d7d9dc340b7ce5f8a3
   }, []);
 
   return (
     <div className="app-container">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path='/' element={<Home />} />
+<<<<<<< HEAD
         <Route path='/Products' element={<Products products={products} />} />
         <Route path='/Login' element={<Login />} />
+=======
+        <Route path='/Products' element={<Products />} />
+        <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+>>>>>>> a7750691ec96e1df165e23d7d9dc340b7ce5f8a3
         <Route path='/Cart' element={<Cart />} />
-        <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
       </Routes>
     </div>

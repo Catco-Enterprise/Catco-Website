@@ -2,6 +2,9 @@
 const express = require('express');
 const server = express();
 
+// allows us to use process.env
+require("dotenv").config();
+
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
 const cors = require('cors');

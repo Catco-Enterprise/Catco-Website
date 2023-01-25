@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import '../style/Navbar.css'
 
-function Navbar() {
-    // Do the token be around here?
-    const token = localStorage.getItem('token');
+
+
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
     const linkStyle = {
         textDecoration: "none",
@@ -25,10 +25,12 @@ function Navbar() {
                 <Link style={linkStyle} to="/">Home</Link>
                 <Link style={linkStyle} to="/Products">Products</Link>
                 <Link style={linkStyle} to="/Login">Login</Link>
-                {/* If the token be around here, then we is gonna help you sign out */}
-                {token ? (
+                {isLoggedIn ? (
                     <div>
-                        <Link style={linkStyle} to='/' onClick={handleSignOut}>Sign Out</Link>
+                        <Link style={linkStyle} to='/' onClick={() => {
+                            localStorage.clear();
+                            setIsLoggedIn(false);
+                        }}>Sign Out</Link>
                     </div>
                 ) : null}
                 <Link style={linkStyle} to="/Cart">Cart</Link>
