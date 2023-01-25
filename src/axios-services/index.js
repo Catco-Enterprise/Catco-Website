@@ -8,46 +8,12 @@ import axios from 'axios';
 // we'd probably want to define a getUsers service like this:
 
 export async function login(email, password) {
-<<<<<<< HEAD
-  try {
-    const response = await axios.post('/login', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: json.stringify({ email: email, password: password })
-    });
-
-    return await response.json();
-
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function register(email, password) {
-  try {
-    const response = await axios.post('/register', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: json.stringify({ email: email, password: password })
-    });
-
-    return await response.json();
-
-  } catch (error) {
-    throw error;
-  }
-=======
   const { data: user } = await axios.post('/api/users/login', {
     email: email,
     password: password
   });
 
   return user;
->>>>>>> a7750691ec96e1df165e23d7d9dc340b7ce5f8a3
 }
 
 export async function getAPIHealth() {
