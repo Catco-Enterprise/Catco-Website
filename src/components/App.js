@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Products' element={<Products />} />

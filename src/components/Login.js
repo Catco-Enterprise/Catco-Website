@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../apiHelpers/helperFunc";
-
+import { login } from "../axios-services";
 
 function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
@@ -27,30 +26,31 @@ function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
             setToken(result.token);
 
             navigate('/');
-        }
-        else {
-            setErrorMessage(result.error);
+        } else {
+            setErrorMessage('Invalid username or password');
         }
     }
 
+    if (isLoggedIn) {
+        navigate('/');
+    }
     return (
-        <section>
+        <div>
             <h1>Login</h1>
             <hr />
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="UserName">email</label>
-                    <input className="form-control" type="text" name="UserName" required
-                        onChange={(event) => setUserName(event.target.value)} />
+                <div>
+                    <label htmlFor="email">email</label>
+                    <input type="text" name="email"  />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="Password">Password</label>
-                    <input className="form-control" type="password" name="Password" required
-                        onChange={(event) => setPassword(event.target.value)} />
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" name="password"  />
                 </div>
-                <button className="btn btn-primary" type="submit">Log In</button>
+                <button type="submit">Log In</button>
             </form>
-        </section>
+            <div>{errorMessage}</div>
+        </div>
     );
 }
 
