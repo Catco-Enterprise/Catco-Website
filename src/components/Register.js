@@ -4,7 +4,7 @@ import { register } from "../axios-services";
 function Register({ token, setToken, isLoggedIn, setIsLoggedIn }) {
     const [errorMessage, setErrorMessage] = useState();
 
-    async function handleSubmit() {
+    async function handleSubmit(event) {
         event.preventDefault();
 
         const email = event.target.email.value;
