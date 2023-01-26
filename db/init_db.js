@@ -31,7 +31,8 @@ async function createTables() {
     CREATE TABLE users (
       id SERIAL PRIMARY KEY,
       email VARCHAR(255) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL
+      password VARCHAR(255) NOT NULL,
+	  "isAdmin" BOOLEAN DEFAULT false
     );
 
     CREATE TABLE products (
@@ -60,6 +61,7 @@ async function populateInitialData() {
 			{ email: "albert@gmail.com", password: "bertie99" },
 			{ email: "sandra@gmail.com", password: "sandra123" },
 			{ email: "glamgal@gmail.com", password: "glamgal123" },
+			{ email: "admin@catco.com", password: "admin123", isAdmin: true }
 		];
 		const users = await Promise.all(usersToCreate.map(createUser));
 
