@@ -82,8 +82,6 @@ router.get('/me', async (req, res, next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
 
-    console.log('the auth is', auth);
-
     if (!auth) {
         res.statusCode = 401;
         next({
@@ -92,11 +90,10 @@ router.get('/me', async (req, res, next) => {
         })
     } else if (auth.startsWith(prefix)) {
         const token = auth.slice(prefix.length);
-
+        
         try {
             const { id } = jwt.verify(token, JWT_SECRET);
 
-            console.log('the id is', id);
             if (id) {
                 const user = await getUserById(id);
 
