@@ -33,6 +33,10 @@ const Products = ({ currentUser, products, cartItems, setCartItems }) => {
       }
    }
 
+   function deleteProduct(productId) {
+      // TODO: write functionality
+   }
+
    return (
       <div>
          <h1>Products</h1>
@@ -45,6 +49,10 @@ const Products = ({ currentUser, products, cartItems, setCartItems }) => {
                   <h2>{product.stock}</h2>
                   <Link to={`/products/${product.id}`} state={product}> <h4> click me? click you! </h4> </Link>
                   <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+                  {currentUser?.isAdmin ? (
+                     <button onClick={() => deleteProduct(product.id)}>Delete</button>
+                  ) :
+                     (null)}
                </div>
             )
          })}
