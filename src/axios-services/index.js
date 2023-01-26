@@ -16,6 +16,15 @@ export async function login(email, password) {
   return user;
 }
 
+export async function register(email, password) {
+  const { data: user } = await axios.post('/api/users/register', {
+    email: email,
+    password: password
+  });
+
+  return user;
+}
+
 export async function getAPIHealth() {
   try {
     const { data } = await axios.get('/api/health');

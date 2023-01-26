@@ -26,7 +26,7 @@ router.post('/register', async (req, res, next) => {
         const newUser = await User.createUser({ email, password })
 
         const token = jwt.sign({
-            id: user.id,
+            id: newUser.id,
             email
         }, JWT_SECRET, {
             expiresIn: '2w'
