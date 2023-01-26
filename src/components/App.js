@@ -20,6 +20,7 @@ const App = () => {
 
   const [token, setToken] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -50,6 +51,13 @@ const App = () => {
       setToken(token);
       setIsLoggedIn(true);
     }
+
+    const cachedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+    if (cachedCartItems) {
+      setCartItems(cachedCartItems);
+    }
+
   }, []);
 
   return (
@@ -57,13 +65,13 @@ const App = () => {
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/products' element={<Products products={products} />} />
+        <Route path='/products' element={<Products products={products} cartItems={cartItems} setCartItems={setCartItems} />} />
         <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path='/Cart' element={<Cart />} />
+        <Route path='/Cart' element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
         <Route path="/products/:id" element={<SingleProduct products={products} />} />
-        <Route path="/Register" element={<Register />} />
-      </Routes >
-    </div >
+        <Route path="/Register" element={<Register token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+      </Routes>
+    </div>
   );
 };
 

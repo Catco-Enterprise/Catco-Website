@@ -73,13 +73,12 @@ async function createUser({ email, password }) {
 
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    let userToAdd = { email, hashedPassword };
     const { rows: [user] } = await client.query(`
       INSERT INTO users (email, password)
-      VALUES($1, $2)
+      VALUES('${email}', '${hashedPassword}')
       ON CONFLICT (email) DO NOTHING
-      RETURNING *;
-    `, [userToAdd.email, userToAdd.hashedPassword]);
+      RETURNING *`);
+
     delete user.password;
 
     return user;
