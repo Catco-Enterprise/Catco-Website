@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getProducts } from "../axios-services";
 
-const Products = ({ products, cartItems, setCartItems }) => {
+const Products = ({ currentUser, products, cartItems, setCartItems }) => {
    // const [products, setProducts] = useState([])
 
    // useEffect(() => {
