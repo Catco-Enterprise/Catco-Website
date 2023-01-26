@@ -20,7 +20,7 @@ function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
         const result = await login(email, password);
 
         if (result.token) {
-            localStorage.setItem('userToken', result.token)
+            localStorage.setItem('token', result.token)
 
             setIsLoggedIn(true);
             setToken(result.token);
