@@ -3,7 +3,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt');
-const { User } = require('../db')
+const { User } = require('../db');
+const { getUserById } = require('../db/models/user');
 
 router.post('/register', async (req, res, next) => {
     const { email, password } = req.body;
@@ -77,26 +78,39 @@ router.post('/login', async (req, res, next) => {
     }
 })
 
-router.post('/me', async (req, res, next) => {
-    const prefix = 'Bearer';
-    const auth = req.header('authorization')
+router.get('/me', async (req, res, next) => {
+    const prefix = 'Bearer ';
+    const auth = req.header('Authorization');
+
+    console.log('the auth is', auth);
 
     if (!auth) {
         res.statusCode = 401;
         next({
             name: 'unauthorize error',
-            message: 'your not logged in'
+            message: 'you\'re not logged in'
         })
     } else if (auth.startsWith(prefix)) {
         const token = auth.slice(prefix.length);
+
         try {
             const { id } = jwt.verify(token, JWT_SECRET);
+
+            console.log('the id is', id);
             if (id) {
                 const user = await getUserById(id);
-                res.send(user);
+
+                console.log('the user is', user);
+                res.send({
+                    message: 'Found user',
+                    user
+                });
             }
         } catch ({ name, message }) {
-            throw (error);
+            next({
+                name: message,
+                message: message
+            });
         }
     }
 })
