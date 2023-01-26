@@ -62,7 +62,7 @@ const App = () => {
         <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/Cart' element={<Cart />} />
         <Route path="/products/:id" element={<SingleProduct products={products} />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/Register" element={<Register token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
     </div>
   );
