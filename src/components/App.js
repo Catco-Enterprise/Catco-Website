@@ -14,6 +14,7 @@ import '../style/App.css';
 import Register from './Register';
 import { useStateDispatch } from '../StateContext';
 import SingleProduct from './SingleProduct';
+import Admin from './Admin';
 
 const App = () => {
   // const dispatch = useStateDispatch();
@@ -98,6 +99,7 @@ const App = () => {
           <Route path='/Cart' element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/products/:id" element={<SingleProduct products={products} />} />
           <Route path="/Register" element={<Register token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/admin" element={<Admin currentUser={currentUser} />} />
         </Routes>
       </div>
     </div>
