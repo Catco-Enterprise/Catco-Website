@@ -99,7 +99,7 @@ const App = () => {
           <Route path='/Cart' element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/products/:id" element={<SingleProduct products={products} />} />
           <Route path="/Register" element={<Register token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/admin" element={<Admin currentUser={currentUser} />} />
+          <Route path="/admin" element={<Admin currentUser={currentUser} products={products} />} />
         </Routes>
       </div>
     </div>

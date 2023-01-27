@@ -8,7 +8,7 @@ function Navbar({ currentUser, isLoggedIn, setIsLoggedIn }) {
         margin: "7px"
     }
 
-    const adminHtml = currentUser?.isAdmin ? "(admin)" : null;
+    const adminHtml = currentUser?.isAdmin ? (<a href="/admin">(admin)</a>) : null;
 
     return (
         <div className="navbar-container">
