@@ -1,22 +1,68 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAllUsers } from "../axios-services";
 
 function Admin({ currentUser, products }) {
     const navigate = useNavigate();
+    const [allUsers, setAllUsers] = useState();
+
+    function handleAddProduct(event) {
+        const name = event.target.name.value;
+        const description = event.target.description.value;
+        const stock = event.target.stock.value;
+        const price = event.target.name.value;
+
+        const newProduct = {
+            name: name,
+            description: description,
+            stock: stock,
+            price: price
+        }
+
+        
+    }
 
     useEffect(() => {
         function checkIfAdmin() {
-            console.log(currentUser);
-            // if (!currentUser?.isAdmin)
-            //     navigate('/');
+            // If 'currentUser' is defined and 'currentUser' is not an admin,
+            // redirect the user to the login view
+            if (currentUser && currentUser.isAdmin === false)
+                navigate('/login');
         }
 
         checkIfAdmin();
     });
 
-    if (products.length > 0) {
-        return (
-            <div>
+    useEffect(() => {
+        async function initData() {
+            const result = await getAllUsers();
+            setAllUsers(result.users);
+        }
+
+        initData();
+    }, []);
+
+    return (
+        <div>
+            <h1>All Users</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Is An Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {allUsers?.map((user) => {
+                        return (<tr key={user.id}>
+                            <td>{user.email}</td>
+                            <td>{user.isAdmin ? "true" : "false"}</td>
+                        </tr>);
+                    })}
+                </tbody>
+            </table>
+            <h1>Products</h1>
+            <form onSubmit={handleAddProduct}>
                 <table>
                     <thead>
                         <tr>
@@ -28,21 +74,25 @@ function Admin({ currentUser, products }) {
                     </thead>
                     <tbody>
                         {products.map((product) => {
-                            <tr key={product.id}>
+                            return (<tr key={product.id}>
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
                                 <td>{product.price}</td>
-                            </tr>
+                            </tr>);
                         })}
+                        <tr>
+                            <td><input type="text" name="name" required /></td>
+                            <td><input type="text" name="description" required /></td>
+                            <td><input type="number" name="stock" required /></td>
+                            <td>$<input type="number" name="price" required /></td>
+                        </tr>
                     </tbody>
                 </table>
-            </div>
-        );
-    }
-    else {
-        return (<div>There are no products.</div>);
-    }
+            </form>
+        </div>
+    );
 }
+
 
 export default Admin;
