@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import noImage from '../img/no-image.jpg';
 import { getProducts } from "../axios-services";
 
 const Products = ({ currentUser, products, cartItems, setCartItems }) => {
@@ -40,22 +40,26 @@ const Products = ({ currentUser, products, cartItems, setCartItems }) => {
    return (
       <div>
          <h1>Products</h1>
-         {products.map(product => {
-            return (
-               <div key={product.id}>
-                  <h2>{product.name}</h2>
-                  <h2>{product.description}</h2>
-                  <h2>{product.price}</h2>
-                  <h2>{product.stock}</h2>
-                  <Link to={`/products/${product.id}`} state={product}> <h4> click me? click you! </h4> </Link>
-                  <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
-                  {currentUser?.isAdmin ? (
-                     <button onClick={() => deleteProduct(product.id)}>Delete</button>
-                  ) :
-                     (null)}
-               </div>
-            )
-         })}
+         <div className="products-container">
+            {products.map(product => {
+               return (
+                  <div key={product.id} className="product">
+                     <img src={noImage} />
+                     <Link to={`/products/${product.id}`} state={product} className="title">{product.name}</Link>
+                     <div className="price">${product.price}</div>
+                     <div>{product.description}</div>
+                     <br />
+                     {/* <span>{product.stock}</span> */}
+                     <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+                     {currentUser?.isAdmin ? (
+                        <button onClick={() => deleteProduct(product.id)}>Delete</button>
+                     ) :
+                        (null)}
+                  </div>
+               )
+            })}
+         </div>
+
       </div>
 
    )

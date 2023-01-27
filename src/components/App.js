@@ -90,14 +90,16 @@ const App = () => {
   return (
     <div className="app-container">
       <Navbar currentUser={currentUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/products' element={<Products currentUser={currentUser} products={products} cartItems={cartItems} setCartItems={setCartItems} />} />
-        <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path='/Cart' element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
-        <Route path="/products/:id" element={<SingleProduct products={products} />} />
-        <Route path="/Register" element={<Register token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
-      </Routes>
+      <div className="content">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/products' element={<Products currentUser={currentUser} products={products} cartItems={cartItems} setCartItems={setCartItems} />} />
+          <Route path='/Login' element={<Login token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path='/Cart' element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
+          <Route path="/products/:id" element={<SingleProduct products={products} />} />
+          <Route path="/Register" element={<Register token={token} setToken={setToken} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+        </Routes>
+      </div>
     </div>
   );
 };
