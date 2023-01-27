@@ -1,20 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom'
-import { useForState, useStateDispatch } from "../StateContext";
 import '../style/Navbar.css'
 
-
-
-const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
-
+function Navbar({ isLoggedIn, setIsLoggedIn }) {
     const linkStyle = {
         textDecoration: "none",
         margin: "7px"
     }
-
-    const dispatch = useStateDispatch();
-    const state = useForState();
-
 
     return (
         <div className="navbar-container">
@@ -38,8 +30,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
             </nav>
         </div>
-
-    )
+    );
 }
 
 
