@@ -33,7 +33,6 @@ async function getActiveOrderById(id) {
         const { rows: [order] } = await client.query(`
       SELECT orders.*, users.email AS "userAcc"
       FROM orders
-      JOIN users ON orders."userId" = users.id
       JOIN order_products ON orders.id = order_products."orderId"
       WHERE order_products."productId" = $1 AND "isActive" = true
       `[id]);
