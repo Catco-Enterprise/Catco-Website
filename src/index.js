@@ -10,9 +10,7 @@ import "./style/index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<BrowserRouter>
-		<StateProvider>
 			<App />
-		</StateProvider>
 		</BrowserRouter>
 	</React.StrictMode>
 );
