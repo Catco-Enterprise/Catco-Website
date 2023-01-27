@@ -5,12 +5,8 @@ async function getOrderProductsByOrderId(id) {
         const { rows: [order_product] } = await client.query(`
       SELECT *
       FROM order_products
-      WHERE "orderId" =  ${id}
+      WHERE id =  ${id}
       `);
-
-        if (!order_product) {
-            return null;
-        }
 
         return order_product;
     } catch (error) {

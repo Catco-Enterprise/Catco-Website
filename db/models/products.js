@@ -47,8 +47,32 @@ async function getProductById(id) {
 	}
 }
 
+async function attachProductsToOrders(products) {
+	const ordersToReturn = [...orders]
+
+	try {
+		const { rows: products } = await client.query(`
+		SELECT products.*, order_products.id AS "orderProductId"
+		, order_products."orderId", order_products.quantity, order_products.price
+		FROM products
+		JOIN order_products ON order_products."productId" = products.id
+		`)
+
+		for (const order of ordersToReturn) {
+			const productsToAdd = products.filter(
+				(product) => product.orderId === order.id
+			);
+			order.products = productsToAdd;
+		}
+		return ordersToReturn;
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
 	createProduct,
 	getAllProducts,
-	getProductById
+	getProductById,
+	attachProductsToOrders
 };
