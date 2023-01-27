@@ -37,7 +37,7 @@ router.post("/register", async (req, res, next) => {
 		);
 
 		res.send({
-			message: "thank you for registering",
+			message: "Thank you for registering!",
 			newUser,
 			token,
 		});
@@ -71,7 +71,7 @@ router.post("/login", async (req, res, next) => {
 			);
 
 			res.send({
-				message: "youre logged in",
+				message: "You're logged in!",
 				user,
 				token,
 			});
@@ -110,4 +110,15 @@ router.get("/me", async (req, res, next) => {
 	}
 });
 
+router.get("/:email/orders", async (req, res, next) => {
+	const { email } = req.params;
+	const prefix = "Bearer";
+	const auth = req.header("Authorization");
+
+	if (!auth) res.statusCode = 401;
+	next({
+		name: "unauthorize error",
+		message: "your not logged in",
+	});
+});
 module.exports = router;
