@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt');
 const { User } = require('../db');
-const { getUserById } = require('../db/models/user');
+const { getUserById, getAllUsers } = require('../db/models/user');
 
 router.post('/register', async (req, res, next) => {
     const { email, password } = req.body;
@@ -90,7 +90,7 @@ router.get('/me', async (req, res, next) => {
         })
     } else if (auth.startsWith(prefix)) {
         const token = auth.slice(prefix.length);
-        
+
         try {
             const { id } = jwt.verify(token, JWT_SECRET);
 
@@ -112,12 +112,16 @@ router.get('/me', async (req, res, next) => {
     }
 })
 
-
-
-
-
-
-
-
+router.get('/getAll', async (req, res, next) => {
+    try {
+        res.send(await getAllUsers());
+    } catch (error) {
+        next({
+            name: 'GetAllUsersError',
+            message: 'Failed to get all users',
+            error
+        });
+    }
+});
 
 module.exports = router;
