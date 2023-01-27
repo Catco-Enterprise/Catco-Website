@@ -1,5 +1,3 @@
-import { createUser, getUserByEmail } from '../db/models/user';
-
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -106,7 +104,18 @@ router.post('/me', async (req, res, next) => {
     }
 })
 
+router.get('/:email/orders', async (req, res, next) => {
+    const { email } = req.params;
+    const prefix = 'Bearer';
+    const auth = req.header('Authorization');
 
+    if (!auth)
+        res.statusCode = 401;
+    next({
+        name: 'unauthorize error',
+        message: 'your not logged in'
+    })
+})
 
 
 
