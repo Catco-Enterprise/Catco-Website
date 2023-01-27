@@ -89,7 +89,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Navbar currentUser={currentUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products currentUser={currentUser} products={products} cartItems={cartItems} setCartItems={setCartItems} />} />

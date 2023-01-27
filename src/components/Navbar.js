@@ -2,15 +2,17 @@ import React from "react";
 import { Link } from 'react-router-dom'
 import '../style/Navbar.css'
 
-function Navbar({ isLoggedIn, setIsLoggedIn }) {
+function Navbar({ currentUser, isLoggedIn, setIsLoggedIn }) {
     const linkStyle = {
         textDecoration: "none",
         margin: "7px"
     }
 
+    const adminHtml = currentUser?.isAdmin ? "(admin)" : null;
+
     return (
         <div className="navbar-container">
-            <h1 className="navbar-title">Catco</h1>
+            <h1 className="navbar-title">Catco {adminHtml}</h1>
             <nav className="navbar-items">
                 <Link style={linkStyle} to="/">Home</Link>
                 <Link style={linkStyle} to="/products">Products</Link>
