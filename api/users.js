@@ -7,20 +7,21 @@ const { User } = require('../db')
 
 router.post('/register', async (req, res, next) => {
     const { email, password } = req.body;
+
     try {
         const user = await User.getUserByEmail(email)
         if (user) {
             next({
                 message: `${email} is already linked to an account`,
                 name: 'email taken error'
-            })
+            });
         }
 
         if (password.length < 6) {
             next({
                 message: `password is too short`,
                 name: 'password too short'
-            })
+            });
         }
 
         const newUser = await User.createUser({ email, password })
@@ -33,13 +34,15 @@ router.post('/register', async (req, res, next) => {
         })
 
         res.send({
-            message: 'thank you for registering',
-            newUser, token
-        })
+            message: 'Thank you for registering!',
+            newUser,
+            token
+        });
+
     } catch (error) {
-        next(error)
+        next(error);
     }
-})
+});
 
 router.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
@@ -63,19 +66,19 @@ router.post('/login', async (req, res, next) => {
             })
 
             res.send({
-                message: 'youre logged in',
+                message: 'You\'re logged in!',
                 user, token
-            })
+            });
         } else {
             next({
                 message: 'incorrect email or password',
                 name: 'login error'
-            })
+            });
         }
     } catch (error) {
-        next(error)
+        next(error);
     }
-})
+});
 
 router.post('/me', async (req, res, next) => {
     const prefix = 'Bearer';
@@ -101,7 +104,18 @@ router.post('/me', async (req, res, next) => {
     }
 })
 
+router.get('/:email/orders', async (req, res, next) => {
+    const { email } = req.params;
+    const prefix = 'Bearer';
+    const auth = req.header('Authorization');
 
+    if (!auth)
+        res.statusCode = 401;
+    next({
+        name: 'unauthorize error',
+        message: 'your not logged in'
+    })
+})
 
 
 

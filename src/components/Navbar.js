@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from 'react-router-dom'
-import { useForState, useStateDispatch } from "../StateContext";
+import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom'
 import '../style/Navbar.css'
 
 
@@ -12,9 +11,12 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         margin: "7px"
     }
 
-    const dispatch = useStateDispatch();
-    const state = useForState();
-
+    // Lord bless my soul, I banish thy token from thy browser
+    // and establish this user as officially signed out
+    // HALLELUJAH!
+    function handleSignOut() {
+        localStorage.removeItem('token');
+    }
 
     return (
         <div className="navbar-container">

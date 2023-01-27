@@ -54,8 +54,4 @@ const Products = ({ products, cartItems, setCartItems }) => {
 
 }
 
-
-
-
-
 export default Products;

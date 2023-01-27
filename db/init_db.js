@@ -11,9 +11,10 @@ async function dropTables() {
 		console.log("Dropping all tables!!!!!");
 
 		await client.query(`
-      DROP TABLE IF EXISTS users;
-      DROP TABLE IF EXISTS products;
-	  
+    	DROP TABLE IF EXISTS users;
+    	DROP TABLE IF EXISTS products;
+		DROP TABLE IF EXISTS orders;
+		DROP TABLE IF EXISTS order_products
     `);
 
 		console.log("Finished dropping tables!!!!!");
@@ -41,6 +42,22 @@ async function createTables() {
       price NUMERIC NOT NULL,
       stock INTEGER
     );
+	
+    CREATE TABLE orders (
+		id SERIAL PRIMARY KEY,
+		"userId" INTEGER REFERENCES users(id),
+		"isActive" BOOLEAN DEFAULT FALSE,
+		purchased_date DATE NOT NULL
+	);
+	  
+	CREATE TABLE order_products (
+		id SERIAL PRIMARY KEY,
+		"orderId" INTEGER REFERENCES orders(id),
+		"productId" INTEGER REFERENCES products(id),
+		quantity INTEGER,
+		price NUMERIC NOT NULL
+		UNIQUE ("orderId", "productId")
+	);
     `);
 		// look into how to have images in the db for products
 		console.log("Finished creating tables!!!!!");

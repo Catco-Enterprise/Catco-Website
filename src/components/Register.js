@@ -4,7 +4,7 @@ import { register } from "../axios-services";
 
 function Register({ token, setToken, isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
-    
+
     const [errorMessage, setErrorMessage] = useState();
 
     async function handleSubmit(event) {
@@ -41,6 +41,7 @@ function Register({ token, setToken, isLoggedIn, setIsLoggedIn }) {
                 <input type="password" placeholder="*******" name="password" />
                 <button>Register</button>
             </form>
+            <p>{errorMessage}</p>
         </div>
     );
 }

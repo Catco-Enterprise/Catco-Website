@@ -22,7 +22,6 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [APIHealth, setAPIHealth] = useState('');
-
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const getAllProducts = async () => {
