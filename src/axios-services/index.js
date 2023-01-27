@@ -34,6 +34,16 @@ export async function getUser(token) {
   return user;
 }
 
+export async function getAllUsers() {
+  try {
+    const { data: users } = await axios.get('/api/users/getAll');
+
+    return users;
+  } catch (error) {
+    console.log('Error fetching all users');
+  }
+}
+
 export async function getAPIHealth() {
   try {
     const { data } = await axios.get('/api/health');
