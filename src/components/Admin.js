@@ -19,13 +19,14 @@ function Admin({ currentUser, products }) {
             price: price
         }
 
-        
+
     }
 
     useEffect(() => {
         function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
             // redirect the user to the login view
+            console.log(currentUser, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
             if (currentUser && currentUser.isAdmin === false)
                 navigate('/login');
         }
@@ -36,7 +37,7 @@ function Admin({ currentUser, products }) {
     useEffect(() => {
         async function initData() {
             const result = await getAllUsers();
-            setAllUsers(result.users);
+            setAllUsers(result);
         }
 
         initData();
@@ -78,7 +79,7 @@ function Admin({ currentUser, products }) {
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
-                                <td>{product.price}</td>
+                                <td>${product.price}</td>
                             </tr>);
                         })}
                         <tr>
