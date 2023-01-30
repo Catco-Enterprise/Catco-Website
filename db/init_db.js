@@ -56,7 +56,7 @@ async function createTables() {
 		"orderId" INTEGER REFERENCES orders(id),
 		"productId" INTEGER REFERENCES products(id),
 		quantity INTEGER,
-		price NUMERIC NOT NULL
+		price NUMERIC NOT NULL,
 		UNIQUE ("orderId", "productId")
 	);
     `);
@@ -78,7 +78,7 @@ async function populateInitialData() {
 			{ email: "albert@gmail.com", password: "bertie99" },
 			{ email: "sandra@gmail.com", password: "sandra123" },
 			{ email: "glamgal@gmail.com", password: "glamgal123" },
-			{ email: "admin@catco.com", password: "admin123", isAdmin: true }
+			{ email: "admin@catco.com", password: "admin123", isAdmin: true },
 		];
 		const users = await Promise.all(usersToCreate.map(createUser));
 
