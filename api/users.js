@@ -111,11 +111,16 @@ router.get("/me", async (req, res, next) => {
 	}
 });
 
-router.get("/getAll", async (req, res, next) => {
-	try {
-		res.send(await getAllUsers());
-	} catch (error) {
-		next(error);
-	}
+router.get('/getAll', async (req, res, next) => {
+    try {
+        res.send(await getAllUsers());
+    } catch (error) {
+        next({
+            name: 'GetAllUsersError',
+            message: 'Failed to get all users',
+            error
+        });
+    }
 });
+
 module.exports = router;
