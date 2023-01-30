@@ -110,15 +110,11 @@ router.get("/me", async (req, res, next) => {
 	}
 });
 
-router.get("/:email/orders", async (req, res, next) => {
-	const { email } = req.params;
-	const prefix = "Bearer";
-	const auth = req.header("Authorization");
-
-	if (!auth) res.statusCode = 401;
-	next({
-		name: "unauthorize error",
-		message: "your not logged in",
-	});
+router.get("/getAll", async (req, res, next) => {
+	try {
+		res.send(await getAllUsers());
+	} catch (error) {
+		next(error);
+	}
 });
 module.exports = router;

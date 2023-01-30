@@ -19,4 +19,12 @@ router.get("/products/:id", async (req, res, next) => {
 	}
 });
 
+router.post("/products/", async (req, res, next) => {
+	try {
+		res.send(await Products.getProductById());
+	} catch (error) {
+		console.error("Error fetching single product from db: ", error);
+	}
+});
+
 module.exports = router;

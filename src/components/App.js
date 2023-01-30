@@ -14,6 +14,7 @@ import "../style/App.css";
 import Register from "./Register";
 import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
+import Admin from "./Admin";
 
 const App = () => {
 	const [token, setToken] = useState(localStorage.getItem("token"));
@@ -119,6 +120,10 @@ const App = () => {
 							setIsLoggedIn={setIsLoggedIn}
 						/>
 					}
+				/>
+				<Route
+					path="/admin"
+					element={<Admin currentUser={currentUser} products={products} />}
 				/>
 			</Routes>
 		</div>
