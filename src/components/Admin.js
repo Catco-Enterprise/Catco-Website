@@ -26,7 +26,7 @@ function Admin({ currentUser, products }) {
         function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
             // redirect the user to the login view
-            console.log(currentUser, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
+            console.log(currentUser)
             if (currentUser && currentUser.isAdmin === false)
                 navigate('/login');
         }
