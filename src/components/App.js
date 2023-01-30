@@ -67,14 +67,14 @@ const App = () => {
 		// }
 	}, [token]);
 
-	console.log("---------------STATE (App)---------------");
-	console.log("APIHealth: ", APIHealth);
-	console.log("token: ", token);
-	console.log("user: ", user);
-	console.log("isLoggedIn: ", isLoggedIn);
-	console.log("products: ", products);
-	console.log("cartItems: ", cartItems);
-	console.log("-----------------------------------------");
+	// console.log("---------------STATE (App)---------------");
+	// console.log("APIHealth: ", APIHealth);
+	// console.log("token: ", token);
+	// console.log("user: ", user);
+	// console.log("isLoggedIn: ", isLoggedIn);
+	// console.log("products: ", products);
+	// console.log("cartItems: ", cartItems);
+	// console.log("-----------------------------------------");
 
 	return (
 		<div className="app-container">

@@ -19,11 +19,13 @@ router.get("/products/:id", async (req, res, next) => {
 	}
 });
 
-router.post("/products/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
+	const { name, description, stock, price } = req.body;
+
 	try {
-		res.send(await Products.getProductById());
+		res.send(await Products.createProduct({ name, description, stock, price }));
 	} catch (error) {
-		console.error("Error fetching single product from db: ", error);
+		console.error("Error creating product ", error);
 	}
 });
 
