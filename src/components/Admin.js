@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useResolvedPath } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAllUsers } from "../axios-services";
 
 function Admin({ currentUser, products }) {
@@ -53,11 +53,10 @@ function Admin({ currentUser, products }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {allUsers?.map((users) => {
-                        return (<tr key={users.id}>
-                            <td>{users.email}</td>
+                    {allUsers?.map((user) => {
+                        return (<tr key={user.id}>
+                            <td>{user.email}</td>
                             <td>{user.isAdmin ? "true" : "false"}</td>
-                            console.log(User)
                         </tr>);
                     })}
                 </tbody>
@@ -83,13 +82,10 @@ function Admin({ currentUser, products }) {
                             </tr>);
                         })}
                         <tr>
-                        <form className="addproduct-form" onSubmit={handleSubmit}>
                             <td><input type="text" name="name" required /></td>
                             <td><input type="text" name="description" required /></td>
                             <td><input type="number" name="stock" required /></td>
                             <td>$<input type="number" name="price" required /></td>
-                            <button>Register</button>
-                            </form>
                         </tr>
                     </tbody>
                 </table>
