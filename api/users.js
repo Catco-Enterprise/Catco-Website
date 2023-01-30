@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const bcrypt = require("bcrypt");
 const { User } = require("../db");
+const { getAllUsers } = require("../db/models/user");
 
 router.post("/register", async (req, res, next) => {
 	const { email, password } = req.body;

@@ -5,7 +5,7 @@ const saltRounds = 10;
 async function getAllUsers() {
   try {
     const query = 'SELECT * FROM users';
-    const { rows: [users] } = await client.query(query)
+    const { rows: users } = await client.query(query)
 
     return users;
   } catch (error) {
