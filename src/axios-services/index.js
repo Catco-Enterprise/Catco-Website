@@ -25,6 +25,25 @@ export async function register(email, password) {
 	return user;
 }
 
+export async function getUser(token) {
+  // Headers are added as a second parameter to axios.get()
+  const { data: user } = await axios.get('/api/users/me', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return user;
+}
+
+export async function getAllUsers() {
+  try {
+    const { data: users } = await axios.get('/api/users/getAll');
+
+    return users;
+  } catch (error) {
+    console.log('Error fetching all users');
+  }
+}
+
 export async function getAPIHealth() {
 	try {
 		const { data } = await axios.get("/api/health");
