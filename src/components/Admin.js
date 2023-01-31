@@ -20,14 +20,6 @@ function Admin({ currentUser, products }) {
         else {
             return;
         }
-        // const newProduct = {
-        //     name: name,
-        //     description: description,
-        //     stock: stock,
-        //     price: price
-        // }
-
-
     }
 
     useEffect(() => {
