@@ -21,9 +21,7 @@ const App = () => {
 	const [user, setUser] = useState({});
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [products, setProducts] = useState([]);
-	const [cartItems, setCartItems] = useState(
-		JSON.parse(localStorage.getItem("cartItems"))
-	);
+	const [cartItems, setCartItems] = useState([]);
 	const [APIHealth, setAPIHealth] = useState("");
 
 	//
@@ -45,6 +43,10 @@ const App = () => {
 			setProducts(allProducts);
 		};
 		getAllProducts();
+
+		if (localStorage.getItem("cartItems")) {
+			setCartItems(JSON.parse(localStorage.getItem("cartItems")));
+		}
 	}, []);
 
 	useEffect(() => {
@@ -60,12 +62,22 @@ const App = () => {
 			setIsLoggedIn(true);
 		}
 
+		if (user.id) {
+		}
+
 		// const cachedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
 		// if (cachedCartItems) {
 		//   setCartItems(cachedCartItems);
 		// }
 	}, [token]);
+
+	function resetState() {
+		setToken(localStorage.getItem("token"));
+		setUser({});
+		setIsLoggedIn(false);
+		setCartItems([]);
+	}
 
 	console.log("---------------STATE (App)---------------");
 	console.log("APIHealth: ", APIHealth);
@@ -78,7 +90,7 @@ const App = () => {
 
 	return (
 		<div className="app-container">
-			<Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+			<Navbar isLoggedIn={isLoggedIn} resetState={resetState} />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route

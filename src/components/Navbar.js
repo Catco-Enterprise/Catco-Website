@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../style/Navbar.css";
 
-function Navbar({ currentUser, isLoggedIn, setIsLoggedIn }) {
+function Navbar({ currentUser, isLoggedIn, resetState }) {
 	const linkStyle = {
 		textDecoration: "none",
 		margin: "7px",
@@ -26,7 +26,7 @@ function Navbar({ currentUser, isLoggedIn, setIsLoggedIn }) {
 						to="/"
 						onClick={() => {
 							localStorage.clear();
-							setIsLoggedIn(false);
+							resetState();
 						}}
 					>
 						Sign Out

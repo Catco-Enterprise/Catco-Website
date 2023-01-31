@@ -1,86 +1,114 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SingleProduct from "./SingleProduct";
 
 function Cart({ cartItems, setCartItems }) {
-    function handleEmptyCart() {
-        // Set useState 'cartItems' to an empty array
-        setCartItems([]);
+	// const [order, setOrder] = useState(cartItems);
 
-        // Delete the cache item 'cartItems'
-        localStorage.removeItem('cartItems');
-    }
+	function handleEmptyCart() {
+		// Set useState 'cartItems' to an empty array
+		setCartItems([]);
 
-    function handleMinusQuantity(itemId) {
-        // Get the cart item from the useState variable 'cartItems' by the item ID
-        const cartItem = cartItems.find(x => x.id === itemId);
+		// Delete the cache item 'cartItems'
+		localStorage.removeItem("cartItems");
+	}
 
-        if (cartItem) {
-            // Subtract from the quantity of the cart item by 1
-            cartItem.quantity--;
+	function totalPrice() {
+		let total = 0;
+		for (const product of cartItems) {
+			total += product.price * product.quantity;
+		}
+		return total;
+	}
 
-            if(cartItem.quantity === 0)
-            {
-                const indexOfItem = cartItems.findIndex(x => x.id === itemId);
-                cartItems.splice(indexOfItem, 1);
-            }
+	// function handleMinusQuantity(item) {
+	// 	// Get the cart item from the useState variable 'cartItems' by the item ID
+	// 	const itemIdx = order.findIndex((x) => x.id === itemId);
 
-            // Update the useState variable 'cartItems' value
-            setCartItems(cartItems);
+	// 	if (cartItem) {
+	// 		// Subtract from the quantity of the cart item by 1
+	// 		cartItem.quantity -= 1;
 
-            // Update the cache item 'cartItems' with the value from the useState 'cartItems'
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+	// 		if (cartItem.quantity === 0) {
+	// 			const indexOfItem = cartItems.findIndex((x) => x.id === itemId);
+	// 			cartItems.splice(indexOfItem, 1);
+	// 		}
 
-            // Reloading the page because the state isn't reflected on this action
-            location.reload(false);
-        }
-    }
+	// 		// Update the useState variable 'cartItems' value
+	// 		setCartItems(cartItems);
 
-    function handlePlusQuantity(itemId) {
-        // Get the cart item from the useState variable 'cartItems' by the item ID
-        const cartItem = cartItems.find(x => x.id === itemId);
+	// 		// Update the cache item 'cartItems' with the value from the useState 'cartItems'
+	// 		localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-        if (cartItem) {
-            // Add from the quantity of the cart item by 1
-            cartItem.quantity++;
+	// 		// Reloading the page because the state isn't reflected on this action
+	// 		location.reload(false);
+	// 	}
+	// }
 
-            // Update the useState variable 'cartItems' value
-            setCartItems(cartItems);
+	// function handlePlusQuantity(itemId) {
+	// 	// Get the cart item from the useState variable 'cartItems' by the item ID
+	// 	const cartItem = cartItems.find((x) => x.id === itemId);
 
-            // Update the cache item 'cartItems' with the value from the useState 'cartItems'
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+	// 	if (cartItem) {
+	// 		// Add from the quantity of the cart item by 1
+	// 		cartItem.quantity++;
 
-            // Reloading the page because the state isn't reflected on this action
-            location.reload(false);
-        }
-    }
+	// 		// Update the useState variable 'cartItems' value
+	// 		setCartItems(cartItems);
 
-    if (cartItems.length > 0) {
-        return (
-            <div>
-                <h1>Cart - <button onClick={() => handleEmptyCart()}>Empty Cart</button></h1>
-                {cartItems.map(item => {
-                    return (
-                        <div key={item.id}>
-                            <h2>{item.name}</h2>
-                            <h2>{item.description}</h2>
-                            <h2>{item.price}</h2>
-                            <h2>{item.stock}</h2>
-                            <h2>Quantity: <button onClick={() => handleMinusQuantity(item.id)}>-</button>{item.quantity}<button onClick={() => handlePlusQuantity(item.id)}>+</button></h2>
-                            <Link to={`/products/${item.id}`} state={item}> <h4> click me? click you! </h4> </Link>
-                        </div>
-                    )
-                })}
-            </div>
-        );
-    }
-    else {
-        return (
-            <div>
-                <h1>Cart</h1>
-                <p>Cart is empty.</p>
-            </div>
-        );
-    }
+	// 		// Update the cache item 'cartItems' with the value from the useState 'cartItems'
+	// 		localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+	// 		// Reloading the page because the state isn't reflected on this action
+	// 		location.reload(false);
+	// 	}
+	// }
+
+	if (cartItems) {
+		return (
+			<div>
+				<h1>
+					Cart -{" "}
+					<button onClick={() => handleEmptyCart()}>Empty My Cart</button>
+					<span>Total: ${totalPrice()}</span>
+				</h1>
+				{cartItems.map((item) => {
+					return (
+						<SingleProduct
+							product={item}
+							cartItems={cartItems}
+							setCartItems={setCartItems}
+						/>
+					);
+					// return (
+					// 	<div key={item.id}>
+					// 		<h2>{item.name}</h2>
+					// 		<h2>{item.description}</h2>
+					// 		<h2>{item.price}</h2>
+					// 		<h2>{item.stock}</h2>
+					// 		<h2>
+					// 			Quantity:{" "}
+					// 			<button onClick={() => handleMinusQuantity(item)}>-</button>
+					// 			{item.quantity}
+					// 			<button onClick={() => handlePlusQuantity(item)}>+</button>
+					// 		</h2>
+					// 		<Link to={`/products/${item.id}`} state={item}>
+					// 			{" "}
+					// 			<h4> Product Details </h4>{" "}
+					// 		</Link>
+					// 	</div>
+					// );
+				})}
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<h1>Cart</h1>
+				<p>Cart is empty.</p>
+			</div>
+		);
+	}
 }
 
 export default Cart;
