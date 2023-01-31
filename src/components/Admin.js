@@ -1,38 +1,44 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers } from "../axios-services";
+import { getAllUsers, createProduct } from "../axios-services";
 
 function Admin({ currentUser, products }) {
     const navigate = useNavigate();
     const [allUsers, setAllUsers] = useState();
 
-    function handleAddProduct(event) {
+    async function handleAddProduct(event) {
+        event.preventDefault();
+
         const name = event.target.name.value;
         const description = event.target.description.value;
         const stock = event.target.stock.value;
-        const price = event.target.name.value;
-
-        const newProduct = {
-            name: name,
-            description: description,
-            stock: stock,
-            price: price
+        const price = event.target.price.value;
+        console.log(name, description, stock, price)
+        if (currentUser.isAdmin === true) {
+            await createProduct(name, description, stock, price);
         }
+        else {
+            return;
+        }
+        // const newProduct = {
+        //     name: name,
+        //     description: description,
+        //     stock: stock,
+        //     price: price
+        // }
 
 
     }
 
     useEffect(() => {
-        function checkIfAdmin() {
+        async function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
             // redirect the user to the login view
-            console.log(currentUser, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
-            if (currentUser && currentUser.isAdmin === false)
-                navigate('/login');
+            if (currentUser && currentUser.isAdmin === false) navigate('/login');
         }
 
         checkIfAdmin();
-    });
+    }, [currentUser]);
 
     useEffect(() => {
         async function initData() {
@@ -90,6 +96,7 @@ function Admin({ currentUser, products }) {
                         </tr>
                     </tbody>
                 </table>
+                <button>Submit</button>
             </form>
         </div>
     );

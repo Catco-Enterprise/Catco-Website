@@ -90,3 +90,15 @@ export async function fetchMe(token) {
 		console.error(error);
 	}
 }
+
+export async function createProduct(name, description, stock, price) {
+	console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+	const { data: product } = await axios.post("/api/products", {
+		name: name,
+		description: description,
+		stock: stock,
+		price: price
+	});
+
+	return product;
+}
