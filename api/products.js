@@ -19,6 +19,18 @@ router.get("/products/:id", async (req, res, next) => {
 	}
 });
 
+router.delete('/products/:id', async (req, res, next) => {
+	try {
+		const productId = req.params.id;
+		const deletedProduct = await Products.deleteProduct(productId);
+
+		res.send(deletedProduct);
+	} catch (error) {
+		console.error('API: Error deleting product');
+		throw error;
+	}
+});
+
 router.post("/", async (req, res, next) => {
 	const { name, description, stock, price } = req.body;
 

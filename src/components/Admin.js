@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers, createProduct } from "../axios-services";
+import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
 
 function Admin({ currentUser, setProducts, products }) {
     const navigate = useNavigate();
@@ -31,6 +31,12 @@ function Admin({ currentUser, setProducts, products }) {
         else {
             return;
         }
+    }
+
+    async function handleDeleteProduct(productId) {
+        const deletedProduct = await deleteProduct(productId);
+
+        console.log('this should be the deleted product', deletedProduct);
     }
 
     useEffect(() => {
@@ -66,7 +72,7 @@ function Admin({ currentUser, setProducts, products }) {
                     {allUsers?.map((user) => {
                         return (<tr key={user.id}>
                             <td>{user.email}</td>
-                            <td>{user.isAdmin ? "true" : "false"}</td>
+                            <td>{user.isAdmin ? "Yes" : "No"}</td>
                         </tr>);
                     })}
                 </tbody>
@@ -80,26 +86,28 @@ function Admin({ currentUser, setProducts, products }) {
                             <th>Description</th>
                             <th>Stock</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product) => {
+                        {products?.map((product) => {
                             return (<tr key={product.id}>
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
+                                <td><button type="button" onClick={() => handleDeleteProduct(product.id)}>Delete</button></td>
                             </tr>);
                         })}
                         <tr>
                             <td><input type="text" name="name" required /></td>
                             <td><input type="text" name="description" required /></td>
                             <td><input type="number" name="stock" required /></td>
-                            <td>$<input type="number" name="price" required /></td>
+                            <td><input type="number" name="price" required /></td>
                         </tr>
                     </tbody>
                 </table>
-                <button>Submit</button>
+                <button type="submit">Add Product</button>
             </form>
         </div>
     );

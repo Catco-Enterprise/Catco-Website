@@ -102,3 +102,14 @@ export async function createProduct(name, description, stock, price) {
 
 	return product;
 }
+
+export async function deleteProduct(productId) {
+	try {
+		const { data: product } = await axios.delete(`/api/products/${productId}`);
+
+		return product;
+	} catch (error) {
+		console.error('Axios: error deleting product');
+		throw error;
+	}
+}
