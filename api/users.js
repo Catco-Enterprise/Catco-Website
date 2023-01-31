@@ -49,13 +49,7 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
 	const { email, password } = req.body;
-
-	if (!email || !password) {
-		next({
-			message: "must enter both an email and password",
-			name: "missing info",
-		});
-	}
+	
 	try {
 		const user = await User.getUserByEmail(email);
 
