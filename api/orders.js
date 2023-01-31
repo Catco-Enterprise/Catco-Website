@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+// GET: api/orders/:id
 
-
-router.get("/orders/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
     try {
         res.send(await orders.getOrderById());
     } catch (error) {

@@ -11,7 +11,8 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
-router.get("/products/:id", async (req, res, next) => {
+// GET: api/products/:id
+router.get("/:id", async (req, res, next) => {
 	try {
 		res.send(await Products.getProductById());
 	} catch (error) {
@@ -19,6 +20,20 @@ router.get("/products/:id", async (req, res, next) => {
 	}
 });
 
+// DELETE: api/products/:id
+router.delete('/:id', async (req, res, next) => {
+	try {
+		const { id } = req.params
+		console.log(id, "$$$$$$$$$$$$$$$$$$$$$$$")
+		const deletedProduct = await Products.destroyProduct(id);
+		res.send(deletedProduct);
+	} catch (error) {
+		console.error('API: Error deleting product');
+		throw error;
+	}
+});
+
+//POST: api/products
 router.post("/", async (req, res, next) => {
 	const { name, description, stock, price } = req.body;
 

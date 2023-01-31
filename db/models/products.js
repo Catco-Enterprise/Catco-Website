@@ -15,6 +15,19 @@ async function createProduct({ name, description, price, stock }) {
 	}
 }
 
+async function destroyProduct(id) {
+	try {
+		await client.query(`
+		DELETE from products
+		WHERE id = ${id}
+		`);
+
+	} catch (error) {
+		console.error('Error deleting product');
+		throw error;
+	}
+}
+
 async function getAllProducts() {
 	try {
 		const { rows: products } = await client.query(`
@@ -64,8 +77,13 @@ async function attachProductsToOrders(products) {
 	}
 }
 
+async function updateRoutine() {
+
+}
+
 module.exports = {
 	createProduct,
+	destroyProduct,
 	getAllProducts,
 	getProductById,
 	attachProductsToOrders

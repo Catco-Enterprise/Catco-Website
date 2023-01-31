@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers, createProduct } from "../axios-services";
+import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
 
-function Admin({ currentUser, products }) {
+function Admin({ currentUser, setProducts, products }) {
     const navigate = useNavigate();
     const [allUsers, setAllUsers] = useState();
+
 
     async function handleAddProduct(event) {
         event.preventDefault();
@@ -13,28 +14,41 @@ function Admin({ currentUser, products }) {
         const description = event.target.description.value;
         const stock = event.target.stock.value;
         const price = event.target.price.value;
+
         console.log(name, description, stock, price)
+
+        const newProduct = {
+            name: name,
+            description: description,
+            stock: stock,
+            price: price
+        }
+
         if (currentUser.isAdmin === true) {
             await createProduct(name, description, stock, price);
+            setProducts([...products, newProduct])
         }
         else {
             return;
         }
-        // const newProduct = {
-        //     name: name,
-        //     description: description,
-        //     stock: stock,
-        //     price: price
-        // }
+    }
 
+    async function handleDeleteProduct(event, productId) {
+        event.preventDefault();
+        const deletedProduct = await deleteProduct(productId);
+        setProducts([...products])
 
+        console.log('this should be the deleted product', deletedProduct);
     }
 
     useEffect(() => {
         async function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
             // redirect the user to the login view
-            if (currentUser && currentUser.isAdmin === false) navigate('/login');
+            if (currentUser == null && currentUser.isAdmin === false) navigate('/login');
+
+            // ----------------------NEEDS MORE WORK
+
         }
 
         checkIfAdmin();
@@ -63,7 +77,7 @@ function Admin({ currentUser, products }) {
                     {allUsers?.map((user) => {
                         return (<tr key={user.id}>
                             <td>{user.email}</td>
-                            <td>{user.isAdmin ? "true" : "false"}</td>
+                            <td>{user.isAdmin ? "Yes" : "No"}</td>
                         </tr>);
                     })}
                 </tbody>
@@ -77,26 +91,28 @@ function Admin({ currentUser, products }) {
                             <th>Description</th>
                             <th>Stock</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product) => {
+                        {products?.map((product) => {
                             return (<tr key={product.id}>
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
+                                <td><button type="button" onClick={(event) => handleDeleteProduct(event, product.id)}>Delete</button></td>
                             </tr>);
                         })}
                         <tr>
                             <td><input type="text" name="name" required /></td>
                             <td><input type="text" name="description" required /></td>
                             <td><input type="number" name="stock" required /></td>
-                            <td>$<input type="number" name="price" required /></td>
+                            <td><input type="number" name="price" required /></td>
                         </tr>
                     </tbody>
                 </table>
-                <button>Submit</button>
+                <button type="submit">Add Product</button>
             </form>
         </div>
     );
