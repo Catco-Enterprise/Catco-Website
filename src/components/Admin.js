@@ -13,7 +13,7 @@ function Admin({ currentUser, products }) {
         const description = event.target.description.value;
         const stock = event.target.stock.value;
         const price = event.target.price.value;
-        console.log(name, description, stock, price)
+
         if (currentUser.isAdmin === true) {
             await createProduct(name, description, stock, price);
         }
