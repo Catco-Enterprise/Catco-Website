@@ -26,22 +26,21 @@ export async function register(email, password) {
 }
 
 export async function getUser(token) {
-  // Headers are added as a second parameter to axios.get()
-  const { data: user } = await axios.get('/api/users/me', {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+	// Headers are added as a second parameter to axios.get()
+	const { data: user } = await axios.get('/api/users/me', {
+		headers: { Authorization: `Bearer ${token}` }
+	});
 
-  return user;
+	return user;
 }
 
 export async function getAllUsers() {
-  try {
-    const { data: users } = await axios.get('/api/users/getAll');
-
-    return users;
-  } catch (error) {
-    console.log('Error fetching all users');
-  }
+	try {
+		const { data: users } = await axios.get('/api/users/getAll');
+		return users;
+	} catch (error) {
+		console.log('Error fetching all users');
+	}
 }
 
 export async function getAPIHealth() {
@@ -59,7 +58,6 @@ export async function getProducts() {
 		// console.log("frontend api")
 		const { data: products } = await axios.get("/api/products");
 		// console.log("this is my response..", response)
-		console.log("---", products);
 
 		return products;
 	} catch (error) {
@@ -89,5 +87,27 @@ export async function fetchMe(token) {
 		return data;
 	} catch (error) {
 		console.error(error);
+	}
+}
+
+export async function createProduct(name, description, stock, price) {
+	const { data: product } = await axios.post("/api/products", {
+		name: name,
+		description: description,
+		stock: stock,
+		price: price
+	});
+
+	return product;
+}
+
+export async function deleteProduct(id) {
+	try {
+		console.log("HHHHHHHHHHHHHHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", id)
+		const { data } = await axios.delete(`/api/products/${id}`);
+		console.log(data, "111111111111111111111111111111111111111111111111111")
+	} catch (error) {
+		console.error('Axios: error deleting product');
+		throw error;
 	}
 }

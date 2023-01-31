@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { Orders } = require("../db");
 
-router.get("/orders/:id", async (req, res, next) => {
+// GET: api/orders/:id
+
+router.get("/:id", async (req, res, next) => {
 	try {
 		res.send(await Orders.getAllOrdersByUserId());
 	} catch (error) {

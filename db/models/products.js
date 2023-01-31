@@ -3,21 +3,28 @@ const client = require("../client");
 //eventually make it so only admin can create a product
 async function createProduct({ name, description, price, stock }) {
 	try {
-		const {
-			rows: [product],
-		} = await client.query(
-			`
+		const { rows: [products] } = await client.query(`
       INSERT INTO products (name, description, price, stock)
       VALUES ($1, $2, $3, $4)
       ON CONFLICT (name) DO NOTHING
       RETURNING *;
-    `,
-			[name, description, price, stock]
-		);
-
-		return product;
+    `, [name, description, price, stock]);
+		return products;
 	} catch (error) {
 		console.error("createProduct: error creating product: ", error);
+	}
+}
+
+async function destroyProduct(id) {
+	try {
+		await client.query(`
+		DELETE from products
+		WHERE id = ${id}
+		`);
+
+	} catch (error) {
+		console.error('Error deleting product');
+		throw error;
 	}
 }
 
@@ -70,8 +77,13 @@ async function attachProductsToOrders(products) {
 	}
 }
 
+async function updateRoutine() {
+
+}
+
 module.exports = {
 	createProduct,
+	destroyProduct,
 	getAllProducts,
 	getProductById,
 	attachProductsToOrders
