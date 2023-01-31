@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers, createProduct } from "../axios-services";
+import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
 
 function Admin({ currentUser, products }) {
     const navigate = useNavigate();
@@ -24,6 +24,9 @@ function Admin({ currentUser, products }) {
 
     async function handleDeleteProduct(productId)
     {
+        const deletedProduct = await deleteProduct(productId);
+
+        console.log('this should be the deleted product', deletedProduct);
     }
 
     useEffect(() => {
@@ -83,7 +86,7 @@ function Admin({ currentUser, products }) {
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
-                                <td><button onClick={() => handleDeleteProduct(product.id)}>Delete</button></td>
+                                <td><button type="button" onClick={() => handleDeleteProduct(product.id)}>Delete</button></td>
                             </tr>);
                         })}
                         <tr>
