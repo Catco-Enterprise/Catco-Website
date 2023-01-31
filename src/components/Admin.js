@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllUsers, createProduct } from "../axios-services";
 
-function Admin({ currentUser, products }) {
+function Admin({ currentUser, setProducts, products }) {
     const navigate = useNavigate();
     const [allUsers, setAllUsers] = useState();
+
 
     async function handleAddProduct(event) {
         event.preventDefault();
@@ -13,21 +14,23 @@ function Admin({ currentUser, products }) {
         const description = event.target.description.value;
         const stock = event.target.stock.value;
         const price = event.target.price.value;
+
         console.log(name, description, stock, price)
+
+        const newProduct = {
+            name: name,
+            description: description,
+            stock: stock,
+            price: price
+        }
+
         if (currentUser.isAdmin === true) {
             await createProduct(name, description, stock, price);
+            setProducts([...products, newProduct])
         }
         else {
             return;
         }
-        // const newProduct = {
-        //     name: name,
-        //     description: description,
-        //     stock: stock,
-        //     price: price
-        // }
-
-
     }
 
     useEffect(() => {

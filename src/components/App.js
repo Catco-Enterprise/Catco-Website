@@ -123,7 +123,7 @@ const App = () => {
 				/>
 				<Route
 					path="/admin"
-					element={<Admin currentUser={user} products={products} />}
+					element={<Admin currentUser={user} products={products} setProducts={setProducts} />}
 				/>
 			</Routes>
 		</div>
