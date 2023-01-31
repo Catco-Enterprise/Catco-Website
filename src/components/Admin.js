@@ -22,6 +22,10 @@ function Admin({ currentUser, products }) {
         }
     }
 
+    async function handleDeleteProduct(productId)
+    {
+    }
+
     useEffect(() => {
         async function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
@@ -55,7 +59,7 @@ function Admin({ currentUser, products }) {
                     {allUsers?.map((user) => {
                         return (<tr key={user.id}>
                             <td>{user.email}</td>
-                            <td>{user.isAdmin ? "true" : "false"}</td>
+                            <td>{user.isAdmin ? "Yes" : "No"}</td>
                         </tr>);
                     })}
                 </tbody>
@@ -69,26 +73,28 @@ function Admin({ currentUser, products }) {
                             <th>Description</th>
                             <th>Stock</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product) => {
+                        {products?.map((product) => {
                             return (<tr key={product.id}>
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
+                                <td><button onClick={() => handleDeleteProduct(product.id)}>Delete</button></td>
                             </tr>);
                         })}
                         <tr>
                             <td><input type="text" name="name" required /></td>
                             <td><input type="text" name="description" required /></td>
                             <td><input type="number" name="stock" required /></td>
-                            <td>$<input type="number" name="price" required /></td>
+                            <td><input type="number" name="price" required /></td>
                         </tr>
                     </tbody>
                 </table>
-                <button>Submit</button>
+                <button type="submit">Add Product</button>
             </form>
         </div>
     );
