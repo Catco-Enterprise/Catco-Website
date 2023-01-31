@@ -33,8 +33,10 @@ function Admin({ currentUser, setProducts, products }) {
         }
     }
 
-    async function handleDeleteProduct(productId) {
+    async function handleDeleteProduct(event, productId) {
+        event.preventDefault();
         const deletedProduct = await deleteProduct(productId);
+        setProducts([...products])
 
         console.log('this should be the deleted product', deletedProduct);
     }
@@ -43,7 +45,10 @@ function Admin({ currentUser, setProducts, products }) {
         async function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
             // redirect the user to the login view
-            if (currentUser && currentUser.isAdmin === false) navigate('/login');
+            if (currentUser == null && currentUser.isAdmin === false) navigate('/login');
+
+            // ----------------------NEEDS MORE WORK
+
         }
 
         checkIfAdmin();
@@ -96,7 +101,7 @@ function Admin({ currentUser, setProducts, products }) {
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
-                                <td><button type="button" onClick={() => handleDeleteProduct(product.id)}>Delete</button></td>
+                                <td><button type="button" onClick={(event) => handleDeleteProduct(event, product.id)}>Delete</button></td>
                             </tr>);
                         })}
                         <tr>

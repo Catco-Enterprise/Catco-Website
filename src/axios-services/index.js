@@ -58,7 +58,6 @@ export async function getProducts() {
 		// console.log("frontend api")
 		const { data: products } = await axios.get("/api/products");
 		// console.log("this is my response..", response)
-		console.log("---", products);
 
 		return products;
 	} catch (error) {
@@ -92,7 +91,6 @@ export async function fetchMe(token) {
 }
 
 export async function createProduct(name, description, stock, price) {
-	console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 	const { data: product } = await axios.post("/api/products", {
 		name: name,
 		description: description,
@@ -103,11 +101,11 @@ export async function createProduct(name, description, stock, price) {
 	return product;
 }
 
-export async function deleteProduct(productId) {
+export async function deleteProduct(id) {
 	try {
-		const { data: product } = await axios.delete(`/api/products/${productId}`);
-
-		return product;
+		console.log("HHHHHHHHHHHHHHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", id)
+		const { data } = await axios.delete(`/api/products/${id}`);
+		console.log(data, "111111111111111111111111111111111111111111111111111")
 	} catch (error) {
 		console.error('Axios: error deleting product');
 		throw error;
