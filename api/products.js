@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const { Products } = require('../db')
@@ -32,6 +33,18 @@ router.delete('/:id', async (req, res, next) => {
 		throw error;
 	}
 });
+
+//PATCH: api/products
+router.patch('/:id', async (req, res, next) => {
+	try {
+		const updatedProduct = await Products.updateProduct(id);
+		res.send(updatedProduct);
+	} catch (error) {
+		console.error('API: error with editing this product')
+		throw error;
+
+	}
+})
 
 //POST: api/products
 router.post("/", async (req, res, next) => {
