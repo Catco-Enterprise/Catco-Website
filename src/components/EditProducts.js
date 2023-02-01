@@ -27,7 +27,7 @@ function editProducts () {
         const stock = event.target.stock.value;
         const price = event.target.price.value;
 
-        if 
+
 
         const updatedProduct = await updateProduct(productId, name, description, stock, price);
 
@@ -40,7 +40,7 @@ function editProducts () {
 const productsFormsHtml = products?.map((product) => {
     return (
         <div key={product.id} className="info">
-            <form onSubmit={(event) => handleSubmit(product, product.id)}>
+            <form onSubmit={(event) => handleSubmit(event, product.id)}>
                 <div>
                     <label htmlFor="name">Name</label>
                     <input type="text" name="name"  onChange={(event) => setName(event.target.value)} />
