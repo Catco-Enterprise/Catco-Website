@@ -33,7 +33,7 @@ router.delete('/:id', async (req, res, next) => {
 	}
 });
 
-//PATCH: api/products
+//PATCH: api/products/:id
 router.patch('/:id', async (req, res, next) => {
 	try {
 		const updatedProduct = await Products.updateProduct(id);
