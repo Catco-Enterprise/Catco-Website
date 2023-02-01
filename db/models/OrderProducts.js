@@ -14,7 +14,23 @@ async function getOrderProductsByOrderId(id) {
     }
 }
 
-
+async function addProductToOrder({orderID, productId, quantity, price}) {
+    try {
+        const { rows: [product] } = await client.query(`
+        INSERT INTO order_products("orderId", "productId", quantitiy, price)
+        VALUES ($1, $2, $3, $4)
+        ON CONFLICT ("orderId", "productId") DO NOTHING
+        RETURNING *;
+        `, [orderID, productId, quantity, price])
+        
+        return product;
+   
+    } catch (error) {
+        
+        console.error("Error adding product to order", error);
+        
+    }
+}
 
 module.exports = {
     getOrderProductsByOrderId

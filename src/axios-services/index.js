@@ -111,3 +111,15 @@ export async function deleteProduct(id) {
 		throw error;
 	}
 }
+
+export async function fetchActiveOrder(token) {
+	try {
+		const { data } = await axios.get('api/users/me/activeOrder', {
+			headers:  { Authorization: `Bearer ${token}` }});
+			
+			return data;
+	
+		} catch (error) {
+		console.error("Axios, error fetching active orders", error);
+	}
+}

@@ -3,8 +3,9 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const bcrypt = require("bcrypt");
-const { User } = require("../db");
+const { User, Orders } = require("../db");
 const { getAllUsers } = require("../db/models/user");
+
 
 // POST: api/users/register
 router.post("/register", async (req, res, next) => {
@@ -114,6 +115,32 @@ router.get("/me", async (req, res, next) => {
 		}
 	}
 });
+
+// GET: api/users/me/activeorders
+
+router.get("/me/activeOrder", async (req,res,next) => {
+	const prefix = "Bearer ";
+	const auth = req.header("Authorization");
+
+	if (!auth) {
+		res.statusCode = 401;
+		next({
+			name: "unauthorize error",
+			message: "youre not logged in",
+		});
+	} else if (auth.startsWith(prefix)) {
+		const token = auth.slice(prefix.length);
+		try {
+			const { id } = jwt.verify(token, JWT_SECRET);
+			if (id) {
+				const activeOrder = await Orders.getActiveOrderByUserId(id);
+				res.send(activeOrder);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	}
+})
 
 // GET: api/users/getAll
 
