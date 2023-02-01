@@ -101,6 +101,17 @@ export async function createProduct(name, description, stock, price) {
 	return product;
 }
 
+export async function patchProduct(id, name, description, stock, price) {
+	const { data: product } = await axios.patch(`/api/products/${id}`, {
+		name: name,
+		description: description,
+		stock: stock,
+		price: price
+	});
+
+	return product;
+}
+
 export async function deleteProduct(id) {
 	try {
 		const { data } = await axios.delete(`/api/products/${id}`);
