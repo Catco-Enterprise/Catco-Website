@@ -103,9 +103,7 @@ export async function createProduct(name, description, stock, price) {
 
 export async function deleteProduct(id) {
 	try {
-		console.log("HHHHHHHHHHHHHHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", id)
 		const { data } = await axios.delete(`/api/products/${id}`);
-		console.log(data, "111111111111111111111111111111111111111111111111111")
 	} catch (error) {
 		console.error('Axios: error deleting product');
 		throw error;

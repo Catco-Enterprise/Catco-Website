@@ -15,8 +15,6 @@ function Admin({ currentUser, setProducts, products }) {
         const stock = event.target.stock.value;
         const price = event.target.price.value;
 
-        console.log(name, description, stock, price)
-
         const newProduct = {
             name: name,
             description: description,
@@ -37,16 +35,14 @@ function Admin({ currentUser, setProducts, products }) {
         event.preventDefault();
         const deletedProduct = await deleteProduct(productId);
         setProducts([...products])
-
-        console.log('this should be the deleted product', deletedProduct);
     }
 
     useEffect(() => {
         async function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
             // redirect the user to the login view
-            if (currentUser == null && currentUser.isAdmin === false) navigate('/login');
-
+            if (currentUser.isAdmin === false) navigate('/login');
+            console.log(currentUser)
             // ----------------------NEEDS MORE WORK
 
         }
