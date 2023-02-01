@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../db");
 const { getAllUsers } = require("../db/models/user");
 
+// POST: api/users/register
 router.post("/register", async (req, res, next) => {
 	const { email, password } = req.body;
 	try {
@@ -47,6 +48,7 @@ router.post("/register", async (req, res, next) => {
 	}
 });
 
+// POST: api/users/login
 router.post("/login", async (req, res, next) => {
 	const { email, password } = req.body;
 
@@ -87,6 +89,8 @@ router.post("/login", async (req, res, next) => {
 	}
 });
 
+// GET: api/users/me
+
 router.get("/me", async (req, res, next) => {
 	const prefix = "Bearer ";
 	const auth = req.header("Authorization");
@@ -111,16 +115,14 @@ router.get("/me", async (req, res, next) => {
 	}
 });
 
-router.get('/getAll', async (req, res, next) => {
-    try {
-        res.send(await getAllUsers());
-    } catch (error) {
-        next({
-            name: 'GetAllUsersError',
-            message: 'Failed to get all users',
-            error
-        });
-    }
+// GET: api/users/getAll
+
+router.get("/getAll", async (req, res, next) => {
+	try {
+		res.send(await getAllUsers());
+	} catch (error) {
+		next(error);
+	}
 });
 
 module.exports = router;
