@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import noImage from "../img/no-image.jpg";
-import { getProducts } from "../axios-services";
 
 const Products = ({ currentUser, products, cartItems, setCartItems }) => {
-	// const [products, setProducts] = useState([])
-
-	// useEffect(() => {
-	//    const getAllProducts = async () => {
-	//       const allProducts = await getProducts();
-	//       // console.log("these are my products....", allProducts)
-	//       setProducts(allProducts);
-	//    }
-	//    getAllProducts();
-	// }, []);
 
 	function handleAddToCart(productId) {
 		const product = products.find((x) => x.id === productId);
@@ -30,10 +19,6 @@ const Products = ({ currentUser, products, cartItems, setCartItems }) => {
 
 			localStorage.setItem("cartItems", JSON.stringify(cartItems));
 		}
-	}
-
-	function deleteProduct(productId) {
-		// TODO: write functionality
 	}
 
 	return (

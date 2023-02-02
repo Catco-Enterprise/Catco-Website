@@ -15,6 +15,7 @@ import Register from "./Register";
 import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
 import Admin from "./Admin";
+import EditProducts from "./EditProducts";
 
 const App = () => {
 	const [token, setToken] = useState(localStorage.getItem("token"));
@@ -124,6 +125,10 @@ const App = () => {
 				<Route
 					path="/admin"
 					element={<Admin currentUser={user} products={products} setProducts={setProducts} />}
+				/>
+				<Route
+					path="/EditProducts"
+					element={<EditProducts products={products} />}
 				/>
 			</Routes>
 		</div>
