@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getAllProducts, updateProduct } from "../../db/models/products";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { patchProduct } from "../axios-services";
 
 function EditProduct() {
-    const params = useParams();
-    const productId = params.id;
+    const { state } = useLocation();
+    const product = state;
 
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function EditProduct() {
     async function handleSubmit(event, productId) {
         event.preventDefault();
 
-        const updatedProduct = await updateProduct(productId, name, description, stock, price);
+        const updatedProduct = await patchProduct(productId, name, description, stock, price);
 
         console.log(updatedProduct);
 
@@ -26,23 +26,23 @@ function EditProduct() {
     }
 
     return (
-        <div key={product.id} className="info">
+        <div>
             <form onSubmit={(event) => handleSubmit(event, product.id)}>
                 <div>
                     <label htmlFor="name">Name</label>
-                    <input type="text" name="name" onChange={(event) => setName(event.target.value)} />
+                    <input type="text" name="name" value={product.name} onChange={(event) => setName(event.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="description">Description</label>
-                    <input type="text" name="stock" onChange={(event) => setDescription(event.target.value)} />
+                    <input type="text" name="description" value={product.description} onChange={(event) => setDescription(event.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="stock">Stock</label>
-                    <input type="text" name="stock" onChange={(event) => setStock(event.target.value)} />
+                    <input type="text" name="stock" value={product.stock} onChange={(event) => setStock(event.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="price">Price</label>
-                    <input type="text" name="price" onChange={(event) => setPrice(event.target.value)} />
+                    <input type="text" name="price" value={product.price} onChange={(event) => setPrice(event.target.value)} />
                 </div>
                 <button>Submit</button>
             </form>
