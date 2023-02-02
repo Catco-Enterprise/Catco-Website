@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { patchProduct } from "../axios-services";
 import { useLocation } from "react-router-dom";
 
-function EditProducts() {
+function EditProducts({ products, setProducts }) {
 
     const { state } = useLocation();
     const oneProduct = state;
@@ -19,15 +19,12 @@ function EditProducts() {
 
     async function handleSubmit(event, productId) {
         event.preventDefault();
-
-        const name = event.target.value;
-        const description = event.target.value;
-        const stock = event.target.value;
-        const price = event.target.value;
-
-        await patchProduct(productId, name, description, stock, price);
-
-        console.log(name, description, stock, price);
+        const fields = { name: editName, description: editDescript, stock: editStock, price: editPrice }
+        const updatedProduct = await patchProduct(productId, fields);
+        const prodIdx = products.findIndex((prod) => prod.id === productId);
+        const newProducts = [...products];
+        newProducts.splice(prodIdx, 1, updatedProduct);
+        setProducts(newProducts);
 
         navigate('/admin')
     }
@@ -36,7 +33,7 @@ function EditProducts() {
         <div>
             <h1>Edit Products</h1>
             <div key={oneProduct.id} className="info">
-                <form onSubmit={(event) => handleSubmit(event, product.id)}>
+                <form onSubmit={(event) => handleSubmit(event, oneProduct.id)}>
                     <div>
                         <label htmlFor="name">Name</label>
                         <input value={editName} type="text" name="name" onChange={(event) => setEditName(event.target.value)} />

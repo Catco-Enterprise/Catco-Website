@@ -78,18 +78,19 @@ async function attachProductsToOrders(orders) {
 }
 
 
-async function updateProduct(id) {
-	const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(", ");
+async function updateProduct(id, fields) {
+	const setString = Object.keys(fields).map((key, index) => `${key}=$${index + 1}`).join(", ");
+
 	try {
-		if (setString.length < 0) {
+		if (setString.length > 0) {
 			const { rows: [product] } = await client.query(`
 			UPDATE products
 			SET ${setString}
 			WHERE id = ${id}
-			RETURNING *,
-			`, object.values(fields));
+			RETURNING *
+			`, Object.values(fields));
+			return product;
 		}
-		return product;
 	} catch (error) {
 
 	}
