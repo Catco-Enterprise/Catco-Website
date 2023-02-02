@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { getAllUsers, createProduct, deleteProduct, patchProduct } from "../axios-services";
 
 function Admin({ currentUser, setProducts, products }) {
     const navigate = useNavigate();
@@ -14,8 +14,6 @@ function Admin({ currentUser, setProducts, products }) {
         const description = event.target.description.value;
         const stock = event.target.stock.value;
         const price = event.target.price.value;
-
-        console.log(name, description, stock, price)
 
         const newProduct = {
             name: name,
@@ -37,16 +35,14 @@ function Admin({ currentUser, setProducts, products }) {
         event.preventDefault();
         const deletedProduct = await deleteProduct(productId);
         setProducts([...products])
-
-        console.log('this should be the deleted product', deletedProduct);
     }
 
     useEffect(() => {
         async function checkIfAdmin() {
             // If 'currentUser' is defined and 'currentUser' is not an admin,
             // redirect the user to the login view
-            if (currentUser == null && currentUser.isAdmin === false) navigate('/login');
-
+            if (currentUser.isAdmin === false) navigate('/login');
+            console.log(currentUser)
             // ----------------------NEEDS MORE WORK
 
         }
@@ -102,6 +98,11 @@ function Admin({ currentUser, setProducts, products }) {
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
                                 <td><button type="button" onClick={(event) => handleDeleteProduct(event, product.id)}>Delete</button></td>
+                                <td><button type="button"> <Link
+                                    to={`/products/edit/${product.id}`}
+                                    state={product}>
+                                    Edit
+                                </Link></button></td>
                             </tr>);
                         })}
                         <tr>
@@ -117,6 +118,5 @@ function Admin({ currentUser, setProducts, products }) {
         </div>
     );
 }
-
 
 export default Admin;

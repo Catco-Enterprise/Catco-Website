@@ -160,4 +160,5 @@ router.get("/getAll", async (req, res, next) => {
 		next(error);
 	}
 });
+
 module.exports = router;
