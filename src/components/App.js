@@ -14,7 +14,9 @@ import "../style/App.css";
 import Register from "./Register";
 import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
-import Admin from "./Admin";
+import Admin from "./Admin"; import ReactDOM from 'react-dom'
+import Footer from "./Footer";
+
 
 const App = () => {
 	const [token, setToken] = useState(localStorage.getItem("token"));
@@ -35,7 +37,6 @@ const App = () => {
 			const { healthy } = await getAPIHealth();
 			setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
 		};
-
 		// second, after you've defined your getter above
 		// invoke it immediately after its declaration, inside the useEffect callback
 		getAPIStatus();
@@ -59,7 +60,6 @@ const App = () => {
 			getMe();
 			setIsLoggedIn(true);
 		}
-
 		// const cachedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 
 		// if (cachedCartItems) {
@@ -67,14 +67,6 @@ const App = () => {
 		// }
 	}, [token]);
 
-	// console.log("---------------STATE (App)---------------");
-	// console.log("APIHealth: ", APIHealth);
-	// console.log("token: ", token);
-	// console.log("user: ", user);
-	// console.log("isLoggedIn: ", isLoggedIn);
-	// console.log("products: ", products);
-	// console.log("cartItems: ", cartItems);
-	// console.log("-----------------------------------------");
 
 	return (
 		<div className="app-container">
@@ -129,5 +121,6 @@ const App = () => {
 		</div>
 	);
 };
+{/* <Footer /> */ }
 
 export default App;
