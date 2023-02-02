@@ -37,7 +37,11 @@ router.delete('/:id', async (req, res, next) => {
 //PATCH: api/products
 router.patch('/:id', async (req, res, next) => {
 	try {
-		const updatedProduct = await Products.updateProduct(id);
+		const { id } = req.params
+		const { name, description, stock, price } = req.body;
+
+		const updatedProduct = await Products.updateProduct(id, name, description, stock, price);
+
 		res.send(updatedProduct);
 	} catch (error) {
 		console.error('API: error with editing this product')
