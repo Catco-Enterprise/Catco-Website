@@ -2,27 +2,47 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { patchProduct } from "../axios-services";
 
-function EditProduct() {
+function EditProduct({ products, setProducts }) {
+    // Pass in the product as a parameter from <Link>
     const { state } = useLocation();
     const product = state;
 
     const navigate = useNavigate();
 
-    const [name, setName] = useState();
-    const [description, setDescription] = useState();
-    const [stock, setStock] = useState();
-    const [price, setPrice] = useState();
+    // Create useState variables for each field
+    // Initialize them with the values from the product we are editing
+    const [name, setName] = useState(product.name);
+    const [description, setDescription] = useState(product.description);
+    const [stock, setStock] = useState(product.stock);
+    const [price, setPrice] = useState(product.price);
 
     const [errorMessage, setErrorMessage] = useState([]);
 
     async function handleSubmit(event, productId) {
         event.preventDefault();
 
+        // Form is submitted, update the product to the new values
         const updatedProduct = await patchProduct(productId, name, description, stock, price);
 
-        console.log(updatedProduct);
+        // If the method returns the product
+        // (Not a very good fail safe)
+        if (updatedProduct) {
 
-        navigate('/products')
+            // Update the useState products so the screen has new data
+            // You can also do this by just requerying the database
+            products.forEach((product) => {
+                if (product.id === updatedProduct.id) {
+                    product.name = name;
+                    product.description = description;
+                    product.stock = stock;
+                    product.price = price;
+                }
+            });
+
+            setProducts(products);;
+        }
+
+        navigate('/admin')
     }
 
     return (

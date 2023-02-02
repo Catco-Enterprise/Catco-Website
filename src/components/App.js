@@ -105,7 +105,7 @@ const App = () => {
 				/>
 				<Route
 					path="/edit-product/:id"
-					element={<EditProduct products={products} />}
+					element={<EditProduct products={products} setProducts={setProducts} />}
 				/>
 				<Route
 					path="/Register"
