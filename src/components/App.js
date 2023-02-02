@@ -9,7 +9,12 @@ import { Routes, Route } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth, getProducts, fetchMe } from "../axios-services";
+import {
+	getAPIHealth,
+	getProducts,
+	fetchMe,
+	fetchActiveOrder,
+} from "../axios-services";
 import "../style/App.css";
 import Register from "./Register";
 import { useStateDispatch } from "../StateContext";
@@ -24,9 +29,7 @@ const App = () => {
 	const [user, setUser] = useState({});
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [products, setProducts] = useState([]);
-	const [cartItems, setCartItems] = useState(
-		JSON.parse(localStorage.getItem("cartItems"))
-	);
+	const [cartItems, setCartItems] = useState([]);
 	const [APIHealth, setAPIHealth] = useState("");
 
 	//
@@ -47,6 +50,10 @@ const App = () => {
 			setProducts(allProducts);
 		};
 		getAllProducts();
+
+		if (localStorage.getItem("cartItems")) {
+			setCartItems(JSON.parse(localStorage.getItem("cartItems")));
+		}
 	}, []);
 
 	useEffect(() => {
@@ -57,7 +64,7 @@ const App = () => {
 			// localStorage.setItem("user", JSON.stringify(userObj));
 		};
 
-		if (token) {
+		if (!user.id && token) {
 			getMe();
 			setIsLoggedIn(true);
 		}
@@ -68,10 +75,39 @@ const App = () => {
 		// }
 	}, [token]);
 
+	// useEffect(() => {
+	// 	const getActiveOrder = async () => {
+	// 		const activeOrder = await fetchActiveOrder(token);
+	// 		console.log(activeOrder);
+	// 		if (activeOrder.id) {
+	// 			setUser({ ...user, activeOrderId: activeOrder.id });
+	// 			setCartItems(activeOrder.products);
+	// 		}
+	// 	};
+	// 	if (isLoggedIn) {
+	// 		getActiveOrder();
+	// 	}
+	// }, [user]);
+
+	function resetState() {
+		setToken(localStorage.getItem("token"));
+		setUser({});
+		setIsLoggedIn(false);
+		setCartItems([]);
+	}
+
+	console.log("---------------STATE (App)---------------");
+	console.log("APIHealth: ", APIHealth);
+	console.log("token: ", token);
+	console.log("user: ", user);
+	console.log("isLoggedIn: ", isLoggedIn);
+	console.log("products: ", products);
+	console.log("cartItems: ", cartItems);
+	console.log("-----------------------------------------");
 
 	return (
 		<div className="app-container">
-			<Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+			<Navbar isLoggedIn={isLoggedIn} resetState={resetState} />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route
@@ -90,6 +126,7 @@ const App = () => {
 						<Login
 							token={token}
 							setToken={setToken}
+							setUser={setUser}
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 						/>
@@ -109,6 +146,7 @@ const App = () => {
 						<Register
 							token={token}
 							setToken={setToken}
+							setUser={setUser}
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 						/>
@@ -116,7 +154,13 @@ const App = () => {
 				/>
 				<Route
 					path="/admin"
-					element={<Admin currentUser={user} products={products} setProducts={setProducts} />}
+					element={
+						<Admin
+							currentUser={user}
+							products={products}
+							setProducts={setProducts}
+						/>
+					}
 				/>
 				<Route
 					path="products/edit/:id"
@@ -126,6 +170,8 @@ const App = () => {
 		</div>
 	);
 };
-{/* <Footer /> */ }
+{
+	/* <Footer /> */
+}
 
 export default App;

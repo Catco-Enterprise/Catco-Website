@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../axios-services";
 import '../style/Login.css'
 
-function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
+function Login({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState();
 
@@ -21,6 +21,10 @@ function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
 		}
 
 		const result = await login(email, password);
+		console.log(
+			"---------------------LOGIN RESULT-----------------------",
+			result
+		);
 
 		if (result.token) {
 			console.log("I'm here");
@@ -28,6 +32,7 @@ function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
 
 			setIsLoggedIn(true);
 			setToken(result.token);
+			setUser(result.user);
 
 			navigate("/");
 		} else {
@@ -35,9 +40,9 @@ function Login({ token, setToken, isLoggedIn, setIsLoggedIn }) {
 		}
 	}
 
-	if (isLoggedIn) {
-		navigate("/");
-	}
+	// if (isLoggedIn) {
+	// 	navigate("/");
+	// }
 	return (
 		<div>
 			<h1>Login</h1>

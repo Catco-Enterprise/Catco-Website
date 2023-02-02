@@ -8,7 +8,7 @@ import { faHome, faShoppingBag, faSignOut, faCartShopping, faRegistered } from '
 
 
 
-function Navbar({ currentUser, isLoggedIn, setIsLoggedIn }) {
+function Navbar({ currentUser, isLoggedIn, resetState }) {
 	const linkStyle = {
 		textDecoration: "none",
 		margin: "7px",
@@ -35,7 +35,7 @@ function Navbar({ currentUser, isLoggedIn, setIsLoggedIn }) {
 						to="/"
 						onClick={() => {
 							localStorage.clear();
-							setIsLoggedIn(false);
+							resetState();
 						}}
 					>
 						<FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>

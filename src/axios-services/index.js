@@ -8,27 +8,28 @@ import axios from "axios";
 // we'd probably want to define a getUsers service like this:
 
 export async function login(email, password) {
-	const { data: user } = await axios.post("/api/users/login", {
+	const { data } = await axios.post("/api/users/login", {
 		email: email,
 		password: password,
 	});
-
-	return user;
+	console.log("user @ FE login function: ", data);
+	return data;
 }
 
+//change this to return the token, rather than the user w/ token attached
 export async function register(email, password) {
-	const { data: user } = await axios.post("/api/users/register", {
+	const { data } = await axios.post("/api/users/register", {
 		email: email,
 		password: password,
 	});
 
-	return user;
+	return data;
 }
 
 export async function getUser(token) {
 	// Headers are added as a second parameter to axios.get()
-	const { data: user } = await axios.get('/api/users/me', {
-		headers: { Authorization: `Bearer ${token}` }
+	const { data: user } = await axios.get("/api/users/me", {
+		headers: { Authorization: `Bearer ${token}` },
 	});
 
 	return user;
@@ -36,10 +37,10 @@ export async function getUser(token) {
 
 export async function getAllUsers() {
 	try {
-		const { data: users } = await axios.get('/api/users/getAll');
+		const { data: users } = await axios.get("/api/users/getAll");
 		return users;
 	} catch (error) {
-		console.log('Error fetching all users');
+		console.log("Error fetching all users");
 	}
 }
 
@@ -95,7 +96,7 @@ export async function createProduct(name, description, stock, price) {
 		name: name,
 		description: description,
 		stock: stock,
-		price: price
+		price: price,
 	});
 
 	return product;
@@ -116,7 +117,19 @@ export async function deleteProduct(id) {
 	try {
 		const { data } = await axios.delete(`/api/products/${id}`);
 	} catch (error) {
-		console.error('Axios: error deleting product');
+		console.error("Axios: error deleting product");
 		throw error;
+	}
+}
+
+export async function fetchActiveOrder(token) {
+	try {
+		const { data } = await axios.get("api/users/me/activeOrder", {
+			headers: { Authorization: `Bearer ${token}` },
+		});
+
+		return data;
+	} catch (error) {
+		console.error("Axios, error fetching active orders", error);
 	}
 }
