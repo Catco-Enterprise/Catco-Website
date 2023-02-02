@@ -78,22 +78,30 @@ async function attachProductsToOrders(products) {
 }
 
 
-async function updateProduct(id) {
-	const setString = Object.keys(fields).map((key, index) => `"${key}"=$${index + 1}`).join(", ");
+async function updateProduct(id, name, description, stock, price) {
 	try {
-		if (setString.length < 0) {
-			const { rows: [product] } = await client.query(`
-			UPDATE products
-			SET ${setString}
-			WHERE id = ${id}
-			RETURNING *,
-			`, object.values(fields));
-		}
+		// CREATE TABLE products (
+		// 	id SERIAL PRIMARY KEY,
+		// 	name VARCHAR(255) UNIQUE NOT NULL,
+		// 	description VARCHAR(255) NOT NULL,
+		// 	price NUMERIC NOT NULL,
+		// 	stock INTEGER
+		//   );
+		const updateQuery = `UPDATE products SET
+		name = '${name}',
+		description = '${description}',
+		stock = ${stock},
+		price = ${price}
+		WHERE id = ${id}
+		RETURNING *`;
+
+		const { rows: product } = await client.query(updateQuery);
+
 		return product;
 	} catch (error) {
-
+		console.error('DB: Error updating product');
+		throw error;
 	}
-
 }
 
 module.exports = {
