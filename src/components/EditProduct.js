@@ -30,19 +30,19 @@ function EditProduct() {
             <form onSubmit={(event) => handleSubmit(event, product.id)}>
                 <div>
                     <label htmlFor="name">Name</label>
-                    <input type="text" name="name" value={product.name} onChange={(event) => setName(event.target.value)} />
+                    <input type="text" name="name" defaultValue={product.name} onChange={(event) => setName(event.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="description">Description</label>
-                    <input type="text" name="description" value={product.description} onChange={(event) => setDescription(event.target.value)} />
+                    <input type="text" name="description" defaultValue={product.description} onChange={(event) => setDescription(event.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="stock">Stock</label>
-                    <input type="text" name="stock" value={product.stock} onChange={(event) => setStock(event.target.value)} />
+                    <input type="text" name="stock" defaultValue={product.stock} onChange={(event) => setStock(event.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="price">Price</label>
-                    <input type="text" name="price" value={product.price} onChange={(event) => setPrice(event.target.value)} />
+                    <input type="text" name="price" defaultValue={product.price} onChange={(event) => setPrice(event.target.value)} />
                 </div>
                 <button>Submit</button>
             </form>
