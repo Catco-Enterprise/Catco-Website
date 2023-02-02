@@ -16,6 +16,7 @@ import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
 import Admin from "./Admin"; import ReactDOM from 'react-dom'
 import Footer from "./Footer";
+import EditProduct from "./EditProduct";
 
 
 const App = () => {
@@ -101,6 +102,10 @@ const App = () => {
 				<Route
 					path="/products/:id"
 					element={<SingleProduct products={products} />}
+				/>
+				<Route
+					path="/edit-product/:id"
+					element={<EditProduct products={products} />}
 				/>
 				<Route
 					path="/Register"
