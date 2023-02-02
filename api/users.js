@@ -5,7 +5,7 @@ const { JWT_SECRET } = process.env;
 const bcrypt = require("bcrypt");
 const { User, Orders } = require("../db");
 const { getAllUsers } = require("../db/models/user");
-
+const { getActiveOrderByUserId } = require("../db/models/orders");
 
 // POST: api/users/register
 router.post("/register", async (req, res, next) => {
@@ -39,6 +39,7 @@ router.post("/register", async (req, res, next) => {
 			}
 		);
 
+		//do not need to return user- this is taken care of with a useEffect on App
 		res.send({
 			message: "Thank you for registering!",
 			newUser,
@@ -61,6 +62,7 @@ router.post("/login", async (req, res, next) => {
 	}
 	try {
 		const user = await User.getUserByEmail(email);
+		console.log("user @ login BE route: ", user);
 
 		if (user && bcrypt.compare(user.password, password)) {
 			const token = jwt.sign(
@@ -73,6 +75,9 @@ router.post("/login", async (req, res, next) => {
 					expiresIn: "2w",
 				}
 			);
+
+			user.activeOrder = await getActiveOrderByUserId(user.id);
+			delete user.password;
 
 			res.send({
 				message: "You're logged in!",
@@ -118,7 +123,7 @@ router.get("/me", async (req, res, next) => {
 
 // GET: api/users/me/activeorders
 
-router.get("/me/activeOrder", async (req,res,next) => {
+router.get("/me/activeOrder", async (req, res, next) => {
 	const prefix = "Bearer ";
 	const auth = req.header("Authorization");
 
@@ -134,13 +139,17 @@ router.get("/me/activeOrder", async (req,res,next) => {
 			const { id } = jwt.verify(token, JWT_SECRET);
 			if (id) {
 				const activeOrder = await Orders.getActiveOrderByUserId(id);
-				res.send(activeOrder);
+				if (activeOrder.id) {
+					res.send(activeOrder);
+				} else {
+					res.send(await Orders.createOrder(id));
+				}
 			}
 		} catch (error) {
 			console.error(error);
 		}
 	}
-})
+});
 
 // GET: api/users/getAll
 

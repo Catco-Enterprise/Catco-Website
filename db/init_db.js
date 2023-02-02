@@ -48,7 +48,7 @@ async function createTables() {
     CREATE TABLE orders (
 		id SERIAL PRIMARY KEY,
 		"userId" INTEGER REFERENCES users(id),
-		"isActive" BOOLEAN DEFAULT FALSE,
+		"isActive" BOOLEAN DEFAULT TRUE,
 		purchased_date DATE
 	);
 	  
@@ -132,34 +132,30 @@ async function createInitialProducts() {
 	console.log("Products created: ", products);
 }
 
-async function createInitialOrders() {
-	const ordersToCreate = [
-		{
-			userId: 1,
-			isActive: true,
-		
-		},
-		{
-			userId: 2,
-			isActive: true,
-		
-		},
-		{
-			userId: 3,
-			isActive: true,
-		
-		},
-		{
-			userId: 4,
-			isActive: true,
-		
-		}
-	];
-	
-	console.log("Starting to create orders");
-	const orders = await Promise.all(ordersToCreate.map(createOrder));
-	console.log("Orders created", orders);
-}
+// async function createInitialOrders() {
+// 	const ordersToCreate = [
+// 		{
+// 			userId: 1,
+// 			isActive: true,
+// 		},
+// 		{
+// 			userId: 2,
+// 			isActive: true,
+// 		},
+// 		{
+// 			userId: 3,
+// 			isActive: true,
+// 		},
+// 		{
+// 			userId: 4,
+// 			isActive: true,
+// 		},
+// 	];
+
+// 	console.log("Starting to create orders");
+// 	const orders = await Promise.all(ordersToCreate.map(createOrder));
+// 	console.log("Orders created", orders);
+// }
 
 async function rebuildDB() {
 	try {
@@ -168,15 +164,12 @@ async function rebuildDB() {
 		await createTables();
 		await populateInitialData();
 		await createInitialProducts();
-		await createInitialOrders();
+		// await createInitialOrders();
 	} catch (error) {
 		console.log("Error during rebuildDB");
 		throw error;
 	}
 }
-
-
-
 
 rebuildDB()
 	.catch(console.error)

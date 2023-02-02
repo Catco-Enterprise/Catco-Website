@@ -1,15 +1,19 @@
 const client = require("../client");
+const { attachProductsToOrders } = require("./products");
 
-async function createOrder() {
+async function createOrder(userId) {
 	try {
-		const { rows: order } = await client.query(
+		const {
+			rows: [order],
+		} = await client.query(
 			`
-        INSERT INTO orders("userId","isActive",purchased_date)
-        VALUES($1, $2, $3)
+        INSERT INTO orders("userId")
+        VALUES ($1)
         RETURNING *;
-        `[(userId, isActive, purchased_date)]
+        `,
+			[userId]
 		);
-
+		console.log("order @ createOrder: ", order);
 		return order;
 	} catch (error) {
 		throw error;
@@ -35,16 +39,34 @@ async function getAllOrdersByUserId(userId) {
 async function getActiveOrderByUserId(id) {
 	try {
 		const {
-rows: [order],
+			rows: [order],
 		} = await client.query(
 			`
-      SELECT orders.*, users.email AS "userAcc"
+      SELECT *
       FROM orders
-      JOIN order_products ON orders.id = order_products."orderId"
-      WHERE order_products."productId" = $1 AND "isActive" = true;
-      `,[id]);
+      WHERE orders."userId" = $1 AND "isActive" = true;
+      `,
+			[id]
+		);
+		// did we need this query for something else??:
 
-		return attachProductsToOrders(order);
+		// const {
+		// 	rows: [order],
+		// } = await client.query(
+		// 	`
+		//   SELECT orders.*, users.email AS "userAcc"
+		//   FROM orders
+		//   JOIN order_products ON orders.id = order_products."orderId"
+		//   WHERE order_products."productId" = $1 AND "isActive" = true;
+		//   `,
+		// 	[id]
+		// );
+		if (order.id) {
+			const [activeOrder] = await attachProductsToOrders([order]);
+			return activeOrder;
+		} else {
+			return await createOrder(id);
+		}
 	} catch (error) {
 		throw error;
 	}

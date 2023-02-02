@@ -9,7 +9,12 @@ import { Routes, Route } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth, getProducts, fetchMe, fetchActiveOrder } from "../axios-services";
+import {
+	getAPIHealth,
+	getProducts,
+	fetchMe,
+	fetchActiveOrder,
+} from "../axios-services";
 import "../style/App.css";
 import Register from "./Register";
 import { useStateDispatch } from "../StateContext";
@@ -57,19 +62,9 @@ const App = () => {
 			// localStorage.setItem("user", JSON.stringify(userObj));
 		};
 
-		const getActiveOrder = async () => {
-			const activeOrder = await fetchActiveOrder(token);
-			setUser({...user, activeOrderId: activeOrder.id})
-		}
-
-		if (token) {
+		if (!user.id && token) {
 			getMe();
 			setIsLoggedIn(true);
-			getActiveOrder();
-
-		}
-
-		if (user.id) {
 		}
 
 		// const cachedCartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -78,6 +73,20 @@ const App = () => {
 		//   setCartItems(cachedCartItems);
 		// }
 	}, [token]);
+
+	// useEffect(() => {
+	// 	const getActiveOrder = async () => {
+	// 		const activeOrder = await fetchActiveOrder(token);
+	// 		console.log(activeOrder);
+	// 		if (activeOrder.id) {
+	// 			setUser({ ...user, activeOrderId: activeOrder.id });
+	// 			setCartItems(activeOrder.products);
+	// 		}
+	// 	};
+	// 	if (isLoggedIn) {
+	// 		getActiveOrder();
+	// 	}
+	// }, [user]);
 
 	function resetState() {
 		setToken(localStorage.getItem("token"));
@@ -116,6 +125,7 @@ const App = () => {
 						<Login
 							token={token}
 							setToken={setToken}
+							setUser={setUser}
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 						/>
@@ -135,6 +145,7 @@ const App = () => {
 						<Register
 							token={token}
 							setToken={setToken}
+							setUser={setUser}
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 						/>
