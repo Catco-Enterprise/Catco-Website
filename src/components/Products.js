@@ -2,41 +2,40 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import noImage from "../img/no-image.jpg";
 import { getProducts } from "../axios-services";
+import SingleProduct from "./SingleProduct";
 import '../style/Products.css'
 
 
 const Products = ({ currentUser, products, cartItems, setCartItems }) => {
 	// const [products, setProducts] = useState([])
 
-	// useEffect(() => {
-	//    const getAllProducts = async () => {
-	//       const allProducts = await getProducts();
-	//       // console.log("these are my products....", allProducts)
-	//       setProducts(allProducts);
-	//    }
-	//    getAllProducts();
-	// }, []);
+	// function handleAddToCart(product, cartItems) {
 
-	function handleAddToCart(productId) {
-		const product = products.find((x) => x.id === productId);
+	// 	const cartProdIdx = cartItems.findIndex((prod) => prod.id === product.id);
 
-		if (product) {
-			const cartItem = cartItems.find((x) => x.id == productId);
+	// 	if (cartProdIdx > -1) {
+	// 		// const cartItem = cartItems.find((x) => x.id == productId);
 
-			if (cartItem) {
-				cartItem.quantity++;
-			} else {
-				product.quantity = 1;
-				setCartItems((cartItems) => [...cartItems, product]);
-			}
+	// 		// if (cartItem) {
+	// 		// 	cartItem.quantity++;
+	// 		// } else {
+	// 		// 	product.quantity = 1;
+	// 		// 	setCartItems((cartItems) => [...cartItems, product]);
+	// 		// }
 
-			localStorage.setItem("cartItems", JSON.stringify(cartItems));
-		}
-	}
+	// 		// localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-	function deleteProduct(productId) {
-		// TODO: write functionality
-	}
+	// 		product.quantity += 1;
+	// 		const newCart = cartItems.splice(cartProdIdx, 1, product);
+	// 		setCartItems(newCart);
+	// 	} else {
+	// 		product.quantity
+	// 	}
+	// }
+
+	// function deleteProduct(productId) {
+	// 	// TODO: write functionality
+	// }
 
 	return (
 		<div>
@@ -44,28 +43,12 @@ const Products = ({ currentUser, products, cartItems, setCartItems }) => {
 			<div className="products-container">
 				{products.map((product) => {
 					return (
-						<div key={product.id} className="product">
-							<img src={noImage} />
-							<Link
-								to={`/products/${product.id}`}
-								state={product}
-								className="title"
-							>
-								{product.name}
-							</Link>
-							<div className="price">${product.price}</div>
-							<div>{product.description}</div>
-							<br />
-							{/* <span>{product.stock}</span> */}
-							<button onClick={() => handleAddToCart(product.id)}>
-								Add to Cart
-							</button>
-							{currentUser?.isAdmin ? (
-								<button onClick={() => deleteProduct(product.id)}>
-									Delete
-								</button>
-							) : null}
-						</div>
+						<SingleProduct
+							key={product.id}
+							product={product}
+							cartItems={cartItems}
+							setCartItems={setCartItems}
+						/>
 					);
 				})}
 			</div>

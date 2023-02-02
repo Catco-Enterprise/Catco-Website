@@ -5,6 +5,7 @@ const {
 	// for example, User
 } = require("./");
 const { createProduct } = require("./models/products");
+const { createOrder } = require("./models/orders");
 
 async function dropTables() {
 	try {
@@ -47,8 +48,8 @@ async function createTables() {
     CREATE TABLE orders (
 		id SERIAL PRIMARY KEY,
 		"userId" INTEGER REFERENCES users(id),
-		"isActive" BOOLEAN DEFAULT FALSE,
-		purchased_date DATE NOT NULL
+		"isActive" BOOLEAN DEFAULT TRUE,
+		purchased_date DATE
 	);
 	  
 	CREATE TABLE order_products (
@@ -131,6 +132,31 @@ async function createInitialProducts() {
 	console.log("Products created: ", products);
 }
 
+// async function createInitialOrders() {
+// 	const ordersToCreate = [
+// 		{
+// 			userId: 1,
+// 			isActive: true,
+// 		},
+// 		{
+// 			userId: 2,
+// 			isActive: true,
+// 		},
+// 		{
+// 			userId: 3,
+// 			isActive: true,
+// 		},
+// 		{
+// 			userId: 4,
+// 			isActive: true,
+// 		},
+// 	];
+
+// 	console.log("Starting to create orders");
+// 	const orders = await Promise.all(ordersToCreate.map(createOrder));
+// 	console.log("Orders created", orders);
+// }
+
 async function rebuildDB() {
 	try {
 		await client.connect();
@@ -138,6 +164,7 @@ async function rebuildDB() {
 		await createTables();
 		await populateInitialData();
 		await createInitialProducts();
+		// await createInitialOrders();
 	} catch (error) {
 		console.log("Error during rebuildDB");
 		throw error;

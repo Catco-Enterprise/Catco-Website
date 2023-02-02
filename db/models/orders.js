@@ -1,50 +1,79 @@
 const client = require("../client");
+const { attachProductsToOrders } = require("./products");
 
-async function createOrder() {
-    try {
-        const { rows: order } = await client.query(`
-        INSERT INTO orders("userId","isActive",purchased_date)
-        VALUES($1, $2, $3, $4)
+async function createOrder(userId) {
+	try {
+		const {
+			rows: [order],
+		} = await client.query(
+			`
+        INSERT INTO orders("userId")
+        VALUES ($1)
         RETURNING *;
-        `[userId, isActive, purchased_date]);
-
-        return order;
-    } catch (error) {
-        throw error;
-    }
+        `,
+			[userId]
+		);
+		console.log("order @ createOrder: ", order);
+		return order;
+	} catch (error) {
+		throw error;
+	}
 }
 
-async function getOrderById(userId) {
-    try {
-        const { rows: [order] } = await client.query(`
+async function getAllOrdersByUserId(userId) {
+	try {
+		const {
+			rows: [order],
+		} = await client.query(`
       SELECT *
       FROM orders
       WHERE "userId" =  ${userId}
       `);
 
-        return order;
-    } catch (error) {
-        throw error;
-    }
+		return order;
+	} catch (error) {
+		throw error;
+	}
 }
 
-async function getActiveOrderById(id) {
-    try {
-        const { rows: [order] } = await client.query(`
-      SELECT orders.*, users.email AS "userAcc"
+async function getActiveOrderByUserId(id) {
+	try {
+		const {
+			rows: [order],
+		} = await client.query(
+			`
+      SELECT *
       FROM orders
-      JOIN order_products ON orders.id = order_products."orderId"
-      WHERE order_products."productId" = $1 AND "isActive" = true
-      `[id]);
+      WHERE orders."userId" = $1 AND "isActive" = true;
+      `,
+			[id]
+		);
+		// did we need this query for something else??:
 
-        return attachProductsToOrders(order);
-    } catch (error) {
-        throw error;
-    }
+		// const {
+		// 	rows: [order],
+		// } = await client.query(
+		// 	`
+		//   SELECT orders.*, users.email AS "userAcc"
+		//   FROM orders
+		//   JOIN order_products ON orders.id = order_products."orderId"
+		//   WHERE order_products."productId" = $1 AND "isActive" = true;
+		//   `,
+		// 	[id]
+		// );
+		if (order.id) {
+			const [activeOrder] = await attachProductsToOrders([order]);
+			return activeOrder;
+		} else {
+			return await createOrder(id);
+		}
+	} catch (error) {
+		throw error;
+	}
 }
 
 module.exports = {
-    getOrderById,
-    getActiveOrderById,
-    createOrder
-}
+	getAllOrdersByUserId,
+	getActiveOrderByUserId,
+	createOrder,
+};
