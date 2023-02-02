@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getAllProducts, updateProduct } from "../../db/models/products";
-import { getAllUsers, createProduct, deleteProduct, patchProduct } from "../axios-services";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
 
 function Admin({ currentUser, setProducts, products }) {
     const navigate = useNavigate();
@@ -102,6 +101,7 @@ function Admin({ currentUser, setProducts, products }) {
                                 <td>{product.description}</td>
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
+                                <td><Link to={`/edit-product/${product.id}`} state={product}>Edit</Link></td>
                                 <td><button type="button" onClick={(event) => handleDeleteProduct(event, product.id)}>Delete</button></td>
                             </tr>);
                         })}
@@ -118,62 +118,5 @@ function Admin({ currentUser, setProducts, products }) {
         </div>
     );
 }
-
-function editProducts ();{
-    const params = useParams();
-    const productId = params.id;
-
-    const navigate = useNavigate();
-
-    const [products, setProducts] = useState([]);
-    const [errorMessage, seterroMessage] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            setRoutines(await getAllProducts(id));
-        }
-        fetchData();
-    }, []);
-
-    async function handleSubmit(event, productId){
-        event.preventDefault();
-
-        const updatedProduct = await updateProduct(productId, name, description, stock, price);
-
-        console.log(updatedProduct);
-
-        navigate('/products')
-    }
-}
-
-const productsFormsHtml = products?.map((product) => {
-    return (
-        <div key={product.id} className="info">
-            <form onSubmit={(event) => handleSubmit(product, product.id)}>
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name"  onChange={(event) => setName(event.target.value)} />
-                </div>
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <input type="text" name="stock"  onChange={(event) => setstock(event.target.value)}  />
-                </div>
-                <div>
-                <input type="text" name="price"  onChange={(event) => setprice(event.target.value)}  />
-                </div>
-                <button>Submit</button>
-            </form>
-            <span>{errorMessage}</span>
-        </div>
-      )
-    });
-
-    return (
-        <div>
-            <h1>Edit Products</h1>
-            {productsFormsHtml}
-        </div>
-    );
-    
 
 export default Admin;
