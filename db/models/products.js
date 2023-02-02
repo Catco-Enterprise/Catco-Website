@@ -54,7 +54,7 @@ async function getProductById(id) {
 	}
 }
 
-async function attachProductsToOrders(products) {
+async function attachProductsToOrders(orders) {
 	const ordersToReturn = [...orders]
 
 	try {
