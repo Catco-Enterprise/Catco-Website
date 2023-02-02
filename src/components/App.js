@@ -118,6 +118,10 @@ const App = () => {
 					element={<Admin currentUser={user} products={products} setProducts={setProducts} />}
 				/>
 			</Routes>
+
+
+			<Footer />
+
 		</div>
 	);
 };

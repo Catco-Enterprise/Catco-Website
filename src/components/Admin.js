@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
+import "../style/Admin.css";
 
 function Admin({ currentUser, setProducts, products }) {
     const navigate = useNavigate();

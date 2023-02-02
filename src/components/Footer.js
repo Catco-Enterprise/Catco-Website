@@ -1,12 +1,14 @@
 import React from "react";
-// import { library } from '@fortawesome/react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import '../style/Footer.css'
 
 
 const Footer = () => {
     return (
-        <footer>
+        <footer className="footer-container">
+
+            <a href="https://youtu.be/BBJa32lCaaY"> click here for coupons!!!!</a>
             <a href='http://facebook.com'>
                 <FontAwesomeIcon icon={faFacebook} />
             </a>

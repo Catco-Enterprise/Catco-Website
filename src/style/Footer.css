@@ -1,0 +1,12 @@
+.footer-container {
+    background-color: azure;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 20px;
+    bottom: 0;
+    margin: auto;
+    /* padding-top: %; */
+    width: 100%;
+    position: fixed;
+}

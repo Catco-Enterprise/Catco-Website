@@ -1,0 +1,36 @@
+/* Products */
+.products-container {
+    gap: 1em;
+    display: flex;
+}
+
+.product {
+    background: #b0c3c5;
+    border: 1px solid #475758;
+    border-radius: 5px;
+    padding: 1em;
+}
+
+.product img {
+    border: 1px solid #475758;
+    border-radius: 5px;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.product a.title {
+    color: #000000;
+    display: block;
+    font-size: 1.4em;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+.product a.title:hover {
+    font-weight: bold;
+}
+
+.product .price {
+    font-size: 1.6em;
+    margin-bottom: 5px;
+}
