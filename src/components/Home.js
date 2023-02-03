@@ -1,6 +1,6 @@
 import React from "react";
 import '../style/Home.css'
-import Footer from "./Footer";
+
 
 
 const Home = (token) => {

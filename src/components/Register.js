@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../axios-services";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRegistered } from '@fortawesome/free-solid-svg-icons';
+
 
 function Register({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
 	const navigate = useNavigate();
@@ -37,12 +40,14 @@ function Register({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
 	return (
 		<div className="auth-form-container">
 			<h2>Register</h2>
+			<a> join our family and enjoy our products today</a>
 			<form className="register-form" onSubmit={handleSubmit}>
 				<label htmlFor="email">e-mail</label>
 				<input type="email" placeholder="youremail@gmail.com" name="email" />
 				<label htmlFor="password">password</label>
 				<input type="password" placeholder="*******" name="password" />
-				<button>Register</button>
+				<button> <FontAwesomeIcon icon={faRegistered} />
+					_Register</button>
 			</form>
 			<p>{errorMessage}</p>
 		</div>

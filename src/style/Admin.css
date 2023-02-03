@@ -1,7 +1,37 @@
+/* body {
+    padding-bottom: 1in;
+} */
+
+#conatiner {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+
+}
+
 button:hover {
     background-color: #a43e89;
 }
 
 button {
     background-color: rgb(173, 182, 230);
+}
+
+form {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+#product-form {
+    text-align: center;
+}
+
+input {
+    text-align: center;
+    font-size: 18x;
+
 }

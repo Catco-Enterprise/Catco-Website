@@ -2,6 +2,7 @@
 .products-container {
     gap: 1em;
     display: flex;
+
 }
 
 .product {
