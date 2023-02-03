@@ -167,6 +167,10 @@ const App = () => {
 					element={<EditProducts products={products} setProducts={setProducts} />}
 				/>
 			</Routes>
+
+
+			<Footer />
+
 		</div>
 	);
 };

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import { getAllUsers, createProduct, deleteProduct, patchProduct } from "../axios-services";
+import { useNavigate } from "react-router-dom";
+import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
+import "../style/Admin.css";
+
 
 function Admin({ currentUser, setProducts, products }) {
     const navigate = useNavigate();
@@ -12,18 +14,20 @@ function Admin({ currentUser, setProducts, products }) {
 
         const name = event.target.name.value;
         const description = event.target.description.value;
+        const image = event.target.image.value;
         const stock = event.target.stock.value;
         const price = event.target.price.value;
 
         const newProduct = {
             name: name,
             description: description,
+            image: image,
             stock: stock,
             price: price
         }
 
         if (currentUser.isAdmin === true) {
-            await createProduct(name, description, stock, price);
+            await createProduct(name, description, image, stock, price);
             setProducts([...products, newProduct])
         }
         else {
@@ -60,7 +64,7 @@ function Admin({ currentUser, setProducts, products }) {
     }, []);
 
     return (
-        <div>
+        <div className="container">
             <h1>All Users</h1>
             <table>
                 <thead>
@@ -78,6 +82,7 @@ function Admin({ currentUser, setProducts, products }) {
                     })}
                 </tbody>
             </table>
+
             <h1>Products</h1>
             <form onSubmit={handleAddProduct}>
                 <table>
@@ -85,9 +90,10 @@ function Admin({ currentUser, setProducts, products }) {
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Image(Url)</th>
                             <th>Stock</th>
                             <th>Price</th>
-                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -95,6 +101,7 @@ function Admin({ currentUser, setProducts, products }) {
                             return (<tr key={product.id}>
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
+                                <td>{product.image}</td>
                                 <td>{product.stock}</td>
                                 <td>${product.price}</td>
                                 <td><button type="button" onClick={(event) => handleDeleteProduct(event, product.id)}>Delete</button></td>
@@ -105,15 +112,17 @@ function Admin({ currentUser, setProducts, products }) {
                                 </Link></button></td>
                             </tr>);
                         })}
-                        <tr>
-                            <td><input type="text" name="name" required /></td>
-                            <td><input type="text" name="description" required /></td>
-                            <td><input type="number" name="stock" required /></td>
-                            <td><input type="number" name="price" required /></td>
+                        <br></br>
+                        <tr className="product-form">
+                            <td><input placeholder="name" type="text" name="name" required /></td>
+                            <td><input placeholder="description" type="text" name="description" required /></td>
+                            <td><input placeholder="https://example.com" type="text" name="image"></input></td>
+                            <td><input placeholder="999" type="number" name="stock" required /></td>
+                            <td><input placeholder="$999.99" type="number" name="price" required /></td>
+                            <button type="submit">Add Product</button>
                         </tr>
                     </tbody>
                 </table>
-                <button type="submit">Add Product</button>
             </form>
         </div>
     );

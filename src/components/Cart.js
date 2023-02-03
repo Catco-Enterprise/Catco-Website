@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 function Cart({ cartItems, setCartItems }) {
 	// const [order, setOrder] = useState(cartItems);
@@ -69,7 +72,10 @@ function Cart({ cartItems, setCartItems }) {
 			<div>
 				<h1>
 					Cart -{" "}
-					<button onClick={() => handleEmptyCart()}>Empty My Cart</button>
+					<button onClick={() => handleEmptyCart()}>
+						<FontAwesomeIcon icon={faTrashCan} />
+						Empty My Cart
+					</button>
 					<span>Total: ${totalPrice()}</span>
 				</h1>
 				{cartItems.map((item) => {
@@ -105,7 +111,9 @@ function Cart({ cartItems, setCartItems }) {
 		return (
 			<div>
 				<h1>Cart</h1>
-				<p>Cart is empty.</p>
+				<p>
+
+					Cart is empty.</p>
 			</div>
 		);
 	}

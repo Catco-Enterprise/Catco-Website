@@ -49,10 +49,10 @@ router.patch('/:id', async (req, res, next) => {
 
 //POST: api/products
 router.post("/", async (req, res, next) => {
-	const { name, description, stock, price } = req.body;
+	const { name, description, stock, price, image } = req.body;
 
 	try {
-		res.send(await Products.createProduct({ name, description, stock, price }));
+		res.send(await Products.createProduct({ name, description, stock, price, image }));
 	} catch (error) {
 		console.error("Error creating product ", error);
 	}
