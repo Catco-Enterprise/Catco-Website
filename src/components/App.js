@@ -20,7 +20,8 @@ import Register from "./Register";
 import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
 import Admin from "./Admin";
-import ReactDOM from "react-dom";
+import EditProducts from "./EditProducts";
+import ReactDOM from 'react-dom';
 import Footer from "./Footer";
 
 const App = () => {
@@ -160,6 +161,10 @@ const App = () => {
 							setProducts={setProducts}
 						/>
 					}
+				/>
+				<Route
+					path="products/edit/:id"
+					element={<EditProducts products={products} setProducts={setProducts} />}
 				/>
 			</Routes>
 

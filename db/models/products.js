@@ -77,7 +77,23 @@ async function attachProductsToOrders(orders) {
 	}
 }
 
-async function updateRoutine() {
+
+async function updateProduct(id, fields) {
+	const setString = Object.keys(fields).map((key, index) => `${key}=$${index + 1}`).join(", ");
+
+	try {
+		if (setString.length > 0) {
+			const { rows: [product] } = await client.query(`
+			UPDATE products
+			SET ${setString}
+			WHERE id = ${id}
+			RETURNING *
+			`, Object.values(fields));
+			return product;
+		}
+	} catch (error) {
+
+	}
 
 }
 
@@ -86,5 +102,6 @@ module.exports = {
 	destroyProduct,
 	getAllProducts,
 	getProductById,
-	attachProductsToOrders
+	attachProductsToOrders,
+	updateProduct
 };

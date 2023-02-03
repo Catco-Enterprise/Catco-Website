@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const { Products } = require('../db')
@@ -24,7 +25,6 @@ router.get("/:id", async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
 	try {
 		const { id } = req.params
-		console.log(id, "$$$$$$$$$$$$$$$$$$$$$$$")
 		const deletedProduct = await Products.destroyProduct(id);
 		res.send(deletedProduct);
 	} catch (error) {
@@ -32,6 +32,20 @@ router.delete('/:id', async (req, res, next) => {
 		throw error;
 	}
 });
+
+//PATCH: api/products/:id
+router.patch('/:id', async (req, res, next) => {
+	try {
+		const { fields } = req.body
+		const { id } = req.params
+		const updatedProduct = await Products.updateProduct(id, fields);
+		res.send(updatedProduct);
+	} catch (error) {
+		console.error('API: error with editing this product')
+		throw error;
+
+	}
+})
 
 //POST: api/products
 router.post("/", async (req, res, next) => {
