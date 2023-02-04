@@ -103,7 +103,9 @@ export async function createProduct(name, description, stock, price) {
 }
 
 export async function patchProduct(id, fields) {
-	const { data: product } = await axios.patch(`/api/products/${id}`, { fields });
+	const { data: product } = await axios.patch(`/api/products/${id}`, {
+		fields,
+	});
 
 	return product;
 }
@@ -128,3 +130,24 @@ export async function fetchActiveOrder(token) {
 		console.error("Axios, error fetching active orders", error);
 	}
 }
+
+export async function addProductToActiveOrder(
+	activeOrderId,
+	productToAdd,
+	token
+) {
+	try {
+		const result = await axios.post(
+			`/api/orders/${activeOrderId}/products`,
+			productToAdd,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
+		console.log(result);
+	} catch (error) {
+		console.error("FE: Error adding product to active order: ", error);
+	}
+}
+
+// export async function patchOrderProductQty()

@@ -21,7 +21,7 @@ import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
 import Admin from "./Admin";
 import EditProducts from "./EditProducts";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import Footer from "./Footer";
 
 const App = () => {
@@ -57,37 +57,30 @@ const App = () => {
 	}, []);
 
 	useEffect(() => {
-		// const token = localStorage.getItem('token');
 		const getMe = async () => {
 			const userObj = await fetchMe(token);
 			setUser(userObj);
-			// localStorage.setItem("user", JSON.stringify(userObj));
+
+			const activeOrderProducts = userObj.activeOrder.products;
+			const storedOrderProducts = JSON.parse(localStorage.getItem("cartItems"));
+
+			if (
+				!activeOrderProducts.length &&
+				storedOrderProducts &&
+				storedOrderProducts.length
+			) {
+				setCartItems(storedOrderProducts);
+			} else {
+				localStorage.setItem("cartItems", JSON.stringify(activeOrderProducts));
+				setCartItems(activeOrderProducts);
+			}
 		};
 
 		if (!user.id && token) {
 			getMe();
 			setIsLoggedIn(true);
 		}
-		// const cachedCartItems = JSON.parse(localStorage.getItem('cartItems'));
-
-		// if (cachedCartItems) {
-		//   setCartItems(cachedCartItems);
-		// }
 	}, [token]);
-
-	// useEffect(() => {
-	// 	const getActiveOrder = async () => {
-	// 		const activeOrder = await fetchActiveOrder(token);
-	// 		console.log(activeOrder);
-	// 		if (activeOrder.id) {
-	// 			setUser({ ...user, activeOrderId: activeOrder.id });
-	// 			setCartItems(activeOrder.products);
-	// 		}
-	// 	};
-	// 	if (isLoggedIn) {
-	// 		getActiveOrder();
-	// 	}
-	// }, [user]);
 
 	function resetState() {
 		setToken(localStorage.getItem("token"));
@@ -115,6 +108,7 @@ const App = () => {
 					element={
 						<Products
 							products={products}
+							activeOrder={user.activeOrder}
 							cartItems={cartItems}
 							setCartItems={setCartItems}
 						/>
@@ -129,12 +123,19 @@ const App = () => {
 							setUser={setUser}
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
+							setCartItems={setCartItems}
 						/>
 					}
 				/>
 				<Route
 					path="/Cart"
-					element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
+					element={
+						<Cart
+							activeOrder={user.activeOrder}
+							cartItems={cartItems}
+							setCartItems={setCartItems}
+						/>
+					}
 				/>
 				<Route
 					path="/products/:id"
@@ -164,7 +165,9 @@ const App = () => {
 				/>
 				<Route
 					path="products/edit/:id"
-					element={<EditProducts products={products} setProducts={setProducts} />}
+					element={
+						<EditProducts products={products} setProducts={setProducts} />
+					}
 				/>
 			</Routes>
 		</div>

@@ -16,18 +16,18 @@ async function getOrderProductsByOrderId(id) {
 	}
 }
 
-async function addProductToOrder({ orderID, productId, quantity, price }) {
+async function addProductToOrder({ orderId, productId, quantity, price }) {
 	try {
 		const {
 			rows: [product],
 		} = await client.query(
 			`
-        INSERT INTO order_products("orderId", "productId", quantitiy, price)
+        INSERT INTO order_products("orderId", "productId", quantity, price)
         VALUES ($1, $2, $3, $4)
         ON CONFLICT ("orderId", "productId") DO NOTHING
         RETURNING *;
         `,
-			[orderID, productId, quantity, price]
+			[orderId, productId, quantity, price]
 		);
 
 		return product;

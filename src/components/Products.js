@@ -4,7 +4,7 @@ import noImage from "../img/no-image.jpg";
 import { getProducts } from "../axios-services";
 import SingleProduct from "./SingleProduct";
 
-const Products = ({ currentUser, products, cartItems, setCartItems }) => {
+const Products = ({ activeOrder, products, cartItems, setCartItems }) => {
 	// const [products, setProducts] = useState([])
 
 	// function handleAddToCart(product, cartItems) {
@@ -44,6 +44,7 @@ const Products = ({ currentUser, products, cartItems, setCartItems }) => {
 						<SingleProduct
 							key={product.id}
 							product={product}
+							activeOrder={activeOrder}
 							cartItems={cartItems}
 							setCartItems={setCartItems}
 						/>
