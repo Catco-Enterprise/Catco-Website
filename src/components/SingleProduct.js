@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams, Link } from "react-router-dom";
-import { addProductToActiveOrder } from "../axios-services";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+	addProductToActiveOrder,
+	patchOrderProductQty,
+	deleteOrderProduct,
+} from "../axios-services";
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 	let prodQuantity = 0;
@@ -35,21 +39,27 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 
 	function handleUpdateCartItem() {
 		const updatedCart = [...cartItems];
+		const token = localStorage.getItem("token");
 		if (singProd.quantity) {
 			updatedCart.splice(cartProdIdx, 1, singProd);
-			/*
+
 			if (token) {
-				patchOrderProductQty
+				patchOrderProductQty(
+					token,
+					activeOrder.id,
+					singProd.id,
+					singProd.quantity
+				);
 			}
-			*/
+
 			setCartItems(updatedCart);
 		} else {
 			updatedCart.splice(cartProdIdx, 1);
-			/*
+
 			if (token) {
-				deleteOrderProduct
+				deleteOrderProduct(token, activeOrder.id, singProd.id);
 			}
-			*/
+
 			setCartItems(updatedCart);
 		}
 	}

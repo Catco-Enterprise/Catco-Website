@@ -14,6 +14,7 @@ router.get("/:id", async (req, res, next) => {
 	}
 });
 
+// POST: api/orders/:orderId/products
 router.post("/:orderId/products", async (req, res, next) => {
 	console.log(req.body);
 	const prefix = "Bearer ";
@@ -41,6 +42,66 @@ router.post("/:orderId/products", async (req, res, next) => {
 			}
 		} catch (error) {
 			console.error("BE: Error adding product to order: ", error);
+		}
+	}
+});
+
+// PATCH: api/orders/:orderId/products
+router.patch("/:orderId/products", async (req, res, next) => {
+	console.log(req.body);
+	const prefix = "Bearer ";
+	const auth = req.header("Authorization");
+
+	if (!auth) {
+		res.statusCode = 401;
+		next({
+			name: "unauthorize error",
+			message: "youre not logged in",
+		});
+	} else if (auth.startsWith(prefix)) {
+		const token = auth.slice(prefix.length);
+		try {
+			const { id } = jwt.verify(token, JWT_SECRET);
+			if (id) {
+				const { productId, quantity } = req.body;
+				const { orderId } = req.params;
+				res.send(
+					await OrderProducts.updateOrderProductQty(
+						orderId,
+						productId,
+						quantity
+					)
+				);
+			}
+		} catch (error) {
+			console.error("BE: Error updating order product quantity: ", error);
+		}
+	}
+});
+
+// DELETE: api/orders/:orderId/products
+router.delete("/:orderId/products", async (req, res, next) => {
+	console.log(req.body);
+	const prefix = "Bearer ";
+	const auth = req.header("Authorization");
+
+	if (!auth) {
+		res.statusCode = 401;
+		next({
+			name: "unauthorize error",
+			message: "youre not logged in",
+		});
+	} else if (auth.startsWith(prefix)) {
+		const token = auth.slice(prefix.length);
+		try {
+			const { id } = jwt.verify(token, JWT_SECRET);
+			if (id) {
+				const { productId } = req.body;
+				const { orderId } = req.params;
+				res.send(await OrderProducts.destroyOrderProduct(orderId, productId));
+			}
+		} catch (error) {
+			console.error("BE: Error deleting order product: ", error);
 		}
 	}
 });
