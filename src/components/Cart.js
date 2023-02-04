@@ -3,18 +3,10 @@ import { Link } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
-
+import { emptyCart } from "../helpers/cartHelper";
 
 function Cart({ cartItems, setCartItems }) {
 	// const [order, setOrder] = useState(cartItems);
-
-	function handleEmptyCart() {
-		// Set useState 'cartItems' to an empty array
-		setCartItems([]);
-
-		// Delete the cache item 'cartItems'
-		localStorage.removeItem("cartItems");
-	}
 
 	function totalPrice() {
 		let total = 0;
@@ -24,55 +16,12 @@ function Cart({ cartItems, setCartItems }) {
 		return total;
 	}
 
-	// function handleMinusQuantity(item) {
-	// 	// Get the cart item from the useState variable 'cartItems' by the item ID
-	// 	const itemIdx = order.findIndex((x) => x.id === itemId);
-
-	// 	if (cartItem) {
-	// 		// Subtract from the quantity of the cart item by 1
-	// 		cartItem.quantity -= 1;
-
-	// 		if (cartItem.quantity === 0) {
-	// 			const indexOfItem = cartItems.findIndex((x) => x.id === itemId);
-	// 			cartItems.splice(indexOfItem, 1);
-	// 		}
-
-	// 		// Update the useState variable 'cartItems' value
-	// 		setCartItems(cartItems);
-
-	// 		// Update the cache item 'cartItems' with the value from the useState 'cartItems'
-	// 		localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
-	// 		// Reloading the page because the state isn't reflected on this action
-	// 		location.reload(false);
-	// 	}
-	// }
-
-	// function handlePlusQuantity(itemId) {
-	// 	// Get the cart item from the useState variable 'cartItems' by the item ID
-	// 	const cartItem = cartItems.find((x) => x.id === itemId);
-
-	// 	if (cartItem) {
-	// 		// Add from the quantity of the cart item by 1
-	// 		cartItem.quantity++;
-
-	// 		// Update the useState variable 'cartItems' value
-	// 		setCartItems(cartItems);
-
-	// 		// Update the cache item 'cartItems' with the value from the useState 'cartItems'
-	// 		localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
-	// 		// Reloading the page because the state isn't reflected on this action
-	// 		location.reload(false);
-	// 	}
-	// }
-
 	if (cartItems) {
 		return (
 			<div>
 				<h1>
 					Cart -{" "}
-					<button onClick={() => handleEmptyCart()}>
+					<button onClick={() => emptyCart(setCartItems)}>
 						<FontAwesomeIcon icon={faTrashCan} />
 						Empty My Cart
 					</button>
