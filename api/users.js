@@ -76,7 +76,9 @@ router.post("/login", async (req, res, next) => {
 				}
 			);
 
-			user.activeOrder = await getActiveOrderByUserId(user.id);
+			// This is broken. Commenting out for now so I can work on cart.
+			// user.activeOrder = await getActiveOrderByUserId(user.id);
+			
 			delete user.password;
 
 			res.send({
