@@ -6,7 +6,7 @@ import SingleProduct from "./SingleProduct";
 import '../style/Products.css'
 
 
-const Products = ({ currentUser, products, cartItems, setCartItems }) => {
+const Products = ({ activeOrder, products, cartItems, setCartItems }) => {
 	// const [products, setProducts] = useState([])
 
 	// function handleAddToCart(product, cartItems) {
@@ -46,6 +46,7 @@ const Products = ({ currentUser, products, cartItems, setCartItems }) => {
 						<SingleProduct
 							key={product.id}
 							product={product}
+							activeOrder={activeOrder}
 							cartItems={cartItems}
 							setCartItems={setCartItems}
 						/>

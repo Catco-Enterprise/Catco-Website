@@ -103,7 +103,9 @@ export async function createProduct(name, description, stock, price) {
 }
 
 export async function patchProduct(id, fields) {
-	const { data: product } = await axios.patch(`/api/products/${id}`, { fields });
+	const { data: product } = await axios.patch(`/api/products/${id}`, {
+		fields,
+	});
 
 	return product;
 }
@@ -126,5 +128,59 @@ export async function fetchActiveOrder(token) {
 		return data;
 	} catch (error) {
 		console.error("Axios, error fetching active orders", error);
+	}
+}
+
+export async function addProductToActiveOrder(
+	activeOrderId,
+	productToAdd,
+	token
+) {
+	try {
+		const result = await axios.post(
+			`/api/orders/${activeOrderId}/products`,
+			productToAdd,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
+		console.log(result);
+	} catch (error) {
+		console.error("FE: Error adding product to active order: ", error);
+	}
+}
+
+export async function patchOrderProductQty(
+	token,
+	activeOrderId,
+	productId,
+	quantity
+) {
+	try {
+		const result = await axios.patch(
+			`/api/orders/${activeOrderId}/products`,
+			{ productId: productId, quantity: quantity },
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
+		console.log(result);
+	} catch (error) {
+		console.error("FE: error patching order product qty: ", error);
+	}
+}
+
+export async function deleteOrderProduct(token, activeOrderId, productId) {
+	try {
+		const result = await axios.delete(
+			`/api/orders/${activeOrderId}/products`,
+			{ productId: productId },
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
+		console.log(result);
+	} catch (error) {
+		console.error("FE: error deleting order product: ", error);
 	}
 }

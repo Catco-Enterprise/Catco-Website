@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../axios-services";
-import '../style/Login.css'
+import "../style/Login.css";
 
-function Login({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
+function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState();
 
@@ -28,11 +28,16 @@ function Login({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
 
 		if (result.token) {
 			console.log("I'm here");
+			const userCart = result.user.activeOrder.products;
+			if (userCart.length) {
+				localStorage.setItem("cartItems", JSON.stringify(userCart));
+			}
 			localStorage.setItem("token", result.token);
 
 			setIsLoggedIn(true);
 			setToken(result.token);
 			setUser(result.user);
+			setCartItems(userCart);
 
 			navigate("/");
 		} else {

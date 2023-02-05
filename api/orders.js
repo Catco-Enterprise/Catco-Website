@@ -1,6 +1,8 @@
 const express = require("express");
-const { Orders, OrderProducts } = require("../db");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = process.env;
+const { Orders, OrderProducts } = require("../db");
 
 // GET: api/orders/:id
 
@@ -12,23 +14,96 @@ router.get("/:id", async (req, res, next) => {
 	}
 });
 
-router.post("/:id/products", async ( req, res, next) => {
-	const activeOrder = await Orders.getActiveOrderByUserId(req.params.id)
-	
-	try {
-		
-		if(activeOrder.id) {
-			res.send(await OrderProducts.addProductToOrder(req.body));
+// POST: api/orders/:orderId/products
+router.post("/:orderId/products", async (req, res, next) => {
+	console.log(req.body);
+	const prefix = "Bearer ";
+	const auth = req.header("Authorization");
+
+	if (!auth) {
+		res.statusCode = 401;
+		next({
+			name: "unauthorize error",
+			message: "youre not logged in",
+		});
+	} else if (auth.startsWith(prefix)) {
+		const token = auth.slice(prefix.length);
+		try {
+			const { id } = jwt.verify(token, JWT_SECRET);
+			if (id) {
+				const productToAdd = {
+					orderId: req.params.orderId,
+					productId: req.body.id,
+					quantity: req.body.quantity,
+					price: req.body.price,
+				};
+				console.log(productToAdd);
+				res.send(await OrderProducts.addProductToOrder(productToAdd));
+			}
+		} catch (error) {
+			console.error("BE: Error adding product to order: ", error);
 		}
-
-		const newOrder = await createOrder();
-		addProductToOrder(newOrder.id);
-
-
-	} catch (error) {
-		console.error("Error adding product to order from DB", error)
-		
 	}
-})
+});
+
+// PATCH: api/orders/:orderId/products
+router.patch("/:orderId/products", async (req, res, next) => {
+	console.log(req.body);
+	const prefix = "Bearer ";
+	const auth = req.header("Authorization");
+
+	if (!auth) {
+		res.statusCode = 401;
+		next({
+			name: "unauthorize error",
+			message: "youre not logged in",
+		});
+	} else if (auth.startsWith(prefix)) {
+		const token = auth.slice(prefix.length);
+		try {
+			const { id } = jwt.verify(token, JWT_SECRET);
+			if (id) {
+				const { productId, quantity } = req.body;
+				const { orderId } = req.params;
+				res.send(
+					await OrderProducts.updateOrderProductQty(
+						orderId,
+						productId,
+						quantity
+					)
+				);
+			}
+		} catch (error) {
+			console.error("BE: Error updating order product quantity: ", error);
+		}
+	}
+});
+
+// DELETE: api/orders/:orderId/products
+router.delete("/:orderId/products", async (req, res, next) => {
+	console.log(req.body);
+	const prefix = "Bearer ";
+	const auth = req.header("Authorization");
+
+	if (!auth) {
+		res.statusCode = 401;
+		next({
+			name: "unauthorize error",
+			message: "youre not logged in",
+		});
+	} else if (auth.startsWith(prefix)) {
+		const token = auth.slice(prefix.length);
+		try {
+			const { id } = jwt.verify(token, JWT_SECRET);
+			if (id) {
+				const { productId } = req.body;
+				const { orderId } = req.params;
+				res.send(await OrderProducts.destroyOrderProduct(orderId, productId));
+			}
+		} catch (error) {
+			console.error("BE: Error deleting order product: ", error);
+		}
+	}
+});
 
 module.exports = router;

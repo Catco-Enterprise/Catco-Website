@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
-function Cart({ cartItems, setCartItems }) {
+function Cart({ activeOrder, cartItems, setCartItems }) {
 	// const [order, setOrder] = useState(cartItems);
 
 	function handleEmptyCart() {
@@ -82,6 +82,7 @@ function Cart({ cartItems, setCartItems }) {
 					return (
 						<SingleProduct
 							product={item}
+							activeOrder={activeOrder}
 							cartItems={cartItems}
 							setCartItems={setCartItems}
 						/>
