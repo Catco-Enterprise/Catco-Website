@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import noImage from "../img/no-image.jpg";
 import { getProducts } from "../axios-services";
 import SingleProduct from "./SingleProduct";
+import '../style/Products.css'
+
 
 const Products = ({ activeOrder, products, cartItems, setCartItems }) => {
 	// const [products, setProducts] = useState([])

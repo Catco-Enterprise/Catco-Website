@@ -1,19 +1,25 @@
 .navbar-container {
     align-items: center;
     background-color: #EAEAEA;
-    /* border-bottom: 1px solid #CCCCCC; */
+    border-bottom: 1px solid #CCCCCC;
     display: flex;
-    /* justify-content: space-between; */
-    padding: 1em;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 img {
     width: 190px;
     height: 190px;
     border-radius: 50%;
+    padding-left: 1%;
 }
 
-.navbar-items {
+#navbar-items {
     display: flex;
+    justify-content: space-evenly;
     padding-left: 2em;
+}
+
+.link:hover {
+    background-color: blueviolet;
 }

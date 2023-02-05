@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams, Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import {
 	addProductToActiveOrder,
 	patchOrderProductQty,
@@ -66,7 +68,7 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 
 	return (
 		<div key={product.id} className="product">
-			<img src="" alt="Product Img" />
+			<div img="image">******{product.image}</div>
 			<Link to={`/products/${product.id}`} state={product} className="title">
 				{product.name}
 			</Link>
@@ -75,9 +77,14 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 			<br />
 
 			<h2>
-				Quantity: <button onClick={() => handleMinusQuantity()}>-</button>
+				Quantity:{" "}
+				<button onClick={() => handleMinusQuantity()}>
+					<FontAwesomeIcon icon={faMinus} />
+				</button>
 				{singProd.quantity}
-				<button onClick={() => handlePlusQuantity()}>+</button>
+				<button onClick={() => handlePlusQuantity()}>
+					<FontAwesomeIcon icon={faPlus} />
+				</button>
 			</h2>
 			{cartProdIdx > -1 ? (
 				<button onClick={() => handleUpdateCartItem()}>Update Cart</button>

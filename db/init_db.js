@@ -42,6 +42,7 @@ async function createTables() {
       name VARCHAR(255) UNIQUE NOT NULL,
       description VARCHAR(255) NOT NULL,
       price NUMERIC NOT NULL,
+	  image VARCHAR(255),
       stock INTEGER
     );
 	
