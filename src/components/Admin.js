@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
 import "../style/Admin.css";
 
@@ -64,7 +65,7 @@ function Admin({ currentUser, setProducts, products }) {
     }, []);
 
     return (
-        <div className="container">
+        <div className="email-container">
             <h1>All Users</h1>
             <table>
                 <thead>
