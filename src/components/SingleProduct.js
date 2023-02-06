@@ -7,6 +7,8 @@ import {
 	patchOrderProductQty,
 	deleteOrderProduct,
 } from "../axios-services";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 	let prodQuantity = 0;
@@ -86,6 +88,7 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 					<FontAwesomeIcon icon={faPlus} />
 				</button>
 			</h2>
+
 			{cartProdIdx > -1 ? (
 				<button onClick={() => handleUpdateCartItem()}>Update Cart</button>
 			) : (

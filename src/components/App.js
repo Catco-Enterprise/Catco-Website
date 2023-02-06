@@ -4,7 +4,7 @@ import Home from "./Home";
 import Cart from "./Cart";
 import Products from "./Products";
 import Login from "./Login";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 // import { getProducts } from '../axios-services';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -31,8 +31,11 @@ const App = () => {
 	const [products, setProducts] = useState([]);
 	const [cartItems, setCartItems] = useState([]);
 	const [APIHealth, setAPIHealth] = useState("");
+	const { productId } = useParams();
 
-	//
+	console.log(productId)
+	const aProduct = products.filter((prod) => prod.id === productId);
+
 	useEffect(() => {
 		// follow this pattern inside your useEffect calls:
 		// first, create an async function that will wrap your axios service adapter
@@ -102,13 +105,27 @@ const App = () => {
 		<div className="app-container">
 			<Navbar isLoggedIn={isLoggedIn} resetState={resetState} />
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route
+					path="/"
+					element={
+						<Home />} />
 				<Route
 					path="/products"
 					element={
 						<Products
 							products={products}
 							activeOrder={user.activeOrder}
+							cartItems={cartItems}
+							setCartItems={setCartItems}
+						/>
+					}
+				/>
+				<Route
+					path="/products/:productId"
+					element={
+						<SingleProduct
+							key={productId}
+							product={aProduct}
 							cartItems={cartItems}
 							setCartItems={setCartItems}
 						/>
@@ -166,7 +183,10 @@ const App = () => {
 				<Route
 					path="products/edit/:id"
 					element={
-						<EditProducts products={products} setProducts={setProducts} />
+						<EditProducts
+							products={products}
+							setProducts={setProducts}
+						/>
 					}
 				/>
 			</Routes>
