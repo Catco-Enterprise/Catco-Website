@@ -7,8 +7,6 @@ import {
 	patchOrderProductQty,
 	deleteOrderProduct,
 } from "../axios-services";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 	let prodQuantity = 0;

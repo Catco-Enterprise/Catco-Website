@@ -4,7 +4,6 @@ import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-
 function Cart({ activeOrder, cartItems, setCartItems }) {
 	// const [order, setOrder] = useState(cartItems);
 
@@ -77,6 +76,9 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 						Empty My Cart
 					</button>
 					<span>Total: ${totalPrice()}</span>
+					<Link to="/Checkout">
+						Checkout
+					</Link>
 				</h1>
 				{cartItems.map((item) => {
 					return (
