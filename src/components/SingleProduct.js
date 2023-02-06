@@ -59,6 +59,12 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 			updatedCart.splice(cartProdIdx, 1);
 
 			if (token) {
+				console.log(
+					"SingleProduct: deleteOrderProduct arguments: ",
+					token,
+					activeOrder.id,
+					singProd.id
+				);
 				deleteOrderProduct(token, activeOrder.id, singProd.id);
 			}
 

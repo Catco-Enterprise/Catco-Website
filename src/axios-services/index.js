@@ -171,10 +171,15 @@ export async function patchOrderProductQty(
 }
 
 export async function deleteOrderProduct(token, activeOrderId, productId) {
+	console.log(
+		"axios services: deleteOrderProduct arguments: ",
+		token,
+		activeOrderId,
+		productId
+	);
 	try {
 		const result = await axios.delete(
-			`/api/orders/${activeOrderId}/products`,
-			{ productId: productId },
+			`/api/orders/${activeOrderId}/products/${productId}`,
 			{
 				headers: { Authorization: `Bearer ${token}` },
 			}
