@@ -23,6 +23,7 @@ import Admin from "./Admin";
 import EditProducts from "./EditProducts";
 import ReactDOM from "react-dom";
 import Footer from "./Footer";
+import Checkout from "./Checkout";
 
 const App = () => {
 	const [token, setToken] = useState(localStorage.getItem("token"));
@@ -109,6 +110,13 @@ const App = () => {
 					path="/"
 					element={
 						<Home />} />
+				<Route
+					path="/Checkout"
+					element={
+						<Checkout
+							activeOrder={user.activeOrder}
+							cartItems={cartItems}
+							setCartItems={setCartItems} />} />
 				<Route
 					path="/products"
 					element={
