@@ -101,7 +101,17 @@ const App = () => {
 		<div className="app-container">
 			<Navbar isLoggedIn={isLoggedIn} resetState={resetState} />
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route
+					path="/"
+					element={
+						<Home
+							setToken={setToken}
+							setUser={setUser}
+							setIsLoggedIn={setIsLoggedIn}
+							setCartItems={setCartItems}
+						/>
+					}
+				/>
 				<Route
 					path="/products"
 					element={
@@ -117,10 +127,8 @@ const App = () => {
 					path="/Login"
 					element={
 						<Login
-							token={token}
 							setToken={setToken}
 							setUser={setUser}
-							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 							setCartItems={setCartItems}
 						/>
@@ -170,9 +178,7 @@ const App = () => {
 				/>
 			</Routes>
 
-
 			<Footer />
-
 		</div>
 	);
 };
