@@ -9,15 +9,19 @@ import {
 } from "../axios-services";
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
-	let prodQuantity = 0;
+	// let prodQuantity = 0;
 	const cartProdIdx = cartItems.findIndex((prod) => prod.id === product.id);
 
 	if (cartProdIdx > -1) {
-		prodQuantity = cartItems[cartProdIdx].quantity;
+		product.quantity = cartItems[cartProdIdx].quantity;
+		// prodQuantity = cartItems[cartProdIdx].quantity;
+	} else {
+		product.quantity = 0;
 	}
-	const singleProd = { ...product, quantity: prodQuantity };
+	// const singleProd = { ...product, quantity: prodQuantity };
 
-	const [singProd, setSingProd] = useState(singleProd);
+	const [singProd, setSingProd] = useState(product);
+	// const [singProd, setSingProd] = useState(singleProd);
 
 	function handleMinusQuantity() {
 		const newQty = singProd.quantity - 1;
@@ -59,6 +63,12 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 			updatedCart.splice(cartProdIdx, 1);
 
 			if (token) {
+				console.log(
+					"SingleProduct: deleteOrderProduct arguments: ",
+					token,
+					activeOrder.id,
+					singProd.id
+				);
 				deleteOrderProduct(token, activeOrder.id, singProd.id);
 			}
 

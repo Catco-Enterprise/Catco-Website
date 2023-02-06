@@ -57,6 +57,8 @@ async function updateOrderProductQty(orderId, productId, quantity) {
 }
 
 async function destroyOrderProduct(orderId, productId) {
+	console.log("db OrderProducts: orderId: ", orderId);
+	console.log("db OrderProducts: productId: ", productId);
 	try {
 		const {
 			rows: [product],
@@ -68,7 +70,7 @@ async function destroyOrderProduct(orderId, productId) {
 		`,
 			[orderId, productId]
 		);
-
+		console.log("db OrderProducts: product: ", product);
 		return product;
 	} catch (error) {
 		console.error("BE: Error updating order product quantity: ", error);
