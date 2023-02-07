@@ -1,11 +1,8 @@
 const { createUser } = require("./models/user");
 const {
 	client,
-	// declare your model imports here
-	// for example, User
 } = require("./");
 const { createProduct } = require("./models/products");
-// const { createOrder } = require("./models/orders");
 
 async function dropTables() {
 	try {
@@ -26,7 +23,6 @@ async function dropTables() {
 
 async function createTables() {
 	try {
-		// client.connect();
 		console.log("Starting to create tables!!!!!");
 
 		await client.query(`
@@ -62,7 +58,6 @@ async function createTables() {
 		UNIQUE ("orderId", "productId")
 	);
     `);
-		// look into how to have images in the db for products
 		console.log("Finished creating tables!!!!!");
 	} catch (error) {
 		console.error("ERROR CREATING TABLES!!!!!");
@@ -70,12 +65,10 @@ async function createTables() {
 	}
 }
 
-//lets maybe change the name of this function to createInitialUsers or something similar
+
 async function populateInitialData() {
 	try {
-		// create useful starting data by leveraging your
-		// Model.method() adapters to seed your db, for example:
-		// const user1 = await User.createUser({ ...user info goes here... })
+
 		const usersToCreate = [
 			{ email: "albert@gmail.com", password: "bertie99" },
 			{ email: "sandra@gmail.com", password: "sandra123" },
@@ -134,35 +127,10 @@ async function createInitialProducts() {
 	];
 
 	console.log("Starting to create products");
-	//map each into a createProduct function to Insert Into db
+
 	const products = await Promise.all(productsToCreate.map(createProduct));
 	console.log("Products created: ", products);
 }
-
-// async function createInitialOrders() {
-// 	const ordersToCreate = [
-// 		{
-// 			userId: 1,
-// 			isActive: true,
-// 		},
-// 		{
-// 			userId: 2,
-// 			isActive: true,
-// 		},
-// 		{
-// 			userId: 3,
-// 			isActive: true,
-// 		},
-// 		{
-// 			userId: 4,
-// 			isActive: true,
-// 		},
-// 	];
-
-// 	console.log("Starting to create orders");
-// 	const orders = await Promise.all(ordersToCreate.map(createOrder));
-// 	console.log("Orders created", orders);
-// }
 
 async function rebuildDB() {
 	try {
@@ -171,7 +139,6 @@ async function rebuildDB() {
 		await createTables();
 		await populateInitialData();
 		await createInitialProducts();
-		// await createInitialOrders();
 	} catch (error) {
 		console.log("Error during rebuildDB");
 		throw error;

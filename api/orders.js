@@ -5,7 +5,6 @@ const { JWT_SECRET } = process.env;
 const { Orders, OrderProducts } = require("../db");
 
 // GET: api/orders/:id
-
 router.get("/:id", async (req, res, next) => {
 	try {
 		res.send(await Orders.getAllOrdersByUserId());

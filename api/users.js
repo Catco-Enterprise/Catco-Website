@@ -39,7 +39,6 @@ router.post("/register", async (req, res, next) => {
 			}
 		);
 
-		//do not need to return user- this is taken care of with a useEffect on App
 		res.send({
 			message: "Thank you for registering!",
 			newUser,

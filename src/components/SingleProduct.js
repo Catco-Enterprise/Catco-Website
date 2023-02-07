@@ -1,34 +1,20 @@
-import React, {
-	// useEffect, 
-	useState
-} from "react";
-import {
-	// useLocation, useParams, 
-	Link
-} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus, faDollarSign } from "@fortawesome/free-solid-svg-icons";
-import {
-	addProductToActiveOrder,
-	patchOrderProductQty,
-	deleteOrderProduct,
-} from "../axios-services";
+import { addProductToActiveOrder, patchOrderProductQty, deleteOrderProduct } from "../axios-services";
 import '../style/Products.css'
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
-	// let prodQuantity = 0;
 	const cartProdIdx = cartItems.findIndex((prod) => prod.id === product.id);
 
 	if (cartProdIdx > -1) {
 		product.quantity = cartItems[cartProdIdx].quantity;
-		// prodQuantity = cartItems[cartProdIdx].quantity;
 	} else {
 		product.quantity = 0;
 	}
-	// const singleProd = { ...product, quantity: prodQuantity };
 
 	const [singProd, setSingProd] = useState(product);
-	// const [singProd, setSingProd] = useState(singleProd);
 
 	function handleMinusQuantity() {
 		const newQty = singProd.quantity - 1;

@@ -21,7 +21,6 @@ function Register({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
 			return;
 		}
 
-		//change to token, rather than user w/ token attached
 		const result = await register(email, password);
 
 		if (result.token) {
@@ -32,10 +31,6 @@ function Register({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
 			navigate("/");
 		}
 	}
-
-	// if (isLoggedIn) {
-	// 	navigate("/");
-	// }
 
 	return (
 		<div className="auth-form-container">

@@ -12,10 +12,6 @@ import { faHome, faShoppingBag, faSignOut, faCartShopping, faRegistered } from '
 
 
 function Navbar({ currentUser, isLoggedIn, resetState }) {
-	const linkStyle = {
-		// textDecoration: "none",
-		// margin: "7px",
-	};
 
 	const adminHtml = currentUser?.isAdmin ? <a href="/admin">(admin)</a> : null;
 
@@ -24,17 +20,17 @@ function Navbar({ currentUser, isLoggedIn, resetState }) {
 			<h1 className="navbar-title"> <img src={logo} />{adminHtml}</h1>
 			<nav className="navbar-items">
 
-				<Link className="link-style" style={linkStyle} to="/">
+				<Link className="link-style" to="/">
 					<FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
 					Home
 				</Link>
-				<Link className="link-style" style={linkStyle} to="/products">
+				<Link className="link-style" to="/products">
 					<FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
 					Products
 				</Link>
 				{isLoggedIn ? (
 					<Link className="link-style"
-						style={linkStyle}
+
 						to="/"
 						onClick={() => {
 							localStorage.clear();
@@ -46,17 +42,17 @@ function Navbar({ currentUser, isLoggedIn, resetState }) {
 					</Link>
 				) : (
 					<span>
-						<Link className="link-style" style={linkStyle} to="/Login">
+						<Link className="link-style" to="/Login">
 							<FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>
 							Login
 						</Link>
-						<Link className="link-style" style={linkStyle} to="/Register">
+						<Link className="link-style" to="/Register">
 							<FontAwesomeIcon icon={faRegistered}></FontAwesomeIcon>
 							Register
 						</Link>
 					</span>
 				)}
-				<Link className="link-style" style={linkStyle} to="/Cart">
+				<Link className="link-style" to="/Cart">
 					<FontAwesomeIcon icon={faCartShopping}></FontAwesomeIcon>
 					Cart
 				</Link>

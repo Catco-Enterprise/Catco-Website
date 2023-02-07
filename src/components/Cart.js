@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPlus } from "@fortawesome/free-solid-svg-icons";

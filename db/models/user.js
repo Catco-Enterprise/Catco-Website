@@ -38,7 +38,6 @@ async function getUser({ email, password }) {
 
 async function getUserByEmail(email) {
 	try {
-		// const query = `SELECT * FROM users WHERE email = '${email}'`;
 		const {
 			rows: [user],
 		} = await client.query(
@@ -49,12 +48,6 @@ async function getUserByEmail(email) {
       `,
 			[email]
 		);
-
-		// if (user.id) {
-		// const activeOrder = await getActiveOrderByUserId(user.id);
-		// user.activeOrder = activeOrder;
-		// }
-		console.log("user @ getUserByEmail: ", user);
 
 		return user;
 	} catch (error) {
@@ -88,41 +81,32 @@ async function getUserById(userId) {
 
 async function createUser({ email, password, isAdmin }) {
 	try {
-		// Encrypt the plain-text password passed by the user
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-		// Instiantiate an empty variable to hold our query
 		let query;
 
-		// Checking to see if isAdmin is defined instead of assuming that every time
-		// isAdmin is defined allows us to still create admins without adjusting
-		// the rest of our user-related functions
-		// If 'isAdmin' is defined,
 		if (isAdmin) {
-			// Populate 'query' with a query including the 'isAdmin' property
+
 			query = `INSERT INTO users (email, password, "isAdmin")
       VALUES('${email}', '${hashedPassword}', '${isAdmin}')
       ON CONFLICT (email) DO NOTHING
       RETURNING *`;
 		} else {
-			// 'isAdmin' is not defined
-			// Populate 'query' with a query excluding the 'isAdmin' property
+
 			query = `INSERT INTO users (email, password)
       VALUES('${email}', '${hashedPassword}')
       ON CONFLICT (email) DO NOTHING
       RETURNING *`;
 		}
 
-		// Run the query against our DB
 		const {
 			rows: [user],
 		} = await client.query(query);
 
 		const activeOrder = await createOrder(user.id);
 		user.activeOrder = activeOrder;
-		// Remove the password before returning the user
+
 		delete user.password;
-		// Return the user
+
 		return user;
 	} catch (error) {
 		console.error("ERROR CREATING USER!!!!!");

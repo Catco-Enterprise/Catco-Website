@@ -9,7 +9,6 @@ function EditProducts({ products, setProducts }) {
     const oneProduct = state;
 
     const navigate = useNavigate();
-    // const [errorMessage, seterrorMessage] = useState();
 
     const [editName, setEditName] = useState(oneProduct.name);
     const [editDescript, setEditDescript] = useState(oneProduct.description);
@@ -52,7 +51,6 @@ function EditProducts({ products, setProducts }) {
                     </div>
                     <button>Submit</button>
                 </form>
-                {/* <span>{errorMessage}</span> */}
             </div>
         </div>
     )

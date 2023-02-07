@@ -1,6 +1,5 @@
 const client = require("../client");
 
-//eventually make it so only admin can create a product
 async function createProduct({ name, description, price, image, stock }) {
 	try {
 		const { rows: [products] } = await client.query(`

@@ -44,11 +44,9 @@ function Admin({ currentUser, setProducts, products }) {
 
     useEffect(() => {
         async function checkIfAdmin() {
-            // If 'currentUser' is defined and 'currentUser' is not an admin,
-            // redirect the user to the login view
+
             if (currentUser.isAdmin === false) navigate('/login');
-            console.log(currentUser)
-            // ----------------------NEEDS MORE WORK
+
 
         }
 

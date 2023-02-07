@@ -11,9 +11,7 @@ function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 		event.preventDefault();
 
 		const email = event.target.email.value;
-		console.log(email);
 		const password = event.target.password.value;
-		console.log(password);
 
 		if (!email || !password) {
 			setErrorMessage("Both email and password are required.");
@@ -21,13 +19,9 @@ function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 		}
 
 		const result = await login(email, password);
-		console.log(
-			"---------------------LOGIN RESULT-----------------------",
-			result
-		);
+
 
 		if (result.token) {
-			console.log("I'm here");
 			const userCart = result.user.activeOrder.products;
 			if (userCart.length) {
 				localStorage.setItem("cartItems", JSON.stringify(userCart));
@@ -45,9 +39,7 @@ function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 		}
 	}
 
-	// if (isLoggedIn) {
-	// 	navigate("/");
-	// }
+
 	return (
 		<div>
 			<h1>Login</h1>

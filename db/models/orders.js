@@ -48,19 +48,7 @@ async function getActiveOrderByUserId(id) {
       `,
 			[id]
 		);
-		// did we need this query for something else??:
 
-		// const {
-		// 	rows: [order],
-		// } = await client.query(
-		// 	`
-		//   SELECT orders.*, users.email AS "userAcc"
-		//   FROM orders
-		//   JOIN order_products ON orders.id = order_products."orderId"
-		//   WHERE order_products."productId" = $1 AND "isActive" = true;
-		//   `,
-		// 	[id]
-		// );
 		if (order.id) {
 			const [activeOrder] = await attachProductsToOrders([order]);
 			return activeOrder;
