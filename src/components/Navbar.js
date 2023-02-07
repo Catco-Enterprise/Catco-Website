@@ -21,7 +21,7 @@ function Navbar({ currentUser, isLoggedIn, resetState }) {
 
 	return (
 		<div className="navbar-container">
-			<h1 className="navbar-title"> <img src={logo} />{adminHtml}</h1>
+			<h1 className="navbar-title"> <img className="logo" src={logo} />{adminHtml}</h1>
 			<nav className="navbar-items">
 
 				<Link className="link-style" style={linkStyle} to="/">

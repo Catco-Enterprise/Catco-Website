@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getAllUsers, createProduct, deleteProduct } from "../axios-services";
 import "../style/Admin.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 
 function Admin({ currentUser, setProducts, products }) {
@@ -65,9 +67,9 @@ function Admin({ currentUser, setProducts, products }) {
     }, []);
 
     return (
-        <div className="email-container">
+        <div >
             <h1>All Users</h1>
-            <table>
+            <table id="email-conatiner">
                 <thead>
                     <tr>
                         <th>Email</th>
@@ -89,9 +91,9 @@ function Admin({ currentUser, setProducts, products }) {
                 <table>
                     <thead>
                         <tr>
+                            <th>Image(Url)</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Image(Url)</th>
                             <th>Stock</th>
                             <th>Price</th>
 
@@ -100,11 +102,13 @@ function Admin({ currentUser, setProducts, products }) {
                     <tbody>
                         {products?.map((product) => {
                             return (<tr key={product.id}>
+                                <td><img src={product.image} /></td>
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
-                                <td>{product.image}</td>
                                 <td>{product.stock}</td>
-                                <td>${product.price}</td>
+                                <td>
+                                    <FontAwesomeIcon icon={faDollarSign} />
+                                    {product.price}</td>
                                 <td><button type="button" onClick={(event) => handleDeleteProduct(event, product.id)}>Delete</button></td>
                                 <td><button type="button"> <Link
                                     to={`/products/edit/${product.id}`}
@@ -115,9 +119,9 @@ function Admin({ currentUser, setProducts, products }) {
                         })}
                         <br></br>
                         <tr className="product-form">
+                            <td><input placeholder="https://example.com" type="text" name="image"></input></td>
                             <td><input placeholder="name" type="text" name="name" required /></td>
                             <td><input placeholder="description" type="text" name="description" required /></td>
-                            <td><input placeholder="https://example.com" type="text" name="image"></input></td>
                             <td><input placeholder="999" type="number" name="stock" required /></td>
                             <td><input placeholder="$999.99" type="number" name="price" required /></td>
                             <button type="submit">Add Product</button>

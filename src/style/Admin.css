@@ -2,13 +2,8 @@ body {
     margin: .5em;
 }
 
-#email-conatiner {
-    display: flex;
-    justify-content: centercd;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    margin-left: 2em;
+table {
+    border: 2px, solid;
 
 }
 
@@ -26,7 +21,7 @@ form {
     text-align: center;
 }
 
-#product-form {
+.product-form {
     text-align: center;
 }
 
