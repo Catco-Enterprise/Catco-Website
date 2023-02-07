@@ -14,6 +14,7 @@ const Checkout = ({activeOrder, cartItems, setCartItems, userId, token, setUser}
     const placeOrder = async (event) => {
         event.preventDefault(userId);
         const user = await updateActiveOrder(token, activeOrder.id ,userId);
+        console.log('this the checkout user', user);
         setUser(user);
         setCartItems([]);
         navigate('/confirmation');
@@ -56,7 +57,7 @@ const Checkout = ({activeOrder, cartItems, setCartItems, userId, token, setUser}
                 <h1><u>Review Your Cart</u></h1>
                 <Cart activeOrder={activeOrder} cartItems={cartItems} setCartItems={setCartItems}/>
             </div>
-            <button className="placeorder-button" onClick={placeOrder}>Place Order</button>
+            <input type='submit' className="placeorder-button" value="Place Order" />
         </form>
         
     )

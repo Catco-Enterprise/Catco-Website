@@ -113,7 +113,8 @@ const App = () => {
 							cartItems={cartItems}
 							setCartItems={setCartItems}
 							userId={user.id}
-							token={token}/>} />
+							token={token}
+							setUser={setUser}/>} />
 				<Route
 					path="/products"
 					element={

@@ -81,7 +81,10 @@ async function updateOrderStatus(orderId,userId) {
 		WHERE id = $1
 		RETURNING *;`, [orderId]);
 
-		return await getUserById(userId);
+		console.log("this is a closed order: ", order);
+        const newOrder = await createOrder(userId);
+		console.log("this is newOrder: ", newOrder);
+		return newOrder;
 
 	} catch (error) {
 		
@@ -93,4 +96,6 @@ module.exports = {
 	getAllOrdersByUserId,
 	getActiveOrderByUserId,
 	createOrder,
+	updateOrderStatus
+
 };

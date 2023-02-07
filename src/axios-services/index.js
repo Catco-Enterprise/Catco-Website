@@ -192,12 +192,12 @@ export async function deleteOrderProduct(token, activeOrderId, productId) {
 
 export async function updateActiveOrder(token, activeOrderId,userId) {
 	try {
-		const { data: user } = await axios.patch(`/api/orders/${activeOrderId}`, userId,
+		const result = await axios.patch(`/api/orders/${activeOrderId}`, userId,
 		{
 			headers: { Authorization: `Bearer ${token}` },
 		});
-		console.log(data)
-		return user;
+		
+		console.log("Axios updateActiveOrder result :", result);
 
 	} catch (error) {
 		console.error("FE: error updating active order: ", error);

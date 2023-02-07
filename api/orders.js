@@ -121,7 +121,9 @@ router.patch("/:orderId", async (req, res, next) => {
 			const { id } = jwt.verify(token, JWT_SECRET);
 			if(id) {
 				const { orderId } = req.params;
-				res.send(await Orders.updateOrderStatus(orderId, id))
+				const newOrder = await Orders.updateOrderStatus(orderId, id)
+				console.log("API: this is the new order: ", newOrder);
+				res.send(newOrder);
 			}
         } catch (error) {
 	      console.error("BE: Error updating order status: ", error);
