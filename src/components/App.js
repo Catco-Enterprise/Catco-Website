@@ -147,7 +147,7 @@ const App = () => {
 				/>
 				<Route
 					path="/products/:id"
-					element={<SingleProduct products={products} />}
+					element={<SingleProduct />}
 				/>
 				<Route
 					path="/Register"
