@@ -1,5 +1,6 @@
 const client = require("../client");
 const { attachProductsToOrders } = require("./products");
+const { getUserById } = require("./user");
 
 async function createOrder(userId) {
 	try {
@@ -71,6 +72,22 @@ async function getActiveOrderByUserId(id) {
 		throw error;
 	}
 }
+
+async function updateOrderStatus(orderId,userId) {
+	try {
+		const { rows: [order] } = await client.query(`
+		UPDATE orders
+		SET isActive = false
+		WHERE id = $1
+		RETURNING *;`, [orderId]);
+
+		return await getUserById(userId);
+
+	} catch (error) {
+		
+	}
+}
+
 
 module.exports = {
 	getAllOrdersByUserId,

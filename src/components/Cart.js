@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -23,6 +23,8 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 		}
 		return total;
 	}
+
+	const navigate = useNavigate();
 
 	// function handleMinusQuantity(item) {
 	// 	// Get the cart item from the useState variable 'cartItems' by the item ID
@@ -106,6 +108,7 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 					// 	</div>
 					// );
 				})}
+				<button onClick={() => navigate('/checkout')}>Proceed To Checkout</button>
 			</div>
 		);
 	} else {

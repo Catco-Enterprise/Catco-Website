@@ -4,6 +4,7 @@ import Home from "./Home";
 import Cart from "./Cart";
 import Products from "./Products";
 import Login from "./Login";
+import Confirmation from "./Confirmation";
 import { Routes, Route } from "react-router-dom";
 // import { getProducts } from '../axios-services';
 // getAPIHealth is defined in our axios-services directory index.js
@@ -104,10 +105,13 @@ const App = () => {
 			<Navbar isLoggedIn={isLoggedIn} resetState={resetState} />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/confirmation" element={<Confirmation />} />
 				<Route path="/Checkout" element={<Checkout 
 				            activeOrder={user.activeOrder}
 							cartItems={cartItems}
-							setCartItems={setCartItems}/>} />
+							setCartItems={setCartItems}
+							userId={user.id}
+							token={token}/>} />
 				<Route
 					path="/products"
 					element={

@@ -106,4 +106,28 @@ router.delete("/:orderId/products", async (req, res, next) => {
 	}
 });
 
+router.patch("/:orderId", async (req, res, next) => {
+	const prefix = "Bearer ";
+	const auth = req.header("Authorization");
+
+	if (!auth) {
+		res.statusCode = 401;
+		next({
+			name: "unauthorize error",
+			message: "youre not logged in",
+		});
+	} else if (auth.startsWith(prefix)) {
+		const token = auth.slice(prefix.length);
+		try {
+			const { id } = jwt.verify(token, JWT_SECRET);
+			if(id) {
+				const { orderId } = req.params;
+				res.send(await Orders.updateOrderStatus(orderId, id))
+			}
+        } catch (error) {
+	      console.error("BE: Error updating order status: ", error);
+        }
+	}
+});
+
 module.exports = router;

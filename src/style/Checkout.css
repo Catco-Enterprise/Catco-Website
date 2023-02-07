@@ -6,7 +6,8 @@ checkout-container {
 
 .checkout-form {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
 }
 
@@ -26,7 +27,7 @@ checkout-container {
 }
 
 .placeorder-button {
-    font-size: 1.25em;
+    font-size: 1em;
     display: flex;
     margin-bottom: 70px;
     cursor: pointer;

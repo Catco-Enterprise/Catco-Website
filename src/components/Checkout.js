@@ -1,15 +1,29 @@
 import React from "react";
 import Cart from "./Cart";
+import { useNavigate } from "react-router-dom";
 import '../style/Checkout.css'
+import Axios from "axios";
+import { updateActiveOrder } from "../axios-services";
 
 
 
-const Checkout = ({activeOrder, cartItems, setCartItems}) => {
+const Checkout = ({activeOrder, cartItems, setCartItems, userId, token, setUser}) => {
+
+    const navigate = useNavigate();
+    
+    const placeOrder = async (event) => {
+        event.preventDefault(userId);
+        const user = await updateActiveOrder(token, activeOrder.id ,userId);
+        setUser(user);
+        setCartItems([]);
+        navigate('/confirmation');
+    }
+    
+    
     return (
-        <div className="checkout-container">
+        <form className="checkout-form" onSubmit={placeOrder}>
             <h1><u>Checkout</u></h1>
-            <form className="checkout-form">
-                <div className="checkout-shipping">
+            <div className="checkout-shipping">
                     <h2><u>Shipping Info</u></h2>
                     <label htmlFor="name">Name:</label>
                     <input type="text" name="name" placeholder="Enter Full Name"/>
@@ -37,15 +51,14 @@ const Checkout = ({activeOrder, cartItems, setCartItems}) => {
                     <label htmlFor="zip">Zip:</label>
                     <input type="text" name="zip" placeholder="ZIP Code" />
                 </div> 
-            </form>
+            
             <div className="checkout-cart">
                 <h1><u>Review Your Cart</u></h1>
                 <Cart activeOrder={activeOrder} cartItems={cartItems} setCartItems={setCartItems}/>
             </div>
-            <button className="placeorder-button">Place Order</button>
-
-            
-        </div>
+            <button className="placeorder-button" onClick={placeOrder}>Place Order</button>
+        </form>
+        
     )
 
 }
