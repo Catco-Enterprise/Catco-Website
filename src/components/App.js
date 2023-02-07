@@ -143,10 +143,8 @@ const App = () => {
 					path="/Login"
 					element={
 						<Login
-							token={token}
 							setToken={setToken}
 							setUser={setUser}
-							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 							setCartItems={setCartItems}
 						/>
@@ -164,7 +162,7 @@ const App = () => {
 				/>
 				<Route
 					path="/products/:id"
-					element={<SingleProduct products={products} />}
+					element={<SingleProduct />}
 				/>
 				<Route
 					path="/Register"
@@ -199,9 +197,7 @@ const App = () => {
 				/>
 			</Routes>
 
-
 			<Footer />
-
 		</div>
 	);
 };
