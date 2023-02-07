@@ -1,19 +1,23 @@
 import React, {
-	// useEffect, 
-	useState
+	// useEffect,
+	useState,
 } from "react";
 import {
-	// useLocation, useParams, 
-	Link
+	// useLocation, useParams,
+	Link,
 } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import {
+	faPlus,
+	faMinus,
+	faDollarSign,
+} from "@fortawesome/free-solid-svg-icons";
 import {
 	addProductToActiveOrder,
 	patchOrderProductQty,
 	deleteOrderProduct,
 } from "../axios-services";
-import '../style/Products.css'
+import "../style/Products.css";
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 	// let prodQuantity = 0;
@@ -90,7 +94,8 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 				<div className="desc">{product.description}</div>
 				<div className="price">
 					<FontAwesomeIcon icon={faDollarSign} />
-					{product.price}</div>
+					{product.price}
+				</div>
 			</Link>
 			<br />
 			<p>
@@ -103,9 +108,17 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 					<FontAwesomeIcon icon={faPlus} />
 				</button>
 				{cartProdIdx > -1 ? (
-					<button className="cart-button" onClick={() => handleUpdateCartItem()}>	Update Cart</button>
+					<button
+						className="cart-button"
+						onClick={() => handleUpdateCartItem()}
+					>
+						{" "}
+						Update Cart
+					</button>
 				) : (
-					<button className="cart-button" onClick={() => handleAddToCart()}>Add to Cart</button>
+					<button className="cart-button" onClick={() => handleAddToCart()}>
+						Add to Cart
+					</button>
 				)}
 			</p>
 		</div>
