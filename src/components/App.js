@@ -13,15 +13,14 @@ import {
 	getAPIHealth,
 	getProducts,
 	fetchMe,
-	fetchActiveOrder,
+	// fetchActiveOrder,
 } from "../axios-services";
 import "../style/App.css";
 import Register from "./Register";
-import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
 import Admin from "./Admin";
 import EditProducts from "./EditProducts";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import Footer from "./Footer";
 
 const App = () => {

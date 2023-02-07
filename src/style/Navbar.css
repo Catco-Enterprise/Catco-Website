@@ -3,15 +3,16 @@
     background-color: #EAEAEA;
     border-bottom: 1px solid #CCCCCC;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
 img {
-    width: 190px;
-    height: 190px;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
-    padding-left: 1%;
+    padding-left: .5%;
 }
 
 #navbar-items {
@@ -20,6 +21,7 @@ img {
     padding-left: 2em;
 }
 
-.link:hover {
-    background-color: blueviolet;
+.link-style {
+    font-size: 1.9rem;
+    margin: 75px;
 }

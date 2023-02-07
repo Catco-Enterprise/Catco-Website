@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams, Link } from "react-router-dom";
+import React, {
+	// useEffect, 
+	useState
+} from "react";
+import {
+	// useLocation, useParams, 
+	Link
+} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import {
 	addProductToActiveOrder,
 	patchOrderProductQty,
 	deleteOrderProduct,
 } from "../axios-services";
+import '../style/Products.css'
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 	// let prodQuantity = 0;
@@ -75,18 +82,18 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 			setCartItems(updatedCart);
 		}
 	}
-
 	return (
 		<div key={product.id} className="product">
-			<div img="image">******{product.image}</div>
 			<Link to={`/products/${product.id}`} state={product} className="title">
-				{product.name}
+				<img src={product.image} />
+				<div className="name">{product.name}</div>
+				<div className="desc">{product.description}</div>
+				<div className="price">
+					<FontAwesomeIcon icon={faDollarSign} />
+					{product.price}</div>
 			</Link>
-			<div className="price">${product.price}</div>
-			<div>{product.description}</div>
 			<br />
-
-			<h2>
+			<p>
 				Quantity:{" "}
 				<button onClick={() => handleMinusQuantity()}>
 					<FontAwesomeIcon icon={faMinus} />
@@ -95,12 +102,12 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 				<button onClick={() => handlePlusQuantity()}>
 					<FontAwesomeIcon icon={faPlus} />
 				</button>
-			</h2>
-			{cartProdIdx > -1 ? (
-				<button onClick={() => handleUpdateCartItem()}>Update Cart</button>
-			) : (
-				<button onClick={() => handleAddToCart()}>Add to Cart</button>
-			)}
+				{cartProdIdx > -1 ? (
+					<button className="cart-button" onClick={() => handleUpdateCartItem()}>	Update Cart</button>
+				) : (
+					<button className="cart-button" onClick={() => handleAddToCart()}>Add to Cart</button>
+				)}
+			</p>
 		</div>
 	);
 };

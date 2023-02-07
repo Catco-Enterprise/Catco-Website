@@ -42,6 +42,7 @@ const Products = ({ activeOrder, products, cartItems, setCartItems }) => {
 			<h1>Products</h1>
 			<div className="products-container">
 				{products.map((product) => {
+					// console.log('==========', product)
 					return (
 						<SingleProduct
 							key={product.id}
