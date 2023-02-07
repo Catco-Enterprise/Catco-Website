@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import {
+	Link,
+	// useNavigate 
+} from "react-router-dom";
 import "../style/Navbar.css";
 import logo from "../img/catco-logo.jpg";
 // import ReactDOM from 'react-dom';
@@ -10,8 +13,8 @@ import { faHome, faShoppingBag, faSignOut, faCartShopping, faRegistered } from '
 
 function Navbar({ currentUser, isLoggedIn, resetState }) {
 	const linkStyle = {
-		textDecoration: "none",
-		margin: "7px",
+		// textDecoration: "none",
+		// margin: "7px",
 	};
 
 	const adminHtml = currentUser?.isAdmin ? <a href="/admin">(admin)</a> : null;
@@ -21,16 +24,16 @@ function Navbar({ currentUser, isLoggedIn, resetState }) {
 			<h1 className="navbar-title"> <img src={logo} />{adminHtml}</h1>
 			<nav className="navbar-items">
 
-				<Link style={linkStyle} to="/">
+				<Link className="link-style" style={linkStyle} to="/">
 					<FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
 					Home
 				</Link>
-				<Link style={linkStyle} to="/products">
+				<Link className="link-style" style={linkStyle} to="/products">
 					<FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
 					Products
 				</Link>
 				{isLoggedIn ? (
-					<Link
+					<Link className="link-style"
 						style={linkStyle}
 						to="/"
 						onClick={() => {
@@ -43,17 +46,17 @@ function Navbar({ currentUser, isLoggedIn, resetState }) {
 					</Link>
 				) : (
 					<span>
-						<Link style={linkStyle} to="/Login">
+						<Link className="link-style" style={linkStyle} to="/Login">
 							<FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>
 							Login
 						</Link>
-						<Link style={linkStyle} to="/Register">
+						<Link className="link-style" style={linkStyle} to="/Register">
 							<FontAwesomeIcon icon={faRegistered}></FontAwesomeIcon>
 							Register
 						</Link>
 					</span>
 				)}
-				<Link style={linkStyle} to="/Cart">
+				<Link className="link-style" style={linkStyle} to="/Cart">
 					<FontAwesomeIcon icon={faCartShopping}></FontAwesomeIcon>
 					Cart
 				</Link>

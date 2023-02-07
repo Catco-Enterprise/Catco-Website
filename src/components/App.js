@@ -14,15 +14,14 @@ import {
 	getAPIHealth,
 	getProducts,
 	fetchMe,
-	fetchActiveOrder,
+	// fetchActiveOrder,
 } from "../axios-services";
 import "../style/App.css";
 import Register from "./Register";
-import { useStateDispatch } from "../StateContext";
 import SingleProduct from "./SingleProduct";
 import Admin from "./Admin";
 import EditProducts from "./EditProducts";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import Footer from "./Footer";
 import Checkout from "./Checkout";
 
@@ -104,7 +103,10 @@ const App = () => {
 		<div className="app-container">
 			<Navbar isLoggedIn={isLoggedIn} resetState={resetState} />
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route path="/" element={<Home setToken={setToken}
+				setUser={setUser}
+				setIsLoggedIn={setIsLoggedIn}
+				setCartItems={setCartItems}/>} />
 				<Route path="/confirmation" element={<Confirmation />} />
 				<Route path="/Checkout" element={<Checkout 
 				            activeOrder={user.activeOrder}
@@ -127,10 +129,8 @@ const App = () => {
 					path="/Login"
 					element={
 						<Login
-							token={token}
 							setToken={setToken}
 							setUser={setUser}
-							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 							setCartItems={setCartItems}
 						/>
@@ -180,9 +180,7 @@ const App = () => {
 				/>
 			</Routes>
 
-
 			<Footer />
-
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ const {
 	// for example, User
 } = require("./");
 const { createProduct } = require("./models/products");
-const { createOrder } = require("./models/orders");
+// const { createOrder } = require("./models/orders");
 
 async function dropTables() {
 	try {
@@ -42,7 +42,7 @@ async function createTables() {
       name VARCHAR(255) UNIQUE NOT NULL,
       description VARCHAR(255) NOT NULL,
       price NUMERIC NOT NULL,
-	  image VARCHAR(255),
+	  image TEXT,
       stock INTEGER
     );
 	
@@ -96,33 +96,39 @@ async function populateInitialData() {
 async function createInitialProducts() {
 	const productsToCreate = [
 		{
-			name: "prod1",
-			description: "this is prod1",
+			name: "SO PHRESH Cat Litter",
+			description: "So Phresh Advanced Odor Control Scoopable Fragrance Free Cat Litter, 16 lbs.",
 			price: 10.99,
+			image: `https://assets.petco.com/petco/image/upload/c_pad,dpr_1.0,f_auto,q_auto,h_636,w_636/c_pad,h_636,w_636/l_bypetco-badge,fl_relative,w_0.20,g_south_east,e_sharpen/2297792-center-1`,
 			stock: 10,
 		},
 		{
-			name: "prod2",
-			description: "this is prod2",
-			price: 5.99,
+			name: "So Presh Cat Litter Box",
+			description: `So Phresh Disposable Litter Box Set, 16.7" L X 12.6" W X 4.3`,
+			price: 9.99,
+			image: 'https://assets.petco.com/petco/image/upload/c_pad,dpr_1.0,f_auto,q_auto,h_636,w_636/c_pad,h_636,w_636/l_bypetco-badge,fl_relative,w_0.20,g_south_east,e_sharpen/2880208-center-1',
 			stock: 50,
 		},
 		{
-			name: "prod3",
-			description: "this is prod3",
+			name: "Fancy Feast",
+			description: "Fancy Feast Limited Ingredient Savory Cravings Beef & Crab Flavor Cat Treats, 16 oz",
 			price: 20.99,
+			image: 'https://assets.petco.com/petco/image/upload/c_pad,dpr_1.0,f_auto,q_auto,h_636,w_636/c_pad,h_636,w_636/3017924-center-1',
 			stock: 5,
 		},
 		{
-			name: "prod4",
-			description: "this is prod4",
-			price: 1.5,
+			name: "Cat Teaser",
+			description: `Leaps & Bounds Caterpillar Cat Teaser, 33" L`,
+			price: 8.46,
+			image: 'https://assets.petco.com/petco/image/upload/c_pad,dpr_1.0,f_auto,q_auto,h_636,w_636/c_pad,h_636,w_636/l_sale-badge,fl_relative,w_0.12,g_north_west,e_sharpen/l_bypetco-badge,fl_relative,w_0.20,g_south_east,e_sharpen/2312091-center-1',
 			stock: 14,
 		},
 		{
-			name: "prod5",
-			description: "this is prod5",
-			price: 100.0,
+			name: "Convertible Cat Bed",
+			description: `EveryYay Snooze Fest 2 in 1 Novelty Pyramid Convertible Cat Bed, 16" L X 16" W`
+			,
+			price: 39.99,
+			image: 'https://assets.petco.com/petco/image/upload/c_pad,dpr_1.0,f_auto,q_auto,h_636,w_636/c_pad,h_636,w_636/l_sale-badge,fl_relative,w_0.12,g_north_west,e_sharpen/l_bypetco-badge,fl_relative,w_0.20,g_south_east,e_sharpen/3124287-center-2',
 			stock: 1,
 		},
 	];

@@ -58,7 +58,7 @@ export async function getProducts() {
 	try {
 		// console.log("frontend api")
 		const { data: products } = await axios.get("/api/products");
-		// console.log("this is my response..", response)
+		console.log("wwwwwwwwwwwwwwwwwwwww", products)
 
 		return products;
 	} catch (error) {
@@ -171,10 +171,15 @@ export async function patchOrderProductQty(
 }
 
 export async function deleteOrderProduct(token, activeOrderId, productId) {
+	console.log(
+		"axios services: deleteOrderProduct arguments: ",
+		token,
+		activeOrderId,
+		productId
+	);
 	try {
 		const result = await axios.delete(
-			`/api/orders/${activeOrderId}/products`,
-			{ productId: productId },
+			`/api/orders/${activeOrderId}/products/${productId}`,
 			{
 				headers: { Authorization: `Bearer ${token}` },
 			}

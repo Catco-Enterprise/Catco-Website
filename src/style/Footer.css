@@ -8,6 +8,10 @@
     margin: auto;
     padding: 1em;
     width: 100%;
-    position: fixed;
 
+}
+
+.social {
+    height: 25px;
+    width: 25px;
 }

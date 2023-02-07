@@ -79,9 +79,8 @@ router.patch("/:orderId/products", async (req, res, next) => {
 	}
 });
 
-// DELETE: api/orders/:orderId/products
-router.delete("/:orderId/products", async (req, res, next) => {
-	console.log(req.body);
+// DELETE: api/orders/:orderId/products/:productId
+router.delete("/:orderId/products/:productId", async (req, res, next) => {
 	const prefix = "Bearer ";
 	const auth = req.header("Authorization");
 
@@ -93,11 +92,11 @@ router.delete("/:orderId/products", async (req, res, next) => {
 		});
 	} else if (auth.startsWith(prefix)) {
 		const token = auth.slice(prefix.length);
+		console.log("api orders: token: ", token);
 		try {
 			const { id } = jwt.verify(token, JWT_SECRET);
 			if (id) {
-				const { productId } = req.body;
-				const { orderId } = req.params;
+				const { orderId, productId } = req.params;
 				res.send(await OrderProducts.destroyOrderProduct(orderId, productId));
 			}
 		} catch (error) {
