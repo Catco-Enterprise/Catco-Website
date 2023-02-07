@@ -7,7 +7,7 @@ import {
 	Link
 } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import {
 	addProductToActiveOrder,
 	patchOrderProductQty,
@@ -86,9 +86,11 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 		<div key={product.id} className="product">
 			<Link to={`/products/${product.id}`} state={product} className="title">
 				<img src={product.image} />
-				{product.name}
+				<div className="name">{product.name}</div>
 				<div className="desc">{product.description}</div>
-				<div className="price">${product.price}</div>
+				<div className="price">
+					<FontAwesomeIcon icon={faDollarSign} />
+					{product.price}</div>
 			</Link>
 			<br />
 			<p>
@@ -101,7 +103,7 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 					<FontAwesomeIcon icon={faPlus} />
 				</button>
 				{cartProdIdx > -1 ? (
-					<button onClick={() => handleUpdateCartItem()}>	Update Cart</button>
+					<button className="cart-button" onClick={() => handleUpdateCartItem()}>	Update Cart</button>
 				) : (
 					<button className="cart-button" onClick={() => handleAddToCart()}>Add to Cart</button>
 				)}

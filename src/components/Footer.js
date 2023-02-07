@@ -10,13 +10,13 @@ const Footer = () => {
 
             <a href="https://youtu.be/BBJa32lCaaY"> click here for coupons!!!!</a>
             <a href='http://facebook.com'>
-                <FontAwesomeIcon icon={faFacebook} />
+                <FontAwesomeIcon className="social" icon={faFacebook} />
             </a>
             <a href='http://twitter.com'>
-                <FontAwesomeIcon icon={faTwitter} />
+                <FontAwesomeIcon className="social" icon={faTwitter} />
             </a>
             <a href='http://instagram.com'>
-                <FontAwesomeIcon icon={faInstagram} />
+                <FontAwesomeIcon className="social" icon={faInstagram} />
             </a>
         </footer >
     )
