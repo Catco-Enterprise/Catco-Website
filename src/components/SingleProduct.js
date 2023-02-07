@@ -110,6 +110,6 @@ const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 			</p>
 		</div>
 	);
-};
+}
 
 export default SingleProduct;

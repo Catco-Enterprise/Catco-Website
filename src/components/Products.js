@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import noImage from "../img/no-image.jpg";
 import { getProducts } from "../axios-services";
-import SingleProduct from "./SingleProduct";
 import '../style/Products.css'
+import Product from "./Product";
 
 
 const Products = ({ activeOrder, products, cartItems, setCartItems }) => {
@@ -44,7 +44,7 @@ const Products = ({ activeOrder, products, cartItems, setCartItems }) => {
 				{products.map((product) => {
 					// console.log('==========', product)
 					return (
-						<SingleProduct
+						<Product
 							key={product.id}
 							product={product}
 							activeOrder={activeOrder}
