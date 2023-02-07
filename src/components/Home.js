@@ -35,7 +35,7 @@ const Home = ({ setToken, setUser, setIsLoggedIn, setCartItems }) => {
 				Click away on our products page and you will find everything you need.
 			</p>
 
-			{/* <p>
+			<p>
 				Just here to demo the site? Use the button below to sign in with a demo
 				account, which will allow you to explore the site from the perspective
 				of a registered user without the hassle of creating your own account. We
@@ -43,7 +43,7 @@ const Home = ({ setToken, setUser, setIsLoggedIn, setCartItems }) => {
 			</p>
 			<p>
 				<button onClick={handleClick}>Demo Sign-In</button>
-			</p> */}
+			</p>
 		</>
 	);
 };
