@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPlus } from '@fortawesome/free-solid-svg-icons';
+import Product from "./Product";
 
 function Cart({ activeOrder, cartItems, setCartItems }) {
 	function handleEmptyCart() {
@@ -35,7 +35,7 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 				</h1>
 				{cartItems.map((item) => {
 					return (
-						<SingleProduct
+						<Product
 							key={item.id}
 							product={item}
 							activeOrder={activeOrder}
