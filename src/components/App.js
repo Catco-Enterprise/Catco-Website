@@ -81,6 +81,16 @@ const App = () => {
 		}
 	}, [token]);
 
+	//this is bad- fix later
+	useEffect(() => {
+		const getMe = async () => {
+			const userObj = await fetchMe(token);
+			setUser(userObj);
+		};
+		getMe();
+	}, [cartItems]);
+	//above is bad- fix later
+
 	function resetState() {
 		setToken(localStorage.getItem("token"));
 		setUser({});
