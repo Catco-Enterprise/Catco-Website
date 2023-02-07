@@ -58,7 +58,7 @@ export async function getProducts() {
 	try {
 		// console.log("frontend api")
 		const { data: products } = await axios.get("/api/products");
-		console.log("wwwwwwwwwwwwwwwwwwwww", products)
+		console.log("wwwwwwwwwwwwwwwwwwwww", products);
 
 		return products;
 	} catch (error) {
@@ -137,14 +137,14 @@ export async function addProductToActiveOrder(
 	token
 ) {
 	try {
-		const result = await axios.post(
+		const { data } = await axios.post(
 			`/api/orders/${activeOrderId}/products`,
 			productToAdd,
 			{
 				headers: { Authorization: `Bearer ${token}` },
 			}
 		);
-		console.log(result);
+		console.log("added this product: ", data);
 	} catch (error) {
 		console.error("FE: Error adding product to active order: ", error);
 	}
@@ -190,18 +190,15 @@ export async function deleteOrderProduct(token, activeOrderId, productId) {
 	}
 }
 
-export async function updateActiveOrder(token, activeOrderId,userId) {
+export async function updateActiveOrder(token, activeOrderId) {
 	try {
-		const result = await axios.patch(`/api/orders/${activeOrderId}`, userId,
-		{
+		const { data } = await axios.patch(`/api/orders/${activeOrderId}`, {
 			headers: { Authorization: `Bearer ${token}` },
 		});
-		
-		console.log("Axios updateActiveOrder result :", result);
 
+		console.log("Axios updateActiveOrder result :", data);
+		return data;
 	} catch (error) {
 		console.error("FE: error updating active order: ", error);
-		
 	}
 }
-

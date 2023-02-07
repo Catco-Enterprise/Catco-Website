@@ -113,18 +113,30 @@ const App = () => {
 		<div className="app-container">
 			<Navbar isLoggedIn={isLoggedIn} resetState={resetState} />
 			<Routes>
-				<Route path="/" element={<Home setToken={setToken}
-				setUser={setUser}
-				setIsLoggedIn={setIsLoggedIn}
-				setCartItems={setCartItems}/>} />
+				<Route
+					path="/"
+					element={
+						<Home
+							setToken={setToken}
+							setUser={setUser}
+							setIsLoggedIn={setIsLoggedIn}
+							setCartItems={setCartItems}
+						/>
+					}
+				/>
 				<Route path="/confirmation" element={<Confirmation />} />
-				<Route path="/Checkout" element={<Checkout 
-				            activeOrder={user.activeOrder}
+				<Route
+					path="/Checkout"
+					element={
+						<Checkout
+							user={user}
 							cartItems={cartItems}
 							setCartItems={setCartItems}
-							userId={user.id}
 							token={token}
-							setUser={setUser}/>} />
+							setUser={setUser}
+						/>
+					}
+				/>
 				<Route
 					path="/products"
 					element={
