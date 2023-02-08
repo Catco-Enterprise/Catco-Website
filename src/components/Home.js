@@ -25,6 +25,26 @@ const Home = ({ setToken, setUser, setIsLoggedIn, setCartItems }) => {
 			navigate("/");
 		}
 	}
+	async function handleAdminClick(event) {
+		event.preventDefault();
+
+		const result = await login("admin@catco.com", "admin123");
+
+		if (result.token) {
+			const userCart = result.user.activeOrder.products;
+			if (userCart.length) {
+				localStorage.setItem("cartItems", JSON.stringify(userCart));
+			}
+			localStorage.setItem("token", result.token);
+
+			setIsLoggedIn(true);
+			setToken(result.token);
+			setUser(result.user);
+			setCartItems(userCart);
+
+			navigate("/admin");
+		}
+	}
 
 	return (
 		<>
@@ -42,7 +62,8 @@ const Home = ({ setToken, setUser, setIsLoggedIn, setCartItems }) => {
 				hope you enjoy!
 			</p>
 			<p>
-				<button onClick={handleClick}>Demo Sign-In</button>
+				<button onClick={handleClick}>Demo Customer Sign-In</button>
+				<button onClick={handleAdminClick}>Demo Admin Sign-In</button>
 			</p>
 		</>
 	);
