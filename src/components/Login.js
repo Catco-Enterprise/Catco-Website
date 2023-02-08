@@ -49,22 +49,29 @@ function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 	// 	navigate("/");
 	// }
 	return (
-		<div>
+		<div class ="container">
+			<div class="login">
 			<h1>Login</h1>
 			<hr />
 			<form onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor="email">email</label>
-					<input type="text" name="email" />
+				<div class="emailbox">
+					<p><label htmlFor="email">email</label></p>
+					<p><input type="text" name="email" /></p>
+				</div>
+				<div class="passwordbox">
+					<p><label htmlFor="password">password</label></p>
+					<p><input type="password" name="password" /></p>
 				</div>
 				<div>
-					<label htmlFor="password">Password</label>
-					<input type="password" name="password" />
-				</div>
+				<p>
 				<button type="submit">Log In</button>
+				</p>
+				</div>
 			</form>
 			<div>{errorMessage}</div>
-		</div>
+			</div>
+			</div>
+		
 	);
 }
 

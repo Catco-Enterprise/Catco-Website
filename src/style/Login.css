@@ -1,8 +1,65 @@
-#button {
-    /* border-radius: 50%; */
-    color: blue
-}
+button {
+    border: none;
+    padding: 20px;
+    border-radius: 10px;
+    color: black;
+  }
 
 body {
-    background-color: cadetblue;
+    background-color: #5ebaf8;
+    font: 
+}
+
+.container {
+    margin: 50px auto;
+    width: 640px;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+/* .passwordbox {
+    padding: 20px;
+}
+
+.loginbox {
+    padding: 20px;
+} */
+
+
+.login {
+position: relative;
+margin: 0 auto;
+padding: 40px 40px 40px;
+width: 310px;
+flex-direction: column;
+}
+
+.login p.submit {
+    text-align: right;
+}
+
+.login-help {
+    margin: 20px 0;
+    font-size: 11px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px #2a85a1;
+}
+
+.login-help a:hover {
+    text-decoration: none;
+}
+
+.login-help a:hover {
+    text-decoration: underline;
+}
+
+:-moz-placeholder {
+    color: #c9c9c9 !important;
+    font-size: 13px;
+}
+
+::-webkit-input-placeholder {
+    color: #ccc;
+    font: 13px;
 }

@@ -14,15 +14,14 @@ body {
   background-image: linear-gradient(79deg, #fcfced, #8d3a8d 48%, #ebf6ff);
 }
 
-.auth-form-container,
-.login-form,
+/* .auth-form-container,
 .register-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0.5rem;
-}
-
+} */
+/* 
 @media screen and (mid-width: 600px) {}
 
 .auth-form-container {
@@ -55,7 +54,7 @@ button {
   color: white;
   text-decoration: underline;
   cursor: pointer;
-}
+} */
 
 /* Content */
 .content {
