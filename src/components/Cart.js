@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPlus } from "@fortawesome/free-solid-svg-icons";
-import '../style/Products.css'
+import "../style/Products.css";
 
 function Cart({ activeOrder, cartItems, setCartItems }) {
 	function handleEmptyCart() {
@@ -18,9 +18,12 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 		}
 		return total;
 	}
+
+	const navigate = useNavigate();
+
 	if (cartItems) {
 		return (
-			<div >
+			<div>
 				<h1>
 					Cart -{" "}
 					<button onClick={() => handleEmptyCart()}>
@@ -29,21 +32,20 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 					</button>
 					<span>Total: ${totalPrice()}</span>
 				</h1>
-				<div >
-					{cartItems.map((item) => {
-
-						return (
-							<SingleProduct
-								key={item.id}
-								product={item}
-								activeOrder={activeOrder}
-								cartItems={cartItems}
-								setCartItems={setCartItems}
-							/>
-
-						);
-					})}
-				</div>
+				{cartItems.map((item) => {
+					return (
+						<SingleProduct
+							key={item.id}
+							product={item}
+							activeOrder={activeOrder}
+							cartItems={cartItems}
+							setCartItems={setCartItems}
+						/>
+					);
+				})}
+				<button onClick={() => navigate("/checkout")}>
+					Proceed To Checkout
+				</button>
 			</div>
 		);
 	} else {

@@ -1,0 +1,45 @@
+checkout-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.checkout-shipping {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.checkout-payment {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-cart {
+    padding-bottom: 50px;
+}
+
+.placeorder-button {
+    font-size: 1em;
+    display: flex;
+    margin-bottom: 70px;
+    cursor: pointer;
+}
+
+
+label {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+input {
+    font-size: 1.5em;
+}
+

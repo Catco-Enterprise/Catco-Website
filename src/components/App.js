@@ -4,6 +4,7 @@ import Home from "./Home";
 import Cart from "./Cart";
 import Products from "./Products";
 import Login from "./Login";
+import Confirmation from "./Confirmation";
 import { Routes, Route } from "react-router-dom";
 // import { getProducts } from '../axios-services';
 // getAPIHealth is defined in our axios-services directory index.js
@@ -22,6 +23,7 @@ import Admin from "./Admin";
 import EditProducts from "./EditProducts";
 // import ReactDOM from "react-dom";
 import Footer from "./Footer";
+import Checkout from "./Checkout";
 
 const App = () => {
 	const [token, setToken] = useState(localStorage.getItem("token"));
@@ -81,6 +83,16 @@ const App = () => {
 		}
 	}, [token]);
 
+	//this is bad- fix later
+	useEffect(() => {
+		const getMe = async () => {
+			const userObj = await fetchMe(token);
+			setUser(userObj);
+		};
+		getMe();
+	}, [cartItems]);
+	//above is bad- fix later
+
 	function resetState() {
 		setToken(localStorage.getItem("token"));
 		setUser({});
@@ -109,6 +121,19 @@ const App = () => {
 							setUser={setUser}
 							setIsLoggedIn={setIsLoggedIn}
 							setCartItems={setCartItems}
+						/>
+					}
+				/>
+				<Route path="/confirmation" element={<Confirmation />} />
+				<Route
+					path="/Checkout"
+					element={
+						<Checkout
+							user={user}
+							cartItems={cartItems}
+							setCartItems={setCartItems}
+							token={token}
+							setUser={setUser}
 						/>
 					}
 				/>

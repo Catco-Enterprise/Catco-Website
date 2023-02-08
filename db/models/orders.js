@@ -1,5 +1,6 @@
 const client = require("../client");
 const { attachProductsToOrders } = require("./products");
+const { getUserById } = require("./user");
 
 async function createOrder(userId) {
 	try {
@@ -72,8 +73,31 @@ async function getActiveOrderByUserId(id) {
 	}
 }
 
+async function updateOrderStatus(orderId, userId) {
+	try {
+		const {
+			rows: [order],
+		} = await client.query(
+			`
+		UPDATE orders
+		SET "isActive" = false
+		WHERE id = $1
+		RETURNING *;`,
+			[orderId]
+		);
+
+		console.log("this is a closed order: ", order);
+		const newOrder = await createOrder(userId);
+		console.log("this is newOrder: ", newOrder);
+		return newOrder;
+	} catch (error) {
+		console.error("order model: updateOrderStatus error: ", error);
+	}
+}
+
 module.exports = {
 	getAllOrdersByUserId,
 	getActiveOrderByUserId,
 	createOrder,
+	updateOrderStatus,
 };
