@@ -58,7 +58,7 @@ export async function getProducts() {
 	try {
 		// console.log("frontend api")
 		const { data: products } = await axios.get("/api/products");
-		// console.log("this is my response..", response)
+		console.log("wwwwwwwwwwwwwwwwwwwww", products)
 
 		return products;
 	} catch (error) {

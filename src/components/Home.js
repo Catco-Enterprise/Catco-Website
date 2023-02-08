@@ -34,7 +34,7 @@ const Home = ({ setToken, setUser, setIsLoggedIn, setCartItems }) => {
 				mission is to provide the best experience for our furry cat parents.
 				Click away on our products page and you will find everything you need.
 			</p>
-			<hr />
+
 			<p>
 				Just here to demo the site? Use the button below to sign in with a demo
 				account, which will allow you to explore the site from the perspective

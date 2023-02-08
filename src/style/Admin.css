@@ -1,14 +1,14 @@
-/* body {
-    padding-bottom: 1in;
-} */
+body {
+    margin: .5em;
+}
 
-#conatiner {
+#email-conatiner {
     display: flex;
-    justify-content: space-around;
+    justify-content: centercd;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
-
+    margin-left: 2em;
 
 }
 
