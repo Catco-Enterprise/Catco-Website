@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useMatch } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPlus } from "@fortawesome/free-solid-svg-icons";
 import "../style/Products.css";
 
 function Cart({ activeOrder, cartItems, setCartItems }) {
+	const match = useMatch("/Cart");
 	function handleEmptyCart() {
 		setCartItems([]);
 
@@ -26,10 +27,12 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 			<div>
 				<h1>
 					Cart -{" "}
-					<button onClick={() => handleEmptyCart()}>
-						<FontAwesomeIcon icon={faTrashCan} />
-						Empty My Cart
-					</button>
+					{match ? (
+						<button onClick={() => handleEmptyCart()}>
+							<FontAwesomeIcon icon={faTrashCan} />
+							Empty My Cart
+						</button>
+					) : null}
 					<span>Total: ${totalPrice()}</span>
 				</h1>
 				{cartItems.map((item) => {
@@ -43,9 +46,11 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 						/>
 					);
 				})}
-				<button onClick={() => navigate("/checkout")}>
-					Proceed To Checkout
-				</button>
+				{match ? (
+					<button onClick={() => navigate("/checkout")}>
+						Proceed To Checkout
+					</button>
+				) : null}
 			</div>
 		);
 	} else {

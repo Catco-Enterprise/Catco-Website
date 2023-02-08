@@ -34,10 +34,10 @@ function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 			}
 			localStorage.setItem("token", result.token);
 
+			setCartItems(userCart);
 			setIsLoggedIn(true);
 			setToken(result.token);
 			setUser(result.user);
-			setCartItems(userCart);
 
 			navigate("/");
 		} else {

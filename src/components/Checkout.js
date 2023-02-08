@@ -10,9 +10,10 @@ const Checkout = ({ user, cartItems, setCartItems, token, setUser }) => {
 
 	const placeOrder = async (event) => {
 		event.preventDefault();
-		const data = await updateActiveOrder(token, user.activeOrder.id, user.id);
-		console.log("this the checkout user", data);
-		setUser({ ...user, activeOrder: data });
+		// const data = await updateActiveOrder(token, user.activeOrder.id, user.id);
+		// console.log("this the checkout user", data);
+		localStorage.removeItem("cartItems");
+		// setUser({ ...user, activeOrder: data });
 		setCartItems([]);
 		navigate("/confirmation");
 	};
