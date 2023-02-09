@@ -2,7 +2,28 @@ h1 {
     text-align: center;
 }
 
-p {
-    font-size: 1.7rem;
+.welcome-info {
+    display: flex;
+    justify-content: center;
+    padding-left: 400px;
+    padding-right: 400px;
+    flex-direction: column;
+    border: 50px 50px 50px;
+    justify-content: flex-start;
+    background-color: #5ebaf8;
+
 
 }
+
+.home-image {
+    display: flex;
+    justify-content: left;
+    padding-left: .5%;
+    border-radius: 20%;
+
+}
+
+.welcome {
+        background-color: #5ebaf8;
+    }
+    

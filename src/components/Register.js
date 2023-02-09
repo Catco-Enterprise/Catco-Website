@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { register } from "../axios-services";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRegistered } from '@fortawesome/free-solid-svg-icons';
+import "../style/Register.css";
 
 
 function Register({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
@@ -39,15 +40,20 @@ function Register({ token, setToken, setUser, isLoggedIn, setIsLoggedIn }) {
 
 	return (
 		<div className="auth-form-container">
-			<h2>Register</h2>
-			<a> join our family and enjoy our products today</a>
-			<form className="register-form" onSubmit={handleSubmit}>
-				<label htmlFor="email">e-mail</label>
-				<input type="email" placeholder="youremail@gmail.com" name="email" />
-				<label htmlFor="password">password</label>
-				<input type="password" placeholder="*******" name="password" />
-				<button> <FontAwesomeIcon icon={faRegistered} />
+			<p><h1><center>Register</center></h1></p>
+			<a><center>Join our family and enjoy our products today!</center></a>
+			<form className="register" onSubmit={handleSubmit}>
+				<p><center><label htmlFor="email">e-mail</label></center></p>
+				<p><center><input type="email" placeholder="youremail@gmail.com" name="email" /></center></p>
+		
+				<p><center><label htmlFor="password">password</label></center></p>
+				<p><center><input type="password" placeholder="*******" name="password" /></center></p>
+				<p>
+				<center>
+				<button class ="register-button"> <FontAwesomeIcon icon={faRegistered} />
 					_Register</button>
+				</center>
+				</p>
 			</form>
 			<p>{errorMessage}</p>
 		</div>

@@ -1,34 +1,31 @@
-import React from "react";
-import {
-	Link,
-	// useNavigate 
-} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../style/Navbar.css";
 import logo from "../img/catco-logo.jpg";
-// import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faShoppingBag, faSignOut, faCartShopping, faRegistered } from '@fortawesome/free-solid-svg-icons';
 
 
 
-function Navbar({ currentUser, isLoggedIn, resetState }) {
+function Navbar({ currentUser, isLoggedIn, setIsLoggedIn }) {
 	const linkStyle = {
-		// textDecoration: "none",
-		// margin: "7px",
+		textDecoration: "none",
+		margin: "7px",
 	};
 
 	const adminHtml = currentUser?.isAdmin ? <a href="/admin">(admin)</a> : null;
 
 	return (
 		<div className="navbar-container">
-			<h1 className="navbar-title"> <img src={logo} />{adminHtml}</h1>
 			<nav className="navbar-items">
+			<h1 className="navbar-title"> <img src ={logo} class="logo"/>{adminHtml}</h1>
 
-				<Link className="link-style" style={linkStyle} to="/">
+				<Link style={linkStyle} to="/">
 					<FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
 					Home
 				</Link>
-				<Link className="link-style" style={linkStyle} to="/products">
+				<Link className="link-style-home" style={linkStyle} to="/products">
 					<FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
 					Products
 				</Link>
@@ -56,10 +53,7 @@ function Navbar({ currentUser, isLoggedIn, resetState }) {
 						</Link>
 					</span>
 				)}
-				<Link className="link-style" style={linkStyle} to="/Cart">
-					<FontAwesomeIcon icon={faCartShopping}></FontAwesomeIcon>
-					Cart
-				</Link>
+				
 			</nav>
 		</div >
 	);

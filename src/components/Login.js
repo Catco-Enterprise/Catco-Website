@@ -45,26 +45,27 @@ function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 		}
 	}
 
-	// if (isLoggedIn) {
-	// 	navigate("/");
-	// }
+	
 	return (
-		<div class ="container">
+		<div class ="login-container">
 			<div class="login">
-			<h1>Login</h1>
+			<h1><center>Login</center></h1>
 			<hr />
 			<form onSubmit={handleSubmit}>
 				<div class="emailbox">
-					<p><label htmlFor="email">email</label></p>
-					<p><input type="text" name="email" /></p>
+					
+					<p><center><label htmlFor="email">email</label></center></p>
+					<p><center><input type="text" name="email" /></center></p>
 				</div>
 				<div class="passwordbox">
-					<p><label htmlFor="password">password</label></p>
-					<p><input type="password" name="password" /></p>
+					<p><center><label htmlFor="password">password</label></center></p>
+					<p><center><input type="password" name="password" /></center></p>
 				</div>
 				<div>
 				<p>
+				<center>
 				<button type="submit">Log In</button>
+				</center>
 				</p>
 				</div>
 			</form>

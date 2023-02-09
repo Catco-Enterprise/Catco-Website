@@ -23,12 +23,16 @@ const Home = ({ setToken, setUser, setIsLoggedIn, setCartItems }) => {
 			setCartItems(userCart);
 
 			navigate("/");
+
 		}
 	}
 
 	return (
 		<>
-			<h1>Welcome to Catco</h1>
+			
+			
+			<div className="welcome-info">
+			<h1 class="weclome">Welcome to Catco</h1>
 			<p>
 				Welcome to Catco the ultimate e-commerce site for all things cats. Our
 				mission is to provide the best experience for our furry cat parents.
@@ -42,8 +46,12 @@ const Home = ({ setToken, setUser, setIsLoggedIn, setCartItems }) => {
 				hope you enjoy!
 			</p>
 			<p>
+			<img src= "https://media.istockphoto.com/id/1322123064/photo/portrait-of-an-adorable-white-cat-in-sunglasses-and-an-shirt-lies-on-a-fabric-hammock.jpg?s=612x612&w=0&k=20&c=-G6l2c4jNI0y4cenh-t3qxvIQzVCOqOYZNvrRA7ZU5o=" class="home-image"></img>
+			</p>
+			<p>
 				<button onClick={handleClick}>Demo Sign-In</button>
 			</p>
+			</div>
 		</>
 	);
 };

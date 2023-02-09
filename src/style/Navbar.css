@@ -1,6 +1,19 @@
 .navbar-container {
     align-items: center;
-    background-color: #EAEAEA;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    );
     border-bottom: 1px solid #CCCCCC;
     display: flex;
     flex-direction: row;
@@ -8,12 +21,14 @@
     flex-wrap: wrap;
 }
 
-img {
+.logo {
     width: 300px;
     height: 300px;
-    border-radius: 50%;
     padding-left: .5%;
+    border-radius: 50%;
+
 }
+
 
 #navbar-items {
     display: flex;
@@ -22,6 +37,11 @@ img {
 }
 
 .link-style {
+    font-size: 1.9rem;
+    margin: 75px;
+}
+
+.link-style-home {
     font-size: 1.9rem;
     margin: 75px;
 }

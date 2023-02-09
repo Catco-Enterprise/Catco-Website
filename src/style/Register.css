@@ -1,4 +1,4 @@
-button {
+.register-button {
     border: none;
     padding: 20px;
     border-radius: 10px;
@@ -6,7 +6,7 @@ button {
   }
 
 
-.login-container {
+.auth-form-container{
     margin: 50px auto;
     width: 640px;
     flex-direction: column;
@@ -17,7 +17,7 @@ button {
 }
 
 
-.login {
+.register {
 justify-content: center;
 margin: 0 auto;
 padding: 40px 40px 40px;
@@ -26,11 +26,11 @@ flex-direction: column;
 
 }
 
-.login p.submit {
+.register p.submit {
     text-align: center;
 }
 
-.login-help {
+.register-help {
     margin: 20px 0;
     font-size: 11px;
     color: white;
@@ -38,11 +38,11 @@ flex-direction: column;
     text-shadow: 0 1px #2a85a1;
 }
 
-.login-help a:hover {
+.register-help a:hover {
     text-decoration: none;
 }
 
-.login-help a:hover {
+.register-help a:hover {
     text-decoration: underline;
 }
 

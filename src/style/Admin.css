@@ -1,10 +1,7 @@
-body {
-    margin: .5em;
-}
 
-#email-conatiner {
+#email-container {
     display: flex;
-    justify-content: centercd;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
@@ -12,19 +9,13 @@ body {
 
 }
 
-button:hover {
-    background-color: #a43e89;
-}
 
-button {
-    background-color: rgb(173, 182, 230);
-}
 
-form {
+/* form {
     display: flex;
     justify-content: space-around;
     text-align: center;
-}
+} 
 
 #product-form {
     text-align: center;
@@ -34,4 +25,4 @@ input {
     text-align: center;
     font-size: 18x;
 
-}
+}  */
