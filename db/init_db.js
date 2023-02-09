@@ -103,7 +103,7 @@ async function createInitialProducts() {
 			stock: 10,
 		},
 		{
-			name: "So Presh Cat Litter Box",
+			name: "So Phresh Cat Litter Box",
 			description: `So Phresh Disposable Litter Box Set, 16.7" L X 12.6" W X 4.3`,
 			price: 9.99,
 			image: 'https://assets.petco.com/petco/image/upload/c_pad,dpr_1.0,f_auto,q_auto,h_636,w_636/c_pad,h_636,w_636/l_bypetco-badge,fl_relative,w_0.20,g_south_east,e_sharpen/2880208-center-1',
@@ -111,10 +111,9 @@ async function createInitialProducts() {
 		},
 		{
 			name: "Fancy Feast",
-			description: "Fancy Feast Limited Ingredient Savory Cravings Beef & Crab Flavor Cat Treats, 16 oz",
+			description: "Fancy Feast Beef & Crab Flavor Cat Treats, 16 oz",
 			price: 20.99,
-			image: 'https://assets.petco.com/petco/image/upload/c_pad,dpr_1.0,f_auto,q_auto,h_636,w_636/c_pad,h_636,w_636/3017924-center-1',
-			stock: 5,
+			image: 'https://image.chewy.com/is/image/catalog/658486_MAIN._AC_SL600_V1664313900_.jpg',
 		},
 		{
 			name: "Cat Teaser",

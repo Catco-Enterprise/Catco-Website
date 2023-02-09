@@ -1,32 +1,13 @@
-body {
-    margin: .5em;
-}
 
-table {
-    border: 2px, solid;
-
-}
-
-button:hover {
-    background-color: #a43e89;
-}
-
-button {
-    background-color: rgb(173, 182, 230);
-}
-
-form {
+#email-container {
     display: flex;
-    justify-content: space-around;
-    text-align: center;
-}
-
-.product-form {
-    text-align: center;
-}
-
-input {
-    text-align: center;
-    font-size: 18x;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin-left: 2em;
 
 }
+
+
+
