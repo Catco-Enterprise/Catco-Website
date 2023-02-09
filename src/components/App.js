@@ -15,7 +15,6 @@ import {
 	fetchMe,
 	// fetchActiveOrder,
 } from "../axios-services";
-import "../style/App.css";
 import Register from "./Register";
 import SingleProduct from "./SingleProduct";
 import Admin from "./Admin";

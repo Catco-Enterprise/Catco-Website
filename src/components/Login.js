@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../axios-services";
-import "../style/Login.css";
 
 function Login({ setToken, setUser, setIsLoggedIn, setCartItems }) {
 	const navigate = useNavigate();

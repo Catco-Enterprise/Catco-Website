@@ -13,7 +13,6 @@ import {
 	patchOrderProductQty,
 	deleteOrderProduct,
 } from "../axios-services";
-import '../style/Products.css'
 
 const SingleProduct = ({ product, activeOrder, cartItems, setCartItems }) => {
 	// let prodQuantity = 0;

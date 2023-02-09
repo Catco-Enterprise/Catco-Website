@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPlus } from "@fortawesome/free-solid-svg-icons";
-import '../style/Products.css'
 
 function Cart({ activeOrder, cartItems, setCartItems }) {
 	function handleEmptyCart() {
