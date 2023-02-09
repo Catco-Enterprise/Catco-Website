@@ -1,0 +1,93 @@
+/* GLOBALS */
+body {
+    font: 1em Arial, sans-serif;
+    margin: 0;
+}
+
+/* APP CONTAINER */
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAV */
+.navbar-container {
+    background-color: #EAEAEA;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 1em;
+}
+
+.navbar-container #logo {
+    height: 200px;
+    width: 200px;
+}
+
+.navbar-container #logo img {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 100%;
+}
+
+.navbar-items {
+    display: flex;
+}
+
+.navbar-items a {
+    background: #FFFFFF;
+    display: block;
+    padding: 1em;
+}
+
+/* CONTENT */
+.content {
+    padding: 1em;
+}
+
+/* FOOTER */
+footer {
+    background: #EAEAEA;
+    padding: 1em;
+}
+
+footer ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin-block: 0;
+    padding-inline: 0;
+}
+
+footer ul li a {
+    padding: 1em;
+}
+
+/* TEXT */
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+h4 {
+    font-size: 1.4em;
+}
+
+h5 {
+    font-size: 1.2em;
+}
+
+/* FORMS */
+button {
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    background: #EAEAEA;
+    font: 1em Arial, sans-serif;
+    padding: 1em;
+}
