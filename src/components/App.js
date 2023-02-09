@@ -166,6 +166,7 @@ const App = () => {
 							activeOrder={user.activeOrder}
 							cartItems={cartItems}
 							setCartItems={setCartItems}
+							isLoggedIn={isLoggedIn}
 						/>
 					}
 				/>

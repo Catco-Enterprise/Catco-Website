@@ -5,12 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPlus } from "@fortawesome/free-solid-svg-icons";
 import "../style/Products.css";
 
-function Cart({ activeOrder, cartItems, setCartItems }) {
+function Cart({ activeOrder, cartItems, setCartItems, isLoggedIn }) {
 	const match = useMatch("/Cart");
 	function handleEmptyCart() {
-		setCartItems([]);
-
 		localStorage.removeItem("cartItems");
+		setCartItems([]);
 	}
 	function totalPrice() {
 		let total = 0;
@@ -46,7 +45,7 @@ function Cart({ activeOrder, cartItems, setCartItems }) {
 						/>
 					);
 				})}
-				{match ? (
+				{match && isLoggedIn ? (
 					<button onClick={() => navigate("/checkout")}>
 						Proceed To Checkout
 					</button>
